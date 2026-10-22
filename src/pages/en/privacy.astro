@@ -1,0 +1,44 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP } from "../../data/site";
+---
+<LegalLayout
+  title="Privacy Policy | NEX Comstuct & Energy"
+  description="Personal data processing policy of NEX Comstuct & Energy C.A. under the Constitution and laws of the Bolivarian Republic of Venezuela."
+  esRest="/privacidad/"
+  enRest="/privacy/"
+  heading="Privacy Policy"
+  breadcrumbLabel="Privacy"
+  updated="Last updated: September 18, 2026"
+>
+  <p>{CORP.legalName} ("NEX", "we") respects the privacy of the users of this website and processes personal data in accordance with the Constitution of the Bolivarian Republic of Venezuela, in particular the <em>habeas data</em> right (Article 28) and the protection of privacy and limits on the use of information technology (Article 60), as well as the Special Law against Computer Crimes and other applicable Venezuelan rules. As a best-practice reference, we also follow international data protection principles.</p>
+
+  <h2>1. Data controller</h2>
+  <p>{CORP.legalName}, Tax ID {CORP.rif}, with registered office at {CORP.addressLine}, {CORP.city}, {CORP.region} State, Venezuela. Contact: <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+
+  <h2>2. What data we collect</h2>
+  <ul>
+    <li>Identification and contact data (name, company, position, email, phone, country).</li>
+    <li>The content of the message or inquiry you send us.</li>
+    <li>Technical browsing data when you accept analytics cookies (see Cookie Policy).</li>
+    <li>Résumé and cover letter, if applicable to a recruitment process.</li>
+  </ul>
+
+  <h2>3. Purpose and legal basis</h2>
+  <p>We process your data to: (i) handle your request or inquiry; (ii) prepare commercial or technical proposals; (iii) manage recruitment processes; (iv) analyze site usage on an aggregated basis. The legal basis is your free, express and informed consent and, where applicable, the performance of pre-contractual measures at your request or compliance with NEX's legal obligations in Venezuela.</p>
+
+  <h2>4. Retention</h2>
+  <p>We keep data for as long as necessary for the purpose for which it was collected and, thereafter, for the applicable legal periods. Résumés are kept for a maximum of twelve (12) months unless you request their deletion.</p>
+
+  <h2>5. Recipients</h2>
+  <p>We do not sell or transfer your data to third parties. We may use technology providers (for example, form or analytics services) acting as processors under confidentiality obligations.</p>
+
+  <h2>6. Data subject rights</h2>
+  <p>You may exercise your rights of access, rectification, update, objection and erasure by writing to <a href={`mailto:${CORP.email}`}>{CORP.email}</a>. We will handle your request within the legal timeframes.</p>
+
+  <h2>7. Security</h2>
+  <p>We apply reasonable technical and organizational measures to protect your data against unauthorized access, loss or alteration.</p>
+
+  <h2>8. Changes</h2>
+  <p>We may update this policy. The version in force will always be the one published on this page with its update date.</p>
+</LegalLayout>

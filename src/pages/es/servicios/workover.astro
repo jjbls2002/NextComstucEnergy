@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ServiceDetail from "../../../components/ServiceDetail.astro";
+import { SERVICE_CONTENT } from "../../../data/services";
+const lang = "es";
+const key = "workover";
+const c = SERVICE_CONTENT[key][lang];
+---
+<BaseLayout
+  title={c.seo.title}
+  description={c.seo.description}
+  keywords={c.seo.keywords}
+  esRest="/servicios/workover/"
+  enRest="/services/workover/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Servicios", path: "/es/servicios/" }, { name: "Workover" }]}
+  service={{ serviceType: c.serviceType, description: c.seo.description }}
+>
+  <ServiceDetail serviceKey={key} lang={lang} />
+</BaseLayout>

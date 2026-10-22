@@ -1,0 +1,70 @@
+---
+import { buildSeo } from "../utils/seo";
+import type { Lang } from "../utils/i18n";
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  esRest: string;
+  enRest: string;
+  lang: Lang;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  esRest,
+  enRest,
+  lang,
+  image,
+  noindex = false,
+} = Astro.props;
+
+const seo = buildSeo({ title, description, keywords, esRest, enRest, lang, image, noindex });
+const siteName = "NEX Comstuct & Energy C.A.";
+const robots = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords} />}
+<meta name="author" content={siteName} />
+<meta name="robots" content={robots} />
+
+<link rel="canonical" href={seo.canonical} />
+{!noindex && (
+  <>
+    <link rel="alternate" hreflang="es" href={seo.esUrl} />
+    <link rel="alternate" hreflang="en" href={seo.enUrl} />
+    <link rel="alternate" hreflang="x-default" href={seo.xDefault} />
+  </>
+)}
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={seo.ogLocale} />
+<meta property="og:locale:alternate" content={seo.ogLocaleAlt} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={seo.canonical} />
+<meta property="og:image" content={seo.image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="NEX Comstuct & Energy C.A. | Servicios petroleros" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={seo.image} />
+
+<!-- Theme -->
+<meta name="theme-color" content="#F6F9FB" />
+<meta name="msapplication-TileColor" content="#F6F9FB" />

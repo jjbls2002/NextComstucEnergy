@@ -1,0 +1,157 @@
+---
+import Icon from "./Icon.astro";
+
+interface Cta {
+  label: string;
+  href: string;
+}
+interface Props {
+  title: string;
+  /** emphasised second line, rendered bold with the brand gradient */
+  strong?: string;
+  subtitle: string;
+  primary: Cta;
+  secondary?: Cta;
+  eyebrow?: string;
+  /** names scrolling in the strip at the bottom of the hero */
+  trust?: { label: string; items: string[] };
+}
+const { title, strong, subtitle, primary, secondary, eyebrow, trust } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__content">
+    <div class="hero__headline">
+      <div class="orb-stage" aria-hidden="true">
+        <div class="orb-breath">
+          <div class="orb-pulse">
+            <div class="orb-wrap">
+              <div class="orb"></div>
+              <div class="orb-core"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {eyebrow && <p class="eyebrow anim-in">{eyebrow}</p>}
+      <h1 class="hero__title text-grad anim-in" style="animation-delay:.05s">
+        {title}
+        {strong && (
+          <>
+            <br />
+            <strong>{strong}</strong>
+          </>
+        )}
+      </h1>
+    </div>
+    <p class="hero__sub anim-in" style="animation-delay:.15s">{subtitle}</p>
+    <div class="hero__actions anim-in" style="animation-delay:.25s">
+      <a href={primary.href} class="btn btn-primary">{primary.label}</a>
+      {secondary && (
+        <a href={secondary.href} class="btn btn-secondary">
+          {secondary.label}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      )}
+    </div>
+  </div>
+
+  {trust && (
+    <div class="hero__trust anim-in" style="animation-delay:.4s">
+      <p class="hero__trust-label">{trust.label}</p>
+      <div class="marquee">
+        <div class="marquee__track">
+          <ul class="marquee__list">{trust.items.map((n) => <li>{n}</li>)}</ul>
+          <ul class="marquee__list" aria-hidden="true">{trust.items.map((n) => <li>{n}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(640px, 100svh);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 120px 16px 56px;
+    overflow: hidden;
+  }
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    margin: auto 0;
+  }
+  .hero__headline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .hero__title {
+    max-width: 980px;
+    font-weight: 400;
+    font-size: clamp(40px, 6.2vw, 76px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+  .hero__sub {
+    max-width: 640px;
+    margin: 26px auto 0;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+    color: #4a5863;
+    text-wrap: balance;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 36px;
+  }
+  .hero__trust {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1000px;
+    padding-top: 48px;
+  }
+  .hero__trust-label {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  @media (max-width: 480px) {
+    .hero {
+      padding: 104px 16px 24px;
+    }
+    .hero__title {
+      font-size: 42px;
+      line-height: 1;
+    }
+    .hero__sub {
+      max-width: 340px;
+      font-size: 16px;
+      color: #5b6872;
+    }
+    .hero__actions {
+      flex-wrap: nowrap;
+      gap: 8px;
+      margin-top: 30px;
+    }
+    .hero__trust {
+      padding-top: 32px;
+    }
+    .hero__trust-label {
+      font-size: 11px;
+    }
+    .hero__trust .marquee {
+      margin: 0 -16px;
+    }
+  }
+</style>

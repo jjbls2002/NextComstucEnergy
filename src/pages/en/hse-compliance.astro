@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import StatCard from "../../components/StatCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "en";
+const nav = navItems(lang);
+
+const commitments = [
+  { value: "< 1.0", label: "TRIR per 200,000 man-hours" },
+  { value: "0", label: "Fatalities" },
+  { value: "0", label: "Uncontained spills" },
+  { value: "100%", label: "Current HSE induction" },
+];
+
+const compliance = [
+  { icon: "scale", title: "FCPA", text: "Foreign Corrupt Practices Act: absolute prohibition of improper payments and accounting controls." },
+  { icon: "shield-check", title: "UK Bribery Act", text: "Prevention of active and passive bribery, with documented adequate procedures." },
+  { icon: "lock", title: "OFAC / Sanctions", text: "Compliance with sanctions and counterparty due diligence." },
+  { icon: "users", title: "UNGP: Human Rights", text: "UN Guiding Principles on Business and Human Rights." },
+];
+
+const permits = [
+  "Hot work", "Confined spaces", "Working at height",
+  "Excavations", "Lifting operations", "Lockout/Tagout (LOTO)",
+  "Electrical work", "Process line breaking",
+];
+
+const iper = [
+  { value: "30", label: "hazards identified in workover" },
+  { value: "23", label: "hazards in environmental remediation" },
+  { value: "22", label: "hazards in welding" },
+];
+---
+
+<BaseLayout
+  title="HSE & Compliance | NEX | FCPA · UKBA · ISO 45001 · Oil & Gas HSE System"
+  description="HSE system aligned to ISO 9001/14001/45001, IPER matrices per service, integrated FCPA/UKBA/OFAC compliance. TRIR target < 1.0, zero fatalities."
+  keywords="HSE venezuela, FCPA compliance venezuela, ISO 45001, oil IPER, UKBA compliance, industrial safety hydrocarbons"
+  esRest="/hse-cumplimiento/"
+  enRest="/hse-compliance/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "HSE & Compliance" }]}
+>
+  <PageHero
+    eyebrow="HSE & Compliance"
+    title="Safety is the condition of every operation"
+    subtitle="No operational, commercial or schedule target justifies a deviation in safety, environment or integrity."
+    crumbs={[{ name: "HSE & Compliance" }]}
+  />
+
+  <Section eyebrow="HSE Policy" title="Signed by the Presidency">
+    <div class="card-navy max-w-4xl">
+      <Icon name="file-text" size={32} class="text-nex-oro mb-4" />
+      <blockquote class="text-lg text-nex-gris italic">
+        "NEX Comstuct & Energy C.A. treats safety, occupational health and environmental protection as non-negotiable values. Every person in the organization has the authority and the duty to stop any work that poses a risk. Integrity and legal and international compliance are the basis of our license to operate."
+      </blockquote>
+      <p class="mt-5 text-nex-oro font-semibold">Presidency, {new Date().getFullYear()}</p>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Quantitative commitments" title="Four measurable targets" center>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {commitments.map((c) => <StatCard value={c.value} label={c.label} />)}
+    </div>
+  </Section>
+
+  <Section eyebrow="HSE System" title="HSE/SSPA Manual v2 with IPER per service line">
+    <p class="max-w-3xl text-nex-gris mb-8">Each service line has its own Hazard Identification and Risk Assessment (IPER) matrix, with hierarchical control measures and field verification.</p>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {iper.map((i) => <StatCard value={i.value} label={i.label} variant="navy" />)}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="International compliance" title="Four frameworks built into management">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {compliance.map((c) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={c.icon} size={26} /></span>
+          <h3 class="text-lg mb-2">{c.title}</h3>
+          <p class="text-nex-gris text-sm">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Work permit system" title="Eight controlled permit types">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {permits.map((p, i) => (
+        <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-nex-surface p-4 shadow-card">
+          <span class="text-nex-oro font-bold text-sm w-6">{String(i + 1).padStart(2, "0")}</span>
+          <span class="text-nex-gris text-sm font-medium">{p}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Safety culture" title="BBS: Behavior-Based Safety Program">
+    <div class="grid gap-8 lg:grid-cols-2 items-center">
+      <p class="text-nex-gris text-lg">Behavior observations, positive feedback and reinforcement of safe conduct. The goal is not to penalize, but to build a culture where stopping unsafe work is the norm, not the exception.</p>
+      <div class="card">
+        <ul class="space-y-3">
+          {["Planned behavior observation", "Immediate, positive feedback", "Near-miss reporting without reprisal", "Stop-work authority for all personnel"].map((x) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
+              <span class="text-nex-gris">{x}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="HSE Manual available under NDA"
+    text="Request the HSE/SSPA Manual and IPER matrices by signing a confidentiality agreement."
+    ctaLabel="Request under NDA"
+    ctaHref={`${nav.contact}?inquiry=technical`}
+    secondaryLabel="View Management System"
+    secondaryHref={nav.sig}
+  />
+</BaseLayout>

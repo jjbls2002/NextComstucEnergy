@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "es";
+const nav = navItems(lang);
+
+const pillars = [
+  { icon: "award", title: "Calidad", std: "ISO 9001 · API Q2" },
+  { icon: "leaf", title: "Ambiente", std: "ISO 14001" },
+  { icon: "hard-hat", title: "Seguridad y Salud", std: "ISO 45001 · LOPCYMAT" },
+  { icon: "scale", title: "Cumplimiento", std: "FCPA · UKBA · UNGP" },
+  { icon: "lock", title: "Seguridad de la Información", std: "ISO/IEC 27001" },
+  { icon: "refresh-cw", title: "Continuidad de Negocios", std: "ISO 22301" },
+  { icon: "users", title: "Gestión del Talento", std: "ISO 9001 cl.7.2 · API Q2" },
+];
+---
+
+<BaseLayout
+  title="Sistema Integrado de Gestión (SIG) | NEX | 7 Pilares ISO"
+  description="El Sistema Integrado de Gestión de NEX se sustenta en 7 pilares alineados a ISO 9001, 14001, 45001, 27001, 22301 y API Q2, con auditorías internas y externas."
+  keywords="sistema integrado de gestión, ISO 9001 venezuela, ISO 14001, ISO 45001, API Q2, SIG petrolero"
+  esRest="/sistema-gestion/"
+  enRest="/management-system/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Sistema de Gestión" }]}
+>
+  <PageHero
+    eyebrow="Sistema Integrado de Gestión"
+    title="Siete pilares que sustentan cada servicio"
+    subtitle="Un solo sistema de gestión que integra calidad, ambiente, seguridad, cumplimiento, información, continuidad y talento."
+    crumbs={[{ name: "Sistema de Gestión" }]}
+  />
+
+  <Section eyebrow="Los 7 pilares" title="Una arquitectura de gestión integrada">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((p, i) => (
+        <article class="card h-full">
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro"><Icon name={p.icon} size={26} /></span>
+            <span class="text-nex-oro/80 font-extrabold text-lg">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <h3 class="text-base mb-2">{p.title}</h3>
+          <p class="text-nex-gris text-sm font-semibold">{p.std}</p>
+        </article>
+      ))}
+      <div class="card-navy flex flex-col justify-center">
+        <Icon name="layers" size={28} class="text-nex-oro mb-3" />
+        <p class="text-nex-blanco font-bold">Integración total</p>
+        <p class="text-nex-gris text-sm mt-1">Los siete pilares comparten procesos, indicadores y auditorías.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Verificación" title="Auditorías internas y externas">
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name="clipboard-check" size={26} /></span>
+        <h3 class="text-lg mb-2">Auditorías internas</h3>
+        <p class="text-nex-gris text-sm">Programa anual de auditorías internas con auditores calificados, hallazgos, acciones correctivas y verificación de cierre.</p>
+      </div>
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name="shield-check" size={26} /></span>
+        <h3 class="text-lg mb-2">Auditorías externas</h3>
+        <p class="text-nex-gris text-sm">Disposición a auditorías de clientes y organismos certificadores, con evidencia documental disponible bajo confidencialidad.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="Hoja de ruta" title="Certificaciones en camino">
+    <div class="card-navy">
+      <div class="grid gap-6 md:grid-cols-3">
+        {["ISO 9001", "ISO 14001", "ISO 45001"].map((c) => (
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-nex-oro">{c}</div>
+            <p class="text-nex-gris text-sm mt-2">Meta de certificación: año 3</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Conozca nuestro sistema en detalle"
+    text="Solicite documentación del SIG bajo acuerdo de confidencialidad."
+    ctaLabel="Solicitar propuesta"
+    ctaHref={nav.contact}
+    secondaryLabel="Ver HSE & Cumplimiento"
+    secondaryHref={nav.hse}
+  />
+</BaseLayout>

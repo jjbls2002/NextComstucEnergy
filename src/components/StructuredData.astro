@@ -1,0 +1,111 @@
+---
+import { SITE_URL, absoluteUrl } from "../utils/seo";
+import { CORP } from "../data/site";
+
+interface Breadcrumb {
+  name: string;
+  /** absolute-from-root path, or omitted for the current page (last item) */
+  path?: string;
+}
+
+interface ServiceLd {
+  serviceType: string;
+  description: string;
+}
+
+interface Props {
+  /** include the Organization graph (Home page) */
+  organization?: boolean;
+  breadcrumbs?: Breadcrumb[];
+  service?: ServiceLd;
+}
+
+const { organization = false, breadcrumbs, service } = Astro.props;
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: CORP.displayName,
+  legalName: CORP.legalName,
+  url: SITE_URL,
+  logo: absoluteUrl("/assets/logo-nex.png"),
+  image: absoluteUrl("/og-image.jpg"),
+  description:
+    "Empresa venezolana de servicios petroleros: workover, saneamiento ambiental, soldadura industrial, suministro e ingeniería.",
+  foundingDate: CORP.founded,
+  founder: { "@type": "Person", name: CORP.president, jobTitle: "Presidente" },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: CORP.addressLine,
+    addressLocality: CORP.city,
+    addressRegion: CORP.region,
+    addressCountry: CORP.country,
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: CORP.email,
+      areaServed: ["VE", "CO", "GY", "TT"],
+      availableLanguage: ["Spanish", "English"],
+    },
+  ],
+  sameAs: [],
+  vatID: CORP.rif,
+  taxID: CORP.rif,
+  slogan: CORP.slogan.es,
+  areaServed: [
+    { "@type": "Country", name: "Venezuela" },
+    { "@type": "Country", name: "Colombia" },
+    { "@type": "Country", name: "Guyana" },
+    { "@type": "Country", name: "Trinidad and Tobago" },
+  ],
+  knowsAbout: [
+    "Oil well workover",
+    "Environmental remediation",
+    "Industrial welding",
+    "Oil field supplies",
+    "Petroleum engineering",
+    "HSE management",
+    "FCPA compliance",
+  ],
+};
+
+const serviceLd = service && {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: service.serviceType,
+  provider: { "@id": `${SITE_URL}/#organization` },
+  areaServed: [
+    { "@type": "Country", name: "Venezuela" },
+    { "@type": "Country", name: "Colombia" },
+    { "@type": "Country", name: "Guyana" },
+    { "@type": "Country", name: "Trinidad and Tobago" },
+  ],
+  description: service.description,
+  offers: { "@type": "Offer", availability: "https://schema.org/InStock" },
+};
+
+const breadcrumbLd = breadcrumbs &&
+  breadcrumbs.length > 0 && {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.name,
+      ...(b.path ? { item: absoluteUrl(b.path) } : {}),
+    })),
+  };
+---
+
+{organization && (
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} is:inline />
+)}
+{serviceLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} is:inline />
+)}
+{breadcrumbLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} is:inline />
+)}

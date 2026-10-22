@@ -1,0 +1,627 @@
+---
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+import { navItems, SERVICES, servicePath } from "../data/site";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import Icon from "./Icon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const nav = navItems(lang);
+const path = Astro.url.pathname;
+const es = lang === "es";
+
+interface MenuLink {
+  href: string;
+  label: string;
+  desc?: string;
+}
+interface NavEntry {
+  label: string;
+  href: string;
+  menu?: MenuLink[];
+}
+
+const entries: NavEntry[] = [
+  { label: t.nav.home, href: nav.home },
+  {
+    label: es ? "Empresa" : "Company",
+    href: nav.about,
+    menu: [
+      { href: nav.about, label: t.nav.about, desc: es ? "Quiénes somos, misión y valores" : "Who we are, mission and values" },
+      { href: nav.investors, label: t.nav.investors, desc: es ? "Visión de negocio y gobierno corporativo" : "Business outlook and governance" },
+      { href: nav.careers, label: t.nav.careers, desc: es ? "Únase al equipo NEX" : "Join the NEX team" },
+    ],
+  },
+  {
+    label: t.nav.services,
+    href: nav.services,
+    menu: [
+      ...SERVICES.map((s) => ({ href: servicePath(lang, s.key), label: s.title[lang], desc: s.short[lang] })),
+      { href: nav.services, label: t.nav.servicesMenu },
+    ],
+  },
+  {
+    label: "HSE",
+    href: nav.hse,
+    menu: [
+      { href: nav.hse, label: t.nav.hse, desc: es ? "Seguridad, ambiente y ética" : "Safety, environment and ethics" },
+      { href: nav.sig, label: t.nav.sig, desc: es ? "Sistema Integrado de Gestión" : "Integrated Management System" },
+    ],
+  },
+  { label: t.nav.contact, href: nav.contact },
+];
+
+const isCurrent = (href: string) => (href === nav.home ? path === href : path.startsWith(href));
+const groupActive = (e: NavEntry) =>
+  e.menu ? e.menu.some((m) => path === m.href || (m.href !== nav.home && path.startsWith(m.href))) : isCurrent(e.href);
+---
+
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a href={nav.home} class="site-logo" aria-label={es ? "Inicio de NEX" : "NEX home"}>
+      <img src="/assets/logo-nex-emblem.png" alt="" width="400" height="476" class="site-logo__mark" />
+      <span class="site-logo__text">
+        <span class="site-logo__name">NEX</span>
+        <span class="site-logo__sub">Comstuct &amp; Energy</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label={t.nav.menu} data-nav>
+      <ul class="site-nav__list">
+        {entries.map((e, i) =>
+          e.menu ? (
+            <li class="site-nav__has-menu" data-menu>
+              <button
+                type="button"
+                class:list={["site-nav__link site-nav__drop", { "is-active": groupActive(e) }]}
+                aria-expanded="false"
+                aria-controls={`nav-menu-${i}`}
+                data-menu-btn
+              >
+                <span class="site-nav__label">
+                  {e.label}
+                  <Icon name="chevron-down" size={14} />
+                </span>
+                <span class="site-nav__underline" aria-hidden="true"></span>
+              </button>
+              <ul class="site-nav__menu" id={`nav-menu-${i}`}>
+                {e.menu.map((m) => (
+                  <li>
+                    <a href={m.href} aria-current={path === m.href ? "page" : undefined}>
+                      <span class="site-nav__menu-name">{m.label}</span>
+                      {m.desc && <span class="site-nav__menu-desc">{m.desc}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li>
+              <a
+                href={e.href}
+                class:list={["site-nav__link", { "is-active": groupActive(e) }]}
+                aria-current={path === e.href ? "page" : undefined}
+              >
+                <span class="site-nav__label">{e.label}</span>
+                <span class="site-nav__underline" aria-hidden="true"></span>
+              </a>
+            </li>
+          )
+        )}
+        <li class="site-nav__mobile-extra">
+          <LanguageSwitcher />
+          <a href={nav.contact} class="btn btn-primary">{t.nav.cta}</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href={nav.contact} class="btn btn-primary btn-sm">{t.nav.cta}</a>
+    </div>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-label={t.nav.openMenu}
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-nav-toggle
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style is:global>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0 16px;
+    transition: padding 0.45s var(--nex-ease);
+  }
+  .site-header__inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    transition: padding 0.45s var(--nex-ease);
+  }
+  /* mobile glass bar lives on a pseudo-element so the fixed overlay isn't trapped by backdrop-filter */
+  .site-header__inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(16, 42, 67, 0.103);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 10px 30px rgba(16, 42, 67, 0.135);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  /* on scroll the logo and the CTA step aside; only the centre pill with the options stays */
+  .site-header.is-scrolled {
+    padding-top: 12px;
+  }
+  .site-header.is-scrolled .site-header__inner {
+    padding: 0;
+  }
+  .site-logo,
+  .site-header__actions {
+    transition:
+      opacity 0.3s ease,
+      transform 0.45s var(--nex-ease),
+      visibility 0.3s;
+  }
+  @media (min-width: 961px) {
+    .site-header.is-scrolled .site-logo,
+    .site-header.is-scrolled .site-header__actions {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .site-header.is-scrolled .site-logo {
+      transform: translateX(-12px);
+    }
+    .site-header.is-scrolled .site-header__actions {
+      transform: translateX(12px);
+    }
+    .site-header.is-scrolled .site-nav__list {
+      box-shadow:
+        0 1px 2px rgba(16, 42, 67, 0.06),
+        0 8px 22px -10px rgba(16, 42, 67, 0.22);
+    }
+  }
+
+  .site-logo {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .site-logo__mark {
+    width: auto;
+    height: 40px;
+    transition: transform 0.45s var(--nex-ease);
+  }
+  .site-logo:hover .site-logo__mark {
+    transform: translateY(-1px) rotate(-3deg);
+  }
+  .site-logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .site-logo__name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #2f78b4, #3f9a5a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .site-logo__sub {
+    margin-top: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #33414c;
+  }
+
+  /* ---------- Pill nav ---------- */
+  .site-nav {
+    justify-self: center;
+  }
+  .site-nav__list {
+    position: relative;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(16, 42, 67, 0.115);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 10px 30px rgba(16, 42, 67, 0.135);
+    transition: padding 0.45s var(--nex-ease);
+  }
+  .site-nav__mobile-extra {
+    display: none;
+  }
+
+  .site-nav__link {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 18px 6px;
+    border: none;
+    border-radius: 999px;
+    background: none;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--nex-gris);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+  }
+  .site-nav__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .site-nav__label svg {
+    transition: transform 0.25s ease;
+  }
+  .site-nav__underline {
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--nex-azul-light), var(--nex-verde));
+    transition: width 0.2s;
+  }
+  .site-nav__link:hover {
+    color: var(--nex-ink);
+  }
+  .site-nav__link:hover .site-nav__underline {
+    width: 30%;
+  }
+  .site-nav__link.is-active {
+    color: var(--nex-ink);
+  }
+  .site-nav__link.is-active .site-nav__underline {
+    width: 60%;
+  }
+
+  /* ---------- Dropdown menus inside the pill ---------- */
+  .site-nav__has-menu {
+    position: relative;
+  }
+  .site-nav__has-menu.is-open .site-nav__drop {
+    color: var(--nex-ink);
+  }
+  .site-nav__has-menu.is-open .site-nav__label svg {
+    transform: rotate(180deg);
+  }
+  .site-nav__menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    z-index: 60;
+    display: grid;
+    gap: 2px;
+    width: 310px;
+    padding: 8px;
+    list-style: none;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid rgba(16, 42, 67, 0.115);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 20px 50px rgba(16, 42, 67, 0.165);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -6px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.25s var(--nex-ease),
+      visibility 0.2s;
+  }
+  /* invisible bridge so the menu stays open while the pointer travels down to it */
+  .site-nav__menu::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -16px;
+    height: 16px;
+  }
+  .site-nav__has-menu.is-open .site-nav__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+  .site-nav__menu a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+  }
+  .site-nav__menu a:hover,
+  .site-nav__menu a:focus-visible {
+    background: rgba(109, 180, 217, 0.1);
+    outline: none;
+  }
+  .site-nav__menu a[aria-current="page"] {
+    background: rgba(109, 180, 217, 0.12);
+  }
+  .site-nav__menu-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--nex-ink);
+  }
+  .site-nav__menu-desc {
+    font-size: 13px;
+    color: #55626c;
+  }
+
+  .site-header__actions {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* ---------- Hamburger ---------- */
+  .nav-toggle {
+    position: relative;
+    z-index: 70;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    justify-self: end;
+  }
+  .nav-toggle span {
+    width: 24px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--nex-ink);
+    transition:
+      transform 0.25s,
+      opacity 0.25s;
+  }
+  .nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 1080px) {
+    .site-nav__link {
+      padding: 8px 13px 6px;
+    }
+    .site-logo__sub {
+      display: none;
+    }
+  }
+
+  /* ---------- Mobile: full-screen frosted overlay ---------- */
+  @media (max-width: 960px) {
+    .site-header__inner {
+      grid-template-columns: 1fr auto;
+    }
+    .site-header__actions {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+    .site-header.is-scrolled .site-header__inner {
+      padding: 6px 6px 6px 14px;
+    }
+    /* mobile keeps logo + hamburger in a glass bar on scroll (the options live in the menu) */
+    .site-header.is-scrolled .site-header__inner::before {
+      opacity: 1;
+    }
+    .site-logo__mark {
+      height: 34px;
+    }
+    .site-logo__sub {
+      display: block;
+    }
+
+    .site-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 65;
+      justify-self: stretch;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 96px 16px 48px;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.3s,
+        visibility 0.3s;
+      background: rgba(246, 249, 251, 0.86);
+      backdrop-filter: blur(34px) saturate(140%);
+      -webkit-backdrop-filter: blur(34px) saturate(140%);
+    }
+    .site-nav::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(rgba(109, 180, 217, 0.1), transparent);
+      pointer-events: none;
+    }
+    .site-nav.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .site-nav__list {
+      flex-direction: column;
+      gap: 14px;
+      padding: 0;
+      margin: auto 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .site-nav__link {
+      font-size: 22px;
+      padding: 8px 20px 6px;
+    }
+    .site-nav__has-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .site-nav__menu {
+      position: static;
+      width: auto;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform: none;
+      transition:
+        max-height 0.35s var(--nex-ease),
+        opacity 0.25s ease,
+        margin-top 0.35s ease,
+        visibility 0.35s;
+    }
+    .site-nav__has-menu.is-open .site-nav__menu {
+      max-height: 420px;
+      margin-top: 4px;
+      transform: none;
+    }
+    .site-nav__menu::before {
+      display: none;
+    }
+    .site-nav__menu a {
+      align-items: center;
+      padding: 6px 12px;
+    }
+    .site-nav__menu-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #33414c;
+      text-align: center;
+    }
+    .site-nav__menu-desc {
+      display: none;
+    }
+    .site-nav__mobile-extra {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin-top: 18px;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const navEl = document.querySelector<HTMLElement>("[data-nav]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const menus = Array.from(document.querySelectorAll<HTMLElement>("[data-menu]"));
+  const desktop = window.matchMedia("(min-width: 961px)");
+
+  // Header: flat at the top, only the pill floats once the page scrolls
+  const onScroll = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Dropdowns: hover on desktop, click/keyboard everywhere; Escape or clicking outside closes
+  const closeAll = (except?: HTMLElement) =>
+    menus.forEach((m) => {
+      if (m === except) return;
+      m.classList.remove("is-open");
+      m.querySelector("[data-menu-btn]")?.setAttribute("aria-expanded", "false");
+    });
+  const setMenu = (m: HTMLElement, open: boolean) => {
+    if (open) closeAll(m);
+    m.classList.toggle("is-open", open);
+    m.querySelector("[data-menu-btn]")?.setAttribute("aria-expanded", String(open));
+  };
+  menus.forEach((m) => {
+    let timer: number | undefined;
+    m.addEventListener("mouseenter", () => {
+      if (!desktop.matches) return;
+      clearTimeout(timer);
+      setMenu(m, true);
+    });
+    m.addEventListener("mouseleave", () => {
+      if (!desktop.matches) return;
+      timer = window.setTimeout(() => setMenu(m, false), 120);
+    });
+    m.querySelector("[data-menu-btn]")?.addEventListener("click", () => setMenu(m, !m.classList.contains("is-open")));
+    m.addEventListener("focusout", (e) => {
+      if (desktop.matches && !m.contains(e.relatedTarget as Node)) setMenu(m, false);
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if (desktop.matches && !menus.some((m) => m.contains(e.target as Node))) closeAll();
+  });
+
+  // Mobile overlay
+  const setOpen = (open: boolean) => {
+    navEl?.classList.toggle("is-open", open);
+    toggle?.classList.toggle("is-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("nav-locked", open);
+    if (!open) closeAll();
+  };
+  toggle?.addEventListener("click", () => setOpen(!navEl?.classList.contains("is-open")));
+  navEl?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    closeAll();
+    setOpen(false);
+  });
+  desktop.addEventListener("change", () => setOpen(false));
+</script>

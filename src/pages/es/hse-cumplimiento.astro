@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import StatCard from "../../components/StatCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "es";
+const nav = navItems(lang);
+
+const commitments = [
+  { value: "< 1.0", label: "TRIR por 200.000 hh" },
+  { value: "0", label: "Fatalidades" },
+  { value: "0", label: "Derrames no contenidos" },
+  { value: "100%", label: "Inducción HSE vigente" },
+];
+
+const compliance = [
+  { icon: "scale", title: "FCPA", text: "Foreign Corrupt Practices Act: prohibición absoluta de pagos indebidos y controles contables." },
+  { icon: "shield-check", title: "UK Bribery Act", text: "Prevención de soborno activo y pasivo, con procedimientos adecuados documentados." },
+  { icon: "lock", title: "OFAC / Sanciones", text: "Cumplimiento de sanciones y debida diligencia de contrapartes." },
+  { icon: "users", title: "UNGP: Derechos Humanos", text: "Principios Rectores de la ONU sobre empresas y derechos humanos." },
+];
+
+const permits = [
+  "Trabajo en caliente", "Espacios confinados", "Trabajo en altura",
+  "Excavaciones", "Izaje de cargas", "Bloqueo y etiquetado (LOTO)",
+  "Trabajos eléctricos", "Apertura de líneas de proceso",
+];
+
+const iper = [
+  { value: "30", label: "peligros identificados en workover" },
+  { value: "23", label: "peligros en saneamiento ambiental" },
+  { value: "22", label: "peligros en soldadura" },
+];
+---
+
+<BaseLayout
+  title="HSE y Cumplimiento | NEX | FCPA · UKBA · ISO 45001 · Sistema HSE Petrolero"
+  description="Sistema HSE alineado a ISO 9001/14001/45001, matrices IPER por servicio, cumplimiento FCPA/UKBA/OFAC integrado. TRIR meta < 1.0, cero fatalidades."
+  keywords="HSE venezuela, FCPA compliance venezuela, ISO 45001, IPER petrolero, cumplimiento UKBA, seguridad industrial hidrocarburos"
+  esRest="/hse-cumplimiento/"
+  enRest="/hse-compliance/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "HSE & Cumplimiento" }]}
+>
+  <PageHero
+    eyebrow="HSE & Cumplimiento"
+    title="La seguridad es la condición de toda operación"
+    subtitle="No hay meta operativa, comercial ni de plazo que justifique una desviación en seguridad, ambiente o integridad."
+    crumbs={[{ name: "HSE & Cumplimiento" }]}
+  />
+
+  <!-- Política HSE -->
+  <Section eyebrow="Política HSE" title="Firmada por la Presidencia">
+    <div class="card-navy max-w-4xl">
+      <Icon name="file-text" size={32} class="text-nex-oro mb-4" />
+      <blockquote class="text-lg text-nex-gris italic">
+        "NEX Comstuct & Energy C.A. asume la seguridad, la salud ocupacional y la protección del ambiente como valores no negociables. Cada persona en la organización tiene la autoridad y el deber de detener cualquier trabajo que represente un riesgo. La integridad y el cumplimiento legal e internacional son la base de nuestra licencia para operar."
+      </blockquote>
+      <p class="mt-5 text-nex-oro font-semibold">Presidencia, {new Date().getFullYear()}</p>
+    </div>
+  </Section>
+
+  <!-- 4 compromisos -->
+  <Section variant="off-white" eyebrow="Compromisos cuantitativos" title="Cuatro metas medibles" center>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {commitments.map((c) => <StatCard value={c.value} label={c.label} />)}
+    </div>
+  </Section>
+
+  <!-- Sistema HSE / IPER -->
+  <Section eyebrow="Sistema HSE" title="Manual HSE/SSPA v2 con IPER por línea de servicio">
+    <p class="max-w-3xl text-nex-gris mb-8">Cada línea de servicio cuenta con su propia matriz de Identificación de Peligros y Evaluación de Riesgos (IPER), con medidas de control jerarquizadas y verificación en campo.</p>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {iper.map((i) => <StatCard value={i.value} label={i.label} variant="navy" />)}
+    </div>
+  </Section>
+
+  <!-- Cumplimiento internacional -->
+  <Section variant="off-white" eyebrow="Cumplimiento internacional" title="Cuatro marcos integrados en la gestión">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {compliance.map((c) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={c.icon} size={26} /></span>
+          <h3 class="text-lg mb-2">{c.title}</h3>
+          <p class="text-nex-gris text-sm">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Permisos de trabajo -->
+  <Section eyebrow="Sistema de permisos de trabajo" title="Ocho tipos de permiso controlados">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {permits.map((p, i) => (
+        <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-nex-surface p-4 shadow-card">
+          <span class="text-nex-oro font-bold text-sm w-6">{String(i + 1).padStart(2, "0")}</span>
+          <span class="text-nex-gris text-sm font-medium">{p}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- BBS -->
+  <Section variant="off-white" eyebrow="Cultura de seguridad" title="Programa BBS: Seguridad Basada en el Comportamiento">
+    <div class="grid gap-8 lg:grid-cols-2 items-center">
+      <p class="text-nex-gris text-lg">Observaciones de comportamiento, retroalimentación positiva y reforzamiento de conductas seguras. El objetivo no es sancionar, sino construir una cultura donde detener un trabajo inseguro sea la norma, no la excepción.</p>
+      <div class="card">
+        <ul class="space-y-3">
+          {["Observación planificada de conductas", "Retroalimentación inmediata y positiva", "Reporte de casi-accidentes sin represalia", "Autoridad de parada para todo el personal"].map((x) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
+              <span class="text-nex-gris">{x}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Manual HSE disponible bajo NDA"
+    text="Solicite el Manual HSE/SSPA y las matrices IPER firmando un acuerdo de confidencialidad."
+    ctaLabel="Solicitar bajo NDA"
+    ctaHref={`${nav.contact}?consulta=tecnica`}
+    secondaryLabel="Ver Sistema de Gestión"
+    secondaryHref={nav.sig}
+  />
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  /** muted second line under the title */
+  subtitle?: string;
+  /** background variant */
+  variant?: "white" | "off-white" | "navy" | "dark";
+  center?: boolean;
+  class?: string;
+  as?: "h2" | "h3";
+  intro?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  subtitle,
+  variant = "white",
+  center = false,
+  class: klass = "",
+  as: HeadingTag = "h2",
+  intro,
+} = Astro.props;
+
+/* "off-white" adds the brand glow, "navy" the dot grid, "dark" a deep navy contrast band */
+const fx = variant === "dark" ? "band-dark" : variant === "navy" ? "dots" : variant === "off-white" ? "glow" : "";
+---
+
+<section id={id} class={`relative overflow-x-clip py-24 md:py-32 rule-bottom ${fx} ${klass}`}>
+  <div class="container-nex">
+    {(eyebrow || title) && (
+      <div class={`reveal mb-14 md:mb-16 ${center ? "text-center flex flex-col items-center" : "max-w-3xl"}`}>
+        {eyebrow && <p class="eyebrow mb-6">{eyebrow}</p>}
+        {title && (
+          <HeadingTag class="title-split">
+            {title}
+            {subtitle && <span>{subtitle}</span>}
+          </HeadingTag>
+        )}
+        {intro && <p class={`lead mt-6 ${center ? "max-w-2xl" : "max-w-xl"}`}>{intro}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

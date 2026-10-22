@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/Section.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+import { useTranslations } from "../../utils/i18n";
+const lang = "en";
+const nav = navItems(lang);
+const t = useTranslations(lang);
+---
+<BaseLayout
+  title="Thank you | NEX Comstuct & Energy"
+  description="We have received your request."
+  esRest="/gracias/"
+  enRest="/thanks/"
+  noindex={true}
+>
+  <Section class="min-h-[60vh] flex items-center">
+    <div class="card-navy max-w-2xl mx-auto text-center py-14">
+      <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-nex-gold text-nex-blanco mb-6"><Icon name="check" size={34} /></span>
+      <h1 class="text-nex-blanco">{t.form.thanksTitle}</h1>
+      <p class="mt-4 text-nex-gris max-w-md mx-auto">{t.form.thanksBody}</p>
+      <a href={nav.home} class="btn btn-on-navy mt-8">Back to home <Icon name="arrow-right" size={18} /></a>
+    </div>
+  </Section>
+</BaseLayout>

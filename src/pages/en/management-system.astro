@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "en";
+const nav = navItems(lang);
+
+const pillars = [
+  { icon: "award", title: "Quality", std: "ISO 9001 · API Q2" },
+  { icon: "leaf", title: "Environment", std: "ISO 14001" },
+  { icon: "hard-hat", title: "Safety & Health", std: "ISO 45001 · LOPCYMAT" },
+  { icon: "scale", title: "Compliance", std: "FCPA · UKBA · UNGP" },
+  { icon: "lock", title: "Information Security", std: "ISO/IEC 27001" },
+  { icon: "refresh-cw", title: "Business Continuity", std: "ISO 22301" },
+  { icon: "users", title: "Talent Management", std: "ISO 9001 cl.7.2 · API Q2" },
+];
+---
+
+<BaseLayout
+  title="Integrated Management System (IMS) | NEX | 7 ISO Pillars"
+  description="NEX's Integrated Management System rests on 7 pillars aligned to ISO 9001, 14001, 45001, 27001, 22301 and API Q2, with internal and external audits."
+  keywords="integrated management system, ISO 9001 venezuela, ISO 14001, ISO 45001, API Q2, oil IMS"
+  esRest="/sistema-gestion/"
+  enRest="/management-system/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Management System" }]}
+>
+  <PageHero
+    eyebrow="Integrated Management System"
+    title="Seven pillars that support every service"
+    subtitle="A single management system integrating quality, environment, safety, compliance, information, continuity and talent."
+    crumbs={[{ name: "Management System" }]}
+  />
+
+  <Section eyebrow="The 7 pillars" title="An integrated management architecture">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((p, i) => (
+        <article class="card h-full">
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro"><Icon name={p.icon} size={26} /></span>
+            <span class="text-nex-oro/80 font-extrabold text-lg">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <h3 class="text-base mb-2">{p.title}</h3>
+          <p class="text-nex-gris text-sm font-semibold">{p.std}</p>
+        </article>
+      ))}
+      <div class="card-navy flex flex-col justify-center">
+        <Icon name="layers" size={28} class="text-nex-oro mb-3" />
+        <p class="text-nex-blanco font-bold">Full integration</p>
+        <p class="text-nex-gris text-sm mt-1">All seven pillars share processes, indicators and audits.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Verification" title="Internal and external audits">
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name="clipboard-check" size={26} /></span>
+        <h3 class="text-lg mb-2">Internal audits</h3>
+        <p class="text-nex-gris text-sm">Annual internal audit program with qualified auditors, findings, corrective actions and closure verification.</p>
+      </div>
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name="shield-check" size={26} /></span>
+        <h3 class="text-lg mb-2">External audits</h3>
+        <p class="text-nex-gris text-sm">Readiness for client and certification-body audits, with documentary evidence available under confidentiality.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="Roadmap" title="Certifications on the way">
+    <div class="card-navy">
+      <div class="grid gap-6 md:grid-cols-3">
+        {["ISO 9001", "ISO 14001", "ISO 45001"].map((c) => (
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-nex-oro">{c}</div>
+            <p class="text-nex-gris text-sm mt-2">Certification target: year 3</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Get to know our system in detail"
+    text="Request IMS documentation under a confidentiality agreement."
+    ctaLabel="Request proposal"
+    ctaHref={nav.contact}
+    secondaryLabel="View HSE & Compliance"
+    secondaryHref={nav.hse}
+  />
+</BaseLayout>

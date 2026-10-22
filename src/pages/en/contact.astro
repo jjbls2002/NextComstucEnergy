@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import Icon from "../../components/Icon.astro";
+import { CORP } from "../../data/site";
+
+const data = [
+  { icon: "building", label: "Legal name", value: CORP.legalName },
+  { icon: "file-text", label: "Tax ID (RIF)", value: CORP.rif },
+  { icon: "map-pin", label: "Address", value: `${CORP.addressLine}, ${CORP.city}, ${CORP.region} State, Venezuela` },
+  { icon: "mail", label: "Email", value: CORP.email, href: `mailto:${CORP.email}` },
+  { icon: "phone", label: "Phone", value: CORP.phone, href: `tel:${CORP.phone.replace(/\s/g, "")}` },
+];
+---
+
+<BaseLayout
+  title="Contact | NEX Comstuct & Energy | Request a Proposal"
+  description="Contact NEX Comstuct & Energy C.A. in Valle de la Pascua, Guárico. Request a technical proposal, information or schedule a meeting with our team."
+  keywords="contact NEX, request oil proposal, oil contractor guarico contact"
+  esRest="/contacto/"
+  enRest="/contact/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Contact" }]}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Let's talk"
+    subtitle="Tell us your need and we will prepare a technical response tailored to your operation."
+    crumbs={[{ name: "Contact" }]}
+  />
+
+  <Section>
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <h2 class="text-2xl mb-6">Corporate data</h2>
+        <ul class="space-y-5">
+          {data.map((d) => (
+            <li class="flex items-start gap-4">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-fondo-alt text-nex-oro shrink-0"><Icon name={d.icon} size={22} /></span>
+              <div>
+                <p class="text-xs uppercase tracking-wide text-nex-gris font-bold">{d.label}</p>
+                {d.href ? (
+                  <a href={d.href} class="text-nex-blanco font-semibold hover:text-nex-oro break-all">{d.value}</a>
+                ) : (
+                  <p class="text-nex-blanco font-semibold">{d.value}</p>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl mb-6">Contact form</h2>
+        <ContactForm formName="contact" action="/en/thanks/" />
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Location" title="Valle de la Pascua, Guárico State">
+    <div class="rounded-lg overflow-hidden border border-white/15 aspect-[16/7]">
+      <iframe
+        title="Map of Valle de la Pascua, Guárico"
+        class="w-full h-full"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-66.08%2C9.15%2C-65.92%2C9.26&layer=mapnik&marker=9.2116%2C-66.0055"
+      ></iframe>
+    </div>
+  </Section>
+</BaseLayout>

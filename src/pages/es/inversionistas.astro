@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import StatCard from "../../components/StatCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "es";
+const nav = navItems(lang);
+
+const figures = [
+  { value: "USD 7.3M", label: "Ingresos proyectados año 5" },
+  { value: "~33%", label: "Margen EBITDA año 5" },
+  { value: "USD 750K", label: "Capital semilla" },
+  { value: "~150%", label: "ROI base año 3" },
+];
+
+const governance = [
+  { icon: "file-text", title: "Modelo financiero auditable", text: "Proyecciones sustentadas en supuestos verificables y contabilidad formal desde el inicio." },
+  { icon: "scale", title: "Cumplimiento integrado", text: "FCPA, UKBA y OFAC incorporados, reduciendo el riesgo reputacional y legal para el inversionista." },
+  { icon: "users", title: "Gobernanza clara", text: "Estructura societaria de cuatro niveles con rendición de cuentas y control." },
+];
+---
+
+<BaseLayout
+  title="Inversionistas | NEX Comstuct & Energy | Plan de Negocios 2026-2031"
+  description="Oportunidad de inversión en NEX: proyección USD 7.3M año 5, margen EBITDA 33%, ROI 150% base. Pipeline de USD 3.72M identificado. Modelo financiero auditable."
+  keywords="inversión servicios petroleros venezuela, plan de negocios petrolero, oportunidad inversión oil gas, EBITDA petrolero"
+  esRest="/inversionistas/"
+  enRest="/investors/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Inversionistas" }]}
+>
+  <PageHero
+    eyebrow="Inversionistas"
+    title="Participe en el crecimiento de una empresa institucionalmente sólida"
+    subtitle="NEX combina un mercado de gran escala con la disciplina institucional que la banca de desarrollo y los inversionistas privados exigen."
+    crumbs={[{ name: "Inversionistas" }]}
+  />
+
+  <Section eyebrow="Plan de Negocios 2026–2031" title="Cifras clave" center>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {figures.map((f) => <StatCard value={f.value} label={f.label} />)}
+    </div>
+    <p class="mt-6 text-center text-sm text-nex-gris max-w-2xl mx-auto">Proyecciones del Plan de Negocios. Los supuestos y el modelo financiero completo están disponibles bajo acuerdo de confidencialidad.</p>
+  </Section>
+
+  <Section variant="navy" eyebrow="Pipeline comercial" title="Oportunidades identificadas">
+    <div class="grid gap-8 lg:grid-cols-[1fr_1.4fr] items-center">
+      <div class="text-center lg:text-left">
+        <div class="text-6xl font-extrabold text-nex-oro">12</div>
+        <p class="text-nex-blanco text-lg mt-2">oportunidades comerciales identificadas</p>
+        <div class="text-4xl font-extrabold text-nex-oro mt-6">USD 3.72M</div>
+        <p class="text-nex-gris mt-2">en valor potencial de pipeline</p>
+      </div>
+      <div class="card bg-nex-surface/5 border border-white/10">
+        <p class="text-nex-gris">El pipeline combina servicios de workover, saneamiento y soldadura para PDVSA, empresas mixtas y operadoras internacionales, distribuidos entre la Faja del Orinoco, la Cuenca Oriental y la Cuenca Barinas-Apure.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="Gobernanza y transparencia" title="Por qué NEX reduce el riesgo del inversionista">
+    <div class="grid gap-6 md:grid-cols-3">
+      {governance.map((g) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={g.icon} size={26} /></span>
+          <h3 class="text-lg mb-2">{g.title}</h3>
+          <p class="text-nex-gris text-sm">{g.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Documentación" title="Disponible bajo NDA">
+    <div class="card max-w-3xl">
+      <p class="text-nex-gris">El Plan de Negocios completo, el modelo financiero y el pipeline detallado se comparten previa firma de un acuerdo de confidencialidad. Solicítelos indicando "Inversionista" como tipo de consulta.</p>
+      <ul class="mt-5 space-y-2">
+        {["Plan de Negocios 2026–2031", "Modelo financiero y supuestos", "Pipeline comercial detallado", "Estructura de la ronda y uso de fondos"].map((x) => (
+          <li class="flex items-center gap-3 text-nex-gris">
+            <span class="text-nex-oro"><Icon name="file-text" size={18} /></span>{x}
+          </li>
+        ))}
+      </ul>
+      <a href={nav.contact} class="btn btn-primary mt-6">Solicitar bajo NDA <Icon name="arrow-right" size={18} /></a>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Agendemos una reunión"
+    text="Conversemos sobre la tesis de inversión y el uso de fondos."
+    ctaLabel="Agendar reunión"
+    ctaHref={nav.contact}
+  />
+</BaseLayout>

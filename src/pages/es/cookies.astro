@@ -1,0 +1,52 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP } from "../../data/site";
+
+const rows = [
+  { cookie: "nex_lang", purpose: "Idioma preferido", duration: "1 año", cat: "Necesaria" },
+  { cookie: "nex_cookie_consent", purpose: "Decisión de cookies", duration: "1 año", cat: "Necesaria" },
+  { cookie: "_ga", purpose: "Google Analytics (usuario)", duration: "2 años", cat: "Analítica" },
+  { cookie: "_ga_XXXXXXX", purpose: "Google Analytics (sesión)", duration: "2 años", cat: "Analítica" },
+];
+---
+<LegalLayout
+  title="Política de Cookies | NEX Comstuct & Energy"
+  description="Política de cookies de NEX Comstuct & Energy C.A.: cookies necesarias, analíticas y de marketing, y cómo gestionar sus preferencias."
+  esRest="/cookies/"
+  enRest="/cookies/"
+  heading="Política de Cookies"
+  breadcrumbLabel="Cookies"
+  updated="Última actualización: 18 de septiembre de 2026"
+>
+  <p>Este sitio utiliza cookies para su correcto funcionamiento, para analizar su uso de forma agregada y, opcionalmente, para fines de marketing. A continuación explicamos qué cookies utilizamos y cómo puede gestionarlas.</p>
+
+  <h2>1. ¿Qué son las cookies?</h2>
+  <p>Las cookies son pequeños archivos de texto que un sitio web almacena en su dispositivo para recordar información sobre su visita.</p>
+
+  <h2>2. Categorías de cookies</h2>
+  <h3>Necesarias</h3>
+  <p>Imprescindibles para el funcionamiento del sitio: sesión, idioma y registro de su decisión de cookies. Están siempre activas.</p>
+  <h3>Analíticas</h3>
+  <p>Nos permiten entender cómo se utiliza el sitio de forma anónima y agregada (Google Analytics 4). Requieren su consentimiento.</p>
+  <h3>Marketing</h3>
+  <p>Permiten medir campañas y remarketing (por ejemplo, LinkedIn). Están preparadas pero sin código activo por defecto. Requieren su consentimiento.</p>
+
+  <h2>3. Cookies utilizadas</h2>
+  <table>
+    <thead>
+      <tr><th>Cookie</th><th>Propósito</th><th>Duración</th><th>Categoría</th></tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr><td>{r.cookie}</td><td>{r.purpose}</td><td>{r.duration}</td><td>{r.cat}</td></tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>4. Gestionar sus preferencias</h2>
+  <p>Puede cambiar su decisión en cualquier momento desde el siguiente botón o desde el enlace "Cambiar preferencias de cookies" del pie de página.</p>
+  <p><button type="button" data-open-cookie-prefs class="btn btn-primary text-sm not-prose">Gestionar preferencias de cookies</button></p>
+
+  <h2>5. Contacto</h2>
+  <p>Para cualquier consulta sobre esta política, escriba a <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+</LegalLayout>

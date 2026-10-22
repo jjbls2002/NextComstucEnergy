@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import Icon from "../../components/Icon.astro";
+
+const reasons = [
+  { icon: "shield-check", title: "Seguridad real", text: "Trabaja en una empresa donde la autoridad de parada es de verdad y la seguridad no se negocia." },
+  { icon: "award", title: "Excelencia técnica", text: "Estándares internacionales y certificaciones en cada línea de servicio." },
+  { icon: "trending-up", title: "Plan de carrera", text: "Trayectorias de crecimiento definidas y desarrollo profesional continuo." },
+  { icon: "scale", title: "Integridad", text: "Un entorno de cumplimiento donde hacer lo correcto es la norma." },
+  { icon: "users", title: "Equipo y respeto", text: "Cultura de respeto, derechos laborales y trabajo en equipo." },
+];
+
+const commitments = [
+  "Formación mínima de 40 horas/año en HSE",
+  "Plan de carrera y desarrollo profesional",
+  "Cumplimiento pleno de la LOTTT",
+  "Seguros y beneficios conforme a ley",
+];
+---
+
+<BaseLayout
+  title="Carreras | NEX Comstuct & Energy | Trabaja en Servicios Petroleros"
+  description="Únete a NEX: formación HSE 40h/año, plan de carrera, cumplimiento LOTTT y seguros. Oportunidades para ingenieros, técnicos y personal HSE del sector Oil & Gas."
+  keywords="empleo petrolero venezuela, carreras oil gas, trabajo HSE venezuela, vacantes servicios petroleros"
+  esRest="/carreras/"
+  enRest="/careers/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Carreras" }]}
+>
+  <PageHero
+    eyebrow="Carreras"
+    title="Únete al equipo que redefine los estándares del sector"
+    subtitle="Buscamos ingenieros, técnicos y personal HSE que compartan nuestra disciplina de seguridad e integridad."
+    crumbs={[{ name: "Carreras" }]}
+  />
+
+  <Section eyebrow="¿Por qué NEX?" title="Cinco razones para construir tu carrera con nosotros">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {reasons.map((r) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={r.icon} size={24} /></span>
+          <h3 class="text-lg mb-2">{r.title}</h3>
+          <p class="text-nex-gris text-sm">{r.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Nuestros compromisos" title="Lo que ofrecemos a nuestro equipo">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {commitments.map((c) => (
+        <div class="flex items-start gap-3 card">
+          <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
+          <span class="text-nex-gris">{c}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Vacantes actuales" title="Oportunidades">
+    <div class="card-navy text-center max-w-2xl mx-auto">
+      <Icon name="clipboard-check" size={32} class="text-nex-oro mx-auto mb-4" />
+      <p class="text-nex-blanco text-xl font-bold">Próximamente</p>
+      <p class="text-nex-gris mt-2">Aún no publicamos vacantes abiertas. Deja tu CV y carta de intención; te contactaremos cuando surja una posición acorde a tu perfil.</p>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Postúlate" title="Envía tu CV y carta de intención">
+    <div class="max-w-2xl">
+      <ContactForm formName="careers" withUpload={true} defaultInquiry="talent" action="/es/gracias/" />
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP } from "../../data/site";
+---
+<LegalLayout
+  title="Política de Privacidad | NEX Comstuct & Energy"
+  description="Política de tratamiento de datos personales de NEX Comstuct & Energy C.A. conforme a la Constitución y la legislación de la República Bolivariana de Venezuela."
+  esRest="/privacidad/"
+  enRest="/privacy/"
+  heading="Política de Privacidad"
+  breadcrumbLabel="Privacidad"
+  updated="Última actualización: 18 de septiembre de 2026"
+>
+  <p>{CORP.legalName} ("NEX", "nosotros") respeta la privacidad de los usuarios de este sitio web y trata los datos personales conforme a la Constitución de la República Bolivariana de Venezuela, en especial el derecho de <em>habeas data</em> (artículo 28) y la protección de la vida privada y los límites al uso de la informática (artículo 60), así como a la Ley Especial contra los Delitos Informáticos y demás normas venezolanas aplicables. Como referencia de buenas prácticas, también seguimos los principios internacionales de protección de datos.</p>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <p>{CORP.legalName}, RIF {CORP.rif}, con domicilio en {CORP.addressLine}, {CORP.city}, Estado {CORP.region}, Venezuela. Contacto: <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+
+  <h2>2. Qué datos recolectamos</h2>
+  <ul>
+    <li>Datos de identificación y contacto (nombre, empresa, cargo, email, teléfono, país).</li>
+    <li>Contenido del mensaje o consulta que usted nos envía.</li>
+    <li>Datos técnicos de navegación cuando usted acepta cookies analíticas (ver Política de Cookies).</li>
+    <li>Currículum y carta de intención, si aplica a un proceso de selección.</li>
+  </ul>
+
+  <h2>3. Finalidad y base legal</h2>
+  <p>Tratamos sus datos para: (i) atender su solicitud o consulta; (ii) elaborar propuestas comerciales o técnicas; (iii) gestionar procesos de selección de personal; (iv) analizar el uso del sitio de forma agregada. La base legal es su consentimiento libre, expreso e informado y, cuando corresponda, la ejecución de medidas precontractuales a petición suya o el cumplimiento de obligaciones legales de NEX en Venezuela.</p>
+
+  <h2>4. Retención</h2>
+  <p>Conservamos los datos durante el tiempo necesario para la finalidad para la que fueron recabados y, posteriormente, durante los plazos legales aplicables. Los CV se conservan por un máximo de doce (12) meses salvo que usted solicite su eliminación.</p>
+
+  <h2>5. Destinatarios</h2>
+  <p>No vendemos ni cedemos sus datos a terceros. Podremos utilizar proveedores tecnológicos (por ejemplo, servicios de formularios o analítica) que actúan como encargados del tratamiento bajo obligaciones de confidencialidad.</p>
+
+  <h2>6. Derechos del titular</h2>
+  <p>Usted puede ejercer sus derechos de acceso, rectificación, actualización, oposición y supresión de sus datos escribiendo a <a href={`mailto:${CORP.email}`}>{CORP.email}</a>. Atenderemos su solicitud en los plazos legales.</p>
+
+  <h2>7. Seguridad</h2>
+  <p>Aplicamos medidas técnicas y organizativas razonables para proteger sus datos frente a acceso no autorizado, pérdida o alteración.</p>
+
+  <h2>8. Cambios</h2>
+  <p>Podremos actualizar esta política. La versión vigente será siempre la publicada en esta página con su fecha de actualización.</p>
+</LegalLayout>

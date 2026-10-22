@@ -1,0 +1,103 @@
+---
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+import { navItems } from "../data/site";
+
+interface Crumb {
+  name: string;
+  href?: string;
+}
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  crumbs?: Crumb[];
+}
+const { eyebrow, title, subtitle, crumbs = [] } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const nav = navItems(lang);
+---
+
+<section class="page-hero">
+  <div class="container-nex relative text-center flex flex-col items-center">
+    <nav aria-label="Breadcrumb" class="page-hero__crumbs anim-in">
+      <a href={nav.home}>{t.nav.home}</a>
+      {crumbs.map((c) => (
+        <>
+          <span aria-hidden="true">/</span>
+          {c.href ? <a href={c.href}>{c.name}</a> : <span class="text-nex-blanco">{c.name}</span>}
+        </>
+      ))}
+    </nav>
+    {eyebrow && <p class="eyebrow mt-7 anim-in" style="animation-delay:.05s">{eyebrow}</p>}
+    <h1 class="page-hero__title text-grad-brand anim-in" style="animation-delay:.1s">{title}</h1>
+    {subtitle && <p class="page-hero__sub anim-in" style="animation-delay:.2s">{subtitle}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 150px 0 80px;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -120px;
+    left: 50%;
+    width: min(1100px, 160vw);
+    height: 560px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(47, 120, 180, 0.32), rgba(104, 176, 90, 0.08) 55%, transparent);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: min(1200px, calc(100% - 32px));
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(16, 42, 67, 0.138) 30%, rgba(16, 42, 67, 0.138) 70%, transparent);
+  }
+  .page-hero__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .page-hero__crumbs a {
+    transition: color 0.2s ease;
+  }
+  .page-hero__crumbs a:hover {
+    color: var(--nex-ink);
+  }
+  .page-hero__title {
+    max-width: 900px;
+    margin-top: 22px;
+    font-size: clamp(38px, 5.4vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+  .page-hero__sub {
+    max-width: 640px;
+    margin-top: 22px;
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.55;
+    color: #4a5863;
+    text-wrap: balance;
+  }
+  @media (max-width: 480px) {
+    .page-hero {
+      padding: 120px 0 56px;
+    }
+  }
+</style>

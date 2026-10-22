@@ -1,0 +1,160 @@
+---
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+import Icon from "./Icon.astro";
+
+interface Props {
+  formName?: string;
+  action?: string;
+  withUpload?: boolean;
+  defaultInquiry?: string;
+}
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const f = t.form;
+const {
+  formName = "contact",
+  action = lang === "es" ? "/es/gracias/" : "/en/thanks/",
+  withUpload = false,
+  defaultInquiry = "",
+} = Astro.props;
+
+const privacyHref = lang === "es" ? "/es/privacidad/" : "/en/privacy/";
+const countries = [
+  "Venezuela", "Colombia", "Guyana", "Trinidad and Tobago",
+  "United States", "United Kingdom", "España", "México", "Argentina", "Brasil",
+];
+const inquiry = f.inquiryOptions;
+const field =
+  "w-full rounded-xl border border-white/12 bg-nex-surface text-nex-blanco placeholder:text-nex-gris-dark px-4 py-2.5 outline-none transition-colors focus:border-nex-oro/70";
+const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
+---
+
+<form
+  name={formName}
+  method="POST"
+  action={action}
+  data-netlify="true"
+  netlify-honeypot="nex_hp"
+  data-contact-form
+  class="space-y-5"
+  novalidate
+>
+  <input type="hidden" name="form-name" value={formName} />
+  <input type="hidden" name="lang" value={lang} />
+  <p class="hidden" aria-hidden="true">
+    <label>No rellenar: <input name="nex_hp" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="cf-name" class={label}>{f.fullName} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+      <input id="cf-name" name="name" type="text" required autocomplete="name" aria-describedby="cf-name-err" class={field} />
+      <p id="cf-name-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
+    </div>
+    <div>
+      <label for="cf-company" class={label}>{f.company} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+      <input id="cf-company" name="company" type="text" required autocomplete="organization" class={field} />
+      <p class="hidden text-sm text-nex-danger mt-1" data-err></p>
+    </div>
+    <div>
+      <label for="cf-role" class={label}>{f.role}</label>
+      <input id="cf-role" name="role" type="text" autocomplete="organization-title" class={field} />
+    </div>
+    <div>
+      <label for="cf-email" class={label}>{f.corpEmail} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+      <input id="cf-email" name="email" type="email" required autocomplete="email" aria-describedby="cf-email-err" class={field} />
+      <p id="cf-email-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
+    </div>
+    <div>
+      <label for="cf-phone" class={label}>{f.phone}</label>
+      <input id="cf-phone" name="phone" type="tel" autocomplete="tel" class={field} />
+    </div>
+    <div>
+      <label for="cf-country" class={label}>{f.country} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+      <select id="cf-country" name="country" required class={field}>
+        <option value="">{f.selectOption}</option>
+        {countries.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for="cf-inquiry" class={label}>{f.inquiryType} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+    <select id="cf-inquiry" name="inquiry_type" required class={field}>
+      <option value="">{f.selectOption}</option>
+      <option value="proposal" selected={defaultInquiry === "proposal"}>{inquiry.proposal}</option>
+      <option value="technical" selected={defaultInquiry === "technical"}>{inquiry.technical}</option>
+      <option value="investor" selected={defaultInquiry === "investor"}>{inquiry.investor}</option>
+      <option value="talent" selected={defaultInquiry === "talent"}>{inquiry.talent}</option>
+      <option value="press" selected={defaultInquiry === "press"}>{inquiry.press}</option>
+      <option value="other" selected={defaultInquiry === "other"}>{inquiry.other}</option>
+    </select>
+  </div>
+
+  {withUpload && (
+    <div>
+      <label for="cf-cv" class={label}>CV (PDF/DOCX, máx 5MB)</label>
+      <input id="cf-cv" name="cv" type="file" accept=".pdf,.doc,.docx"
+        class="w-full rounded-xl border border-white/12 bg-nex-surface text-nex-gris px-4 py-2.5 file:mr-4 file:rounded-full file:border-0 file:bg-nex-oro file:text-nex-fondo file:px-4 file:py-1.5 file:font-semibold" />
+    </div>
+  )}
+
+  <div>
+    <label for="cf-message" class={label}>{f.message} <span class="text-nex-danger" aria-hidden="true">*</span></label>
+    <textarea id="cf-message" name="message" rows="5" required aria-describedby="cf-message-err" class={`${field} resize-y`}></textarea>
+    <p id="cf-message-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
+  </div>
+
+  <div class="flex items-start gap-3">
+    <input id="cf-consent" name="consent" type="checkbox" required
+      class="mt-1 h-5 w-5 rounded border-white/20 bg-nex-surface text-nex-oro focus:ring-nex-oro" />
+    <label for="cf-consent" class="text-sm text-nex-gris">
+      {f.consent} <span class="text-nex-danger" aria-hidden="true">*</span>
+      <span aria-hidden="true">·</span> <a href={privacyHref} class="text-nex-oro font-semibold underline underline-offset-2">{lang === "es" ? "Política de privacidad" : "Privacy policy"}</a>
+    </label>
+  </div>
+
+  <div class="pt-2">
+    <button type="submit" class="btn btn-primary w-full sm:w-auto">
+      {f.submit}
+      <Icon name="arrow-right" size={18} />
+    </button>
+  </div>
+</form>
+
+<script is:inline define:vars={{ invalidEmail: f.invalidEmail, requiredMsg: f.required }}>
+  (function () {
+    var form = document.querySelector("[data-contact-form]");
+    if (!form) return;
+    function setErr(input, msg) {
+      var wrap = input.closest("div");
+      var err = wrap && wrap.querySelector("[data-err]");
+      if (msg) {
+        input.setAttribute("aria-invalid", "true");
+        input.classList.add("border-nex-danger");
+        if (err) { err.textContent = msg; err.classList.remove("hidden"); }
+      } else {
+        input.removeAttribute("aria-invalid");
+        input.classList.remove("border-nex-danger");
+        if (err) { err.textContent = ""; err.classList.add("hidden"); }
+      }
+    }
+    form.addEventListener("submit", function (e) {
+      var ok = true;
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      form.querySelectorAll("[required]").forEach(function (el) {
+        if (el.type === "checkbox") { if (!el.checked) { ok = false; } return; }
+        if (!el.value.trim()) { setErr(el, requiredMsg); ok = false; }
+        else if (el.type === "email" && !emailRe.test(el.value.trim())) { setErr(el, invalidEmail); ok = false; }
+        else { setErr(el, ""); }
+      });
+      var hp = form.querySelector('[name="nex_hp"]');
+      if (hp && hp.value) { e.preventDefault(); return; }
+      if (!ok) {
+        e.preventDefault();
+        var first = form.querySelector('[aria-invalid="true"]');
+        if (first) first.focus();
+      }
+    });
+  })();
+</script>

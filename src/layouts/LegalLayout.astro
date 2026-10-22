@@ -1,0 +1,251 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+import { navItems } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  esRest: string;
+  enRest: string;
+  heading: string;
+  updated: string;
+  breadcrumbLabel: string;
+  /** short line under the heading */
+  intro?: string;
+}
+const { title, description, esRest, enRest, heading, updated, breadcrumbLabel, intro } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const nav = navItems(lang);
+
+const breadcrumbs = [{ name: t.nav.home, path: nav.home }, { name: breadcrumbLabel }];
+---
+
+<BaseLayout title={title} description={description} esRest={esRest} enRest={enRest} breadcrumbs={breadcrumbs}>
+  <section class="legal-hero">
+    <div class="container-nex text-center flex flex-col items-center">
+      <nav aria-label="Breadcrumb" class="legal-hero__crumbs anim-in">
+        <a href={nav.home}>{t.nav.home}</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-nex-blanco">{breadcrumbLabel}</span>
+      </nav>
+      <h1 class="legal-hero__title text-grad-brand anim-in" style="animation-delay:.05s">{heading}</h1>
+      <p class="legal-hero__updated anim-in" style="animation-delay:.1s">{updated}</p>
+      {intro && <p class="legal-hero__intro anim-in" style="animation-delay:.15s">{intro}</p>}
+      <ul class="legal-toc anim-in" style="animation-delay:.2s" data-legal-toc aria-label={lang === "es" ? "Contenido" : "Contents"}></ul>
+    </div>
+  </section>
+
+  <section class="pb-28 md:pb-36">
+    <div class="container-nex">
+      <article class="legal-prose" data-legal-body>
+        <slot />
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .legal-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 150px 0 64px;
+  }
+  .legal-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -140px;
+    left: 50%;
+    width: min(1000px, 160vw);
+    height: 520px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(47, 120, 180, 0.3), rgba(104, 176, 90, 0.07) 55%, transparent);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .legal-hero__crumbs {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .legal-hero__crumbs a:hover {
+    color: var(--nex-ink);
+  }
+  .legal-hero__title {
+    margin-top: 22px;
+    font-size: clamp(38px, 5.4vw, 64px);
+    line-height: 1.02;
+  }
+  .legal-hero__updated {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .legal-hero__intro {
+    max-width: 620px;
+    margin-top: 22px;
+    font-size: 17px;
+    line-height: 1.55;
+    color: #4a5863;
+    text-wrap: balance;
+  }
+  .legal-toc {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 900px;
+    margin-top: 36px;
+  }
+  .legal-toc:empty {
+    display: none;
+  }
+  .legal-toc a {
+    display: inline-flex;
+    align-items: center;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #33414c;
+    background: rgba(16, 42, 67, 0.04);
+    border: 1px solid rgba(16, 42, 67, 0.115);
+    transition:
+      color 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.35s var(--nex-ease);
+  }
+  .legal-toc a:hover {
+    color: var(--nex-ink);
+    background: rgba(109, 180, 217, 0.08);
+    border-color: rgba(109, 180, 217, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .legal-prose {
+    max-width: 760px;
+    margin: 0 auto;
+    padding-top: 56px;
+    border-top: 1px solid rgba(16, 42, 67, 0.092);
+    color: #5b6872;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .legal-prose > p:first-child {
+    font-size: 17px;
+    color: #4a5863;
+  }
+  .legal-prose h2 {
+    margin-top: 3rem;
+    margin-bottom: 0.875rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    color: var(--nex-ink);
+    scroll-margin-top: 110px;
+  }
+  .legal-prose h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--nex-ink);
+  }
+  .legal-prose p {
+    margin-bottom: 1rem;
+  }
+  .legal-prose ul,
+  .legal-prose ol {
+    margin-bottom: 1rem;
+    padding-left: 1.35rem;
+  }
+  .legal-prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .legal-prose ul li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+  }
+  .legal-prose ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--nex-azul-light), var(--nex-verde));
+  }
+  .legal-prose ol {
+    list-style: lower-alpha;
+  }
+  .legal-prose ol li {
+    margin-bottom: 0.5rem;
+  }
+  .legal-prose strong {
+    color: #1d2b36;
+    font-weight: 700;
+  }
+  .legal-prose a {
+    color: var(--nex-azul-light);
+    border-bottom: 1px solid rgba(109, 180, 217, 0.4);
+    transition: border-color 0.2s ease;
+  }
+  .legal-prose a:hover {
+    border-bottom-color: var(--nex-azul-light);
+  }
+  .legal-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .legal-prose th,
+  .legal-prose td {
+    border: 1px solid rgba(16, 42, 67, 0.115);
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+  }
+  .legal-prose th {
+    background: #ffffff;
+    color: var(--nex-ink);
+    font-weight: 700;
+  }
+  .legal-note {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.25rem;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f5f9fc, #ffffff);
+    border: 1px solid rgba(109, 180, 217, 0.22);
+    color: #4a5863;
+  }
+</style>
+
+<script>
+  // Builds the pill index from the article's h2 headings
+  const body = document.querySelector<HTMLElement>("[data-legal-body]");
+  const toc = document.querySelector<HTMLElement>("[data-legal-toc]");
+  if (body && toc) {
+    body.querySelectorAll("h2").forEach((h, i) => {
+      if (!h.id) h.id = `seccion-${i + 1}`;
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `#${h.id}`;
+      a.textContent = (h.textContent || "").replace(/^\d+\.\s*/, "");
+      li.appendChild(a);
+      toc.appendChild(li);
+    });
+  }
+</script>

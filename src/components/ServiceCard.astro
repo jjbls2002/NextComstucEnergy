@@ -1,0 +1,47 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  num: string;
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+  icon?: string;
+}
+const { num, title, description, href, cta, icon = "arrow-right" } = Astro.props;
+---
+
+<a href={href} class="svc-card frame group reveal">
+  <article class="card h-full flex flex-col">
+    <div class="flex items-center justify-between">
+      <span class="icon-tile"><Icon name={icon} size={24} /></span>
+      <span class="chip">{num}</span>
+    </div>
+    <h3 class="mt-7 text-[19px]">{title}</h3>
+    <span class="section-rule my-5"></span>
+    <p class="text-[#5b6872] text-[15.5px] leading-relaxed flex-grow">{description}</p>
+    <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-nex-azul-light">
+      {cta}
+      <Icon name="arrow-right" size={16} class="transition-transform duration-300 group-hover:translate-x-1" />
+    </span>
+  </article>
+</a>
+
+<style>
+  .svc-card {
+    display: block;
+    height: 100%;
+    transition: transform 0.5s var(--nex-ease), border-color 0.4s ease;
+  }
+  .svc-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(109, 180, 217, 0.2);
+  }
+  .svc-card:hover .card {
+    border-color: rgba(109, 180, 217, 0.38);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 18px 50px -12px rgba(47, 120, 180, 0.45);
+  }
+</style>

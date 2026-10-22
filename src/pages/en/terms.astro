@@ -1,0 +1,94 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP, navItems } from "../../data/site";
+
+const nav = navItems("en");
+---
+<LegalLayout
+  title="Terms & Conditions | NEX Comstuct & Energy"
+  description="Terms and conditions of use of the NEX Comstuct & Energy C.A. website, under the laws of the Bolivarian Republic of Venezuela."
+  esRest="/terminos/"
+  enRest="/terms/"
+  heading="Terms & Conditions"
+  breadcrumbLabel="Terms & Conditions"
+  updated="Last updated: October 22, 2026"
+  intro="The conditions that govern access to and use of this website, under the laws of the Bolivarian Republic of Venezuela."
+>
+  <p>These Terms and Conditions (the "Terms") govern access to and use of the website of {CORP.legalName} ("NEX"). By browsing the site, submitting a form or contacting us through it, you confirm that you have read and accepted these Terms. If you do not agree with them, please do not use the site.</p>
+
+  <div class="legal-note">This is a translation for convenience. In accordance with Article 9 of the Venezuelan Constitution, Spanish is the official language, and the <a href="/es/terminos/">Spanish version</a> prevails in case of any discrepancy.</div>
+
+  <h2>1. Site owner</h2>
+  <p>The site is owned and operated by <strong>{CORP.legalName}</strong>, a commercial company incorporated under the laws of the Bolivarian Republic of Venezuela. It is registered in the Tax Information Registry (RIF) under No. <strong>{CORP.rif}</strong>, with its registered office at {CORP.addressLine}, {CORP.city}, {CORP.region} State, Venezuela.</p>
+  <p>Contact email: <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+
+  <h2>2. Applicable legal framework</h2>
+  <p>Use of this site and these Terms are governed by Venezuelan law, in particular:</p>
+  <ul>
+    <li>The Constitution of the Bolivarian Republic of Venezuela, including Articles 28 (access to information and protection of personal data, <em>habeas data</em>), 60 (honor, privacy and limits on the use of information technology) and 98 (protection of intellectual property).</li>
+    <li>The Decree-Law on Data Messages and Electronic Signatures.</li>
+    <li>The Special Law against Computer Crimes.</li>
+    <li>The Copyright Law and the Industrial Property Law.</li>
+    <li>The Venezuelan Civil Code and Commercial Code.</li>
+    <li>The Public Procurement Law and its Regulations, where NEX takes part in procurement processes with State entities.</li>
+  </ul>
+
+  <h2>3. Purpose of the site</h2>
+  <p>The site is informational and institutional. It presents NEX, its service lines, its management system and its contact channels. The site <strong>does not sell online</strong> or process payments, so it does not create a consumer relationship under Venezuelan consumer protection rules.</p>
+
+  <h2>4. Conditions of use</h2>
+  <p>You agree to use the site lawfully, in good faith and in accordance with these Terms. In particular, you agree not to:</p>
+  <ul>
+    <li>Access systems, servers or restricted areas of the site without authorization, or intercept, interfere with or sabotage its operation. These acts are offenses under the Special Law against Computer Crimes.</li>
+    <li>Introduce viruses, malicious code or anything that could damage the site or other users' equipment.</li>
+    <li>Impersonate NEX, its representatives or third parties, or submit false information through the forms.</li>
+    <li>Extract content in bulk or by automated means without prior written authorization.</li>
+    <li>Use the site to send unsolicited advertising or for any purpose contrary to law, morality or public order.</li>
+  </ul>
+  <p>NEX may restrict access for any user who breaches these conditions, without prejudice to any legal action that may apply.</p>
+
+  <h2>5. Intellectual and industrial property</h2>
+  <p>All site content is owned by NEX or its licensors. This includes the text, the "NEX Comstuct &amp; Energy" trademark and trade name, logos, design, images, graphics and source code. This content is protected by the Copyright Law, the Industrial Property Law and the international treaties signed by Venezuela.</p>
+  <p>You may view and print content for personal, informational use, provided the source is cited. Any reproduction, distribution, public communication, transformation or commercial use requires NEX's prior written authorization.</p>
+
+  <h2>6. Technical information and proposals</h2>
+  <p>Information about services, capabilities, standards and indicators published on the site is general and for reference only. <strong>It is not a binding offer</strong> or a quotation.</p>
+  <p>Every service engagement is formalized through a specific technical and commercial proposal and the corresponding contract. If the client is a public entity or a State-owned company, the engagement is also governed by the Public Procurement Law, the bidding conditions of each procedure and the resulting contract. In case of any discrepancy, those documents prevail over the content of the site.</p>
+
+  <h2>7. Forms and electronic communications</h2>
+  <p>When you submit a form or send an email to NEX, you confirm that the information provided is truthful and, where applicable, that you are authorized to provide it on behalf of your organization.</p>
+  <p>Under the Decree-Law on Data Messages and Electronic Signatures, messages exchanged electronically have the same evidentiary value as written documents. This does not replace signing contractual documents that must be executed in writing.</p>
+
+  <h2>8. Personal data</h2>
+  <p>The processing of the personal data you provide is governed by our <a href="/en/privacy/">Privacy Policy</a> and by the <em>habeas data</em> right set out in Article 28 of the Constitution. Our use of cookies is described in the <a href="/en/cookies/">Cookie Policy</a>.</p>
+
+  <h2>9. Limitation of liability</h2>
+  <p>NEX strives to keep the information on the site accurate and up to date, but does not guarantee that it is free of errors or omissions, or that the site will be available without interruption. NEX shall not be liable for:</p>
+  <ul>
+    <li>Decisions made by the user based solely on the general information on the site.</li>
+    <li>Interruptions or technical and connectivity failures, including power or telecommunications outages beyond NEX's control.</li>
+    <li>Damage caused by third-party viruses or cyberattacks, where NEX has adopted reasonable security measures.</li>
+  </ul>
+  <p>This limitation applies to the extent permitted by Venezuelan law and does not exclude any liability for unlawful acts under the Civil Code.</p>
+
+  <h2>10. Fortuitous events and force majeure</h2>
+  <p>NEX shall not be liable for any failure or delay in its obligations relating to the site caused by an external cause not attributable to it, a fortuitous event or force majeure, in accordance with Article 1,272 of the Civil Code.</p>
+
+  <h2>11. Third-party links</h2>
+  <p>The site may include links to third-party sites, such as maps, social networks or regulatory bodies. NEX does not control these sites and is not responsible for their content, availability or privacy policies. Users access them at their own responsibility.</p>
+
+  <h2>12. Language</h2>
+  <p>The site is offered in Spanish and English. In accordance with Article 9 of the Constitution, Spanish (Castilian) is the official language. In case of any discrepancy between the two versions of these Terms, the Spanish version prevails.</p>
+
+  <h2>13. Changes</h2>
+  <p>NEX may amend these Terms at any time to reflect changes in legislation, operations or the site itself. The current version will always be the one published on this page with its update date. Continued use of the site after publication means you accept the changes.</p>
+
+  <h2>14. Severability</h2>
+  <p>If any provision of these Terms is declared void or unenforceable by a competent authority, the remaining provisions shall remain fully valid and effective.</p>
+
+  <h2>15. Governing law and jurisdiction</h2>
+  <p>These Terms are governed by and construed in accordance with the laws of the Bolivarian Republic of Venezuela. The parties will seek to resolve any dispute amicably. Failing that, and in accordance with Article 32 of the Civil Code, the city of {CORP.city} is chosen as special domicile, and the parties submit to its jurisdiction. Disputes will be heard by the competent courts of the Judicial District of {CORP.region} State, without prejudice to any mandatory rules on jurisdiction.</p>
+
+  <h2>16. Contact</h2>
+  <p>For any question about these Terms, write to <a href={`mailto:${CORP.email}`}>{CORP.email}</a> or use our <a href={nav.contact}>contact form</a>.</p>
+</LegalLayout>

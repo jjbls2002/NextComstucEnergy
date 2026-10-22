@@ -1,0 +1,32 @@
+---
+// Root redirect. Detects nex_lang cookie / Accept-Language on the client,
+// defaults to Spanish. Server-side detection can be added at the edge (see README).
+const esUrl = "/es/";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NEX Comstuct & Energy C.A.</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://nexconstructenergy.com/es/" />
+    <meta http-equiv="refresh" content={`0; url=${esUrl}`} />
+    <script is:inline>
+      (function () {
+        function getCookie(name) {
+          var m = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
+          return m ? m.pop() : "";
+        }
+        var saved = getCookie("nex_lang");
+        var lang = saved || (navigator.language || "es").slice(0, 2).toLowerCase();
+        var target = lang === "en" ? "/en/" : "/es/";
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirigiendo… <a href="/es/">Español</a> · <a href="/en/">English</a></p>
+  </body>
+</html>

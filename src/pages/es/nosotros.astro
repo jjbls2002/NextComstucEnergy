@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { CORP, navItems } from "../../data/site";
+
+const lang = "es";
+const nav = navItems(lang);
+
+const ficha = [
+  { k: "Razón social", v: CORP.legalName },
+  { k: "Forma legal", v: "Compañía Anónima (C.A.)" },
+  { k: "RIF", v: CORP.rif },
+  { k: "Domicilio", v: `${CORP.addressLine}, ${CORP.city}, Estado ${CORP.region}, Venezuela` },
+  { k: "Presidente", v: CORP.president },
+  { k: "Año de constitución", v: CORP.founded },
+];
+
+const values = [
+  { icon: "shield-check", title: "Seguridad primero", text: "Ninguna meta operativa justifica una desviación en seguridad." },
+  { icon: "scale", title: "Integridad", text: "Cumplimiento anticorrupción integrado: FCPA, UKBA y OFAC." },
+  { icon: "bar-chart", title: "Disciplina financiera", text: "Control de costos, trazabilidad y rendición de cuentas." },
+  { icon: "leaf", title: "Compromiso ambiental", text: "Prevención, remediación y cumplimiento de la normativa ambiental." },
+  { icon: "award", title: "Excelencia técnica", text: "Personal certificado y estándares internacionales en cada línea." },
+  { icon: "users", title: "Respeto", text: "Derechos humanos, comunidades y equipo, según los Principios Rectores ONU." },
+];
+
+const governance = [
+  { level: "01", title: "Asamblea de Accionistas", text: "Máxima instancia de decisión y control societario." },
+  { level: "02", title: "Presidencia", text: "Dirección estratégica y representación institucional." },
+  { level: "03", title: "Gerencias funcionales", text: "Operaciones, HSE, Administración y Comercial." },
+  { level: "04", title: "Supervisión y campo", text: "Ejecución técnica con responsables de línea y HSE en sitio." },
+];
+---
+
+<BaseLayout
+  title="Sobre NEX Comstuct & Energy | Empresa Venezolana de Servicios Petroleros"
+  description="NEX es una empresa venezolana constituida en Valle de la Pascua, Estado Guárico, con visión 2031 de USD 7M facturados y calificación IOC. Conócenos."
+  keywords="empresa servicios petroleros venezuela, NEX Comstuct Energy, contratista petrolero guarico, sobre nosotros"
+  esRest="/nosotros/"
+  enRest="/about/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Nosotros" }]}
+>
+  <PageHero
+    eyebrow="Nosotros"
+    title="Quiénes somos"
+    subtitle="Una empresa venezolana de servicios petroleros construida desde el día uno como una institución: documentada, auditable y alineada a estándares internacionales."
+    crumbs={[{ name: "Nosotros" }]}
+  />
+
+  <!-- Identidad corporativa -->
+  <Section eyebrow="Identidad corporativa" title="Ficha técnica">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <dl class="divide-y divide-white/10 border-y border-white/10">
+        {ficha.map((r) => (
+          <div class="py-4 sm:flex sm:justify-between gap-6">
+            <dt class="text-sm font-bold uppercase tracking-wide text-nex-gris">{r.k}</dt>
+            <dd class="text-nex-blanco font-semibold sm:text-right">{r.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="card-navy">
+        <h3 class="text-nex-blanco text-xl">Nuestro propósito</h3>
+        <p class="mt-4 text-nex-gris">Prestar servicios petroleros de calidad internacional en Venezuela y la región, con un sistema de gestión que permita a PDVSA, a las operadoras internacionales y a la banca de desarrollo confiar en NEX como proveedor serio y verificable.</p>
+        <p class="mt-4 text-nex-oro font-semibold">{CORP.slogan[lang]}</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Historia -->
+  <Section variant="off-white" eyebrow="Trayectoria" title="Historia y trayectoria">
+    <div class="max-w-3xl prose-nex">
+      <p>NEX Comstuct & Energy C.A. nace en Valle de la Pascua, Estado Guárico, en el corazón operativo de la industria de hidrocarburos venezolana. Desde su constitución, la empresa priorizó lo que la mayoría de los contratistas deja para el final: un sistema documental completo, matrices de riesgo por línea de servicio y un marco de cumplimiento internacional.</p>
+      <p>Ese orden de prioridades es deliberado. NEX se concibe para operar con PDVSA, con las operadoras internacionales presentes en el país y con el mercado regional emergente: clientes que exigen trazabilidad, disciplina HSE y transparencia antes de adjudicar un solo contrato.</p>
+    </div>
+  </Section>
+
+  <!-- Misión / Visión -->
+  <Section eyebrow="Rumbo" title="Misión y Visión 2031">
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="target" size={26} /></span>
+        <h3 class="text-xl mb-3">Misión</h3>
+        <p class="text-nex-gris">Prestar servicios petroleros seguros, ambientalmente responsables y técnicamente excelentes, sostenidos por un sistema de gestión auditable y un compromiso inquebrantable con la integridad.</p>
+      </div>
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="trending-up" size={26} /></span>
+        <h3 class="text-xl mb-3">Visión 2031</h3>
+        <p class="text-nex-gris">Ser una empresa de servicios petroleros calificada por operadoras internacionales, con USD 7M facturados anuales, certificaciones ISO 9001/14001/45001 y presencia consolidada en Venezuela y el mercado regional.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Valores -->
+  <Section variant="off-white" eyebrow="Valores" title="Seis principios que gobiernan cada decisión">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {values.map((v) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={v.icon} size={24} /></span>
+          <h3 class="text-lg mb-2">{v.title}</h3>
+          <p class="text-nex-gris text-[0.95rem]">{v.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Gobernanza -->
+  <Section eyebrow="Gobernanza corporativa" title="Una estructura de cuatro niveles">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {governance.map((g) => (
+        <article class="card h-full">
+          <span class="num-badge mb-4">{g.level}</span>
+          <h3 class="text-base mb-2">{g.title}</h3>
+          <p class="text-nex-gris text-sm">{g.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Ubicación -->
+  <Section variant="navy" eyebrow="Ubicación estratégica" title="Valle de la Pascua, un centro operativo natural">
+    <div class="grid gap-8 lg:grid-cols-2 items-center">
+      <div>
+        <p class="text-nex-gris text-lg">Nuestra base equidista de las tres grandes zonas productoras del país, lo que permite tiempos de respuesta cortos y logística eficiente.</p>
+        <div class="mt-8 space-y-4">
+          {[
+            { name: "Faja Petrolífera del Orinoco", note: "La mayor reserva de crudo del mundo." },
+            { name: "Cuenca Oriental de Venezuela", note: "Producción convencional consolidada." },
+            { name: "Cuenca Barinas-Apure", note: "Operaciones al occidente del país." },
+          ].map((z) => (
+            <div class="flex items-start gap-4 border-l-2 border-nex-gold pl-4">
+              <Icon name="map-pin" size={22} class="text-nex-oro mt-1 shrink-0" />
+              <div>
+                <p class="text-nex-blanco font-semibold">{z.name}</p>
+                <p class="text-nex-gris text-sm">{z.note}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="rounded-lg overflow-hidden border border-white/10 aspect-[4/3]">
+        <!-- Mapa de Valle de la Pascua (OpenStreetMap) -->
+        <iframe
+          title="Mapa de Valle de la Pascua, Guárico"
+          class="w-full h-full"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-66.05%2C9.16%2C-65.95%2C9.24&layer=mapnik&marker=9.2116%2C-66.0055"
+        ></iframe>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="¿Listo para evaluar a NEX?"
+    text="Solicite nuestra ficha corporativa y credenciales técnicas."
+    ctaLabel="Solicitar propuesta"
+    ctaHref={nav.contact}
+    secondaryLabel="Ver servicios"
+    secondaryHref={nav.services}
+  />
+</BaseLayout>

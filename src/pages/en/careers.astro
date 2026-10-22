@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import Icon from "../../components/Icon.astro";
+
+const reasons = [
+  { icon: "shield-check", title: "Real safety", text: "Work at a company where stop-work authority is real and safety is not negotiable." },
+  { icon: "award", title: "Technical excellence", text: "International standards and certifications on every service line." },
+  { icon: "trending-up", title: "Career path", text: "Defined growth trajectories and continuous professional development." },
+  { icon: "scale", title: "Integrity", text: "A compliance environment where doing the right thing is the norm." },
+  { icon: "users", title: "Team and respect", text: "A culture of respect, labor rights and teamwork." },
+];
+
+const commitments = [
+  "Minimum 40 hours/year of HSE training",
+  "Career path and professional development",
+  "Full compliance with the LOTTT labor law",
+  "Insurance and legally mandated benefits",
+];
+---
+
+<BaseLayout
+  title="Careers | NEX Comstuct & Energy | Work in Oil & Gas Services"
+  description="Join NEX: 40h/year HSE training, career path, LOTTT compliance and insurance. Opportunities for engineers, technicians and HSE staff in the Oil & Gas sector."
+  keywords="oil gas jobs venezuela, oil gas careers, HSE work venezuela, oil services vacancies"
+  esRest="/carreras/"
+  enRest="/careers/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Careers" }]}
+>
+  <PageHero
+    eyebrow="Careers"
+    title="Join the team redefining the sector's standards"
+    subtitle="We seek engineers, technicians and HSE staff who share our discipline of safety and integrity."
+    crumbs={[{ name: "Careers" }]}
+  />
+
+  <Section eyebrow="Why NEX?" title="Five reasons to build your career with us">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {reasons.map((r) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={r.icon} size={24} /></span>
+          <h3 class="text-lg mb-2">{r.title}</h3>
+          <p class="text-nex-gris text-sm">{r.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Our commitments" title="What we offer our team">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {commitments.map((c) => (
+        <div class="flex items-start gap-3 card">
+          <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
+          <span class="text-nex-gris">{c}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Current openings" title="Opportunities">
+    <div class="card-navy text-center max-w-2xl mx-auto">
+      <Icon name="clipboard-check" size={32} class="text-nex-oro mx-auto mb-4" />
+      <p class="text-nex-blanco text-xl font-bold">Coming soon</p>
+      <p class="text-nex-gris mt-2">We have no open vacancies posted yet. Leave your CV and cover letter; we will contact you when a position matching your profile arises.</p>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Apply" title="Send your CV and cover letter">
+    <div class="max-w-2xl">
+      <ContactForm formName="careers" withUpload={true} defaultInquiry="talent" action="/en/thanks/" />
+    </div>
+  </Section>
+</BaseLayout>

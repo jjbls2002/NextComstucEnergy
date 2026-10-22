@@ -1,0 +1,92 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP, navItems } from "../../data/site";
+
+const nav = navItems("es");
+---
+<LegalLayout
+  title="Términos y Condiciones | NEX Comstuct & Energy"
+  description="Términos y condiciones de uso del sitio web de NEX Comstuct & Energy C.A., conforme a la legislación de la República Bolivariana de Venezuela."
+  esRest="/terminos/"
+  enRest="/terms/"
+  heading="Términos y Condiciones"
+  breadcrumbLabel="Términos y Condiciones"
+  updated="Última actualización: 22 de octubre de 2026"
+  intro="Las condiciones que rigen el acceso y uso de este sitio web, conforme a la legislación de la República Bolivariana de Venezuela."
+>
+  <p>Estos Términos y Condiciones (los "Términos") regulan el acceso y uso del sitio web de {CORP.legalName} (en adelante, "NEX"). Al navegar por el sitio, enviar un formulario o comunicarse con nosotros a través de él, usted declara haber leído y aceptado estos Términos. Si no está de acuerdo con ellos, le pedimos abstenerse de utilizar el sitio.</p>
+
+  <h2>1. Identificación del titular</h2>
+  <p>El sitio es propiedad de y está administrado por <strong>{CORP.legalName}</strong>, sociedad mercantil constituida conforme a las leyes de la República Bolivariana de Venezuela, inscrita en el Registro de Información Fiscal (RIF) bajo el N° <strong>{CORP.rif}</strong>, con domicilio en {CORP.addressLine}, {CORP.city}, Estado {CORP.region}, Venezuela.</p>
+  <p>Correo de contacto: <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+
+  <h2>2. Marco legal aplicable</h2>
+  <p>El uso de este sitio y estos Términos se rigen por el ordenamiento jurídico venezolano y, en particular, por:</p>
+  <ul>
+    <li>La Constitución de la República Bolivariana de Venezuela, incluidos sus artículos 28 (acceso a la información y protección de datos personales, <em>habeas data</em>), 60 (honor, vida privada y limitación del uso de la informática) y 98 (protección de la propiedad intelectual).</li>
+    <li>El Decreto con Fuerza de Ley sobre Mensajes de Datos y Firmas Electrónicas.</li>
+    <li>La Ley Especial contra los Delitos Informáticos.</li>
+    <li>La Ley sobre el Derecho de Autor y la Ley de Propiedad Industrial.</li>
+    <li>El Código Civil y el Código de Comercio venezolanos.</li>
+    <li>La Ley de Contrataciones Públicas y su Reglamento, cuando NEX participe en procesos de contratación con entes del Estado.</li>
+  </ul>
+
+  <h2>3. Objeto del sitio</h2>
+  <p>El sitio tiene carácter informativo e institucional. Presenta a NEX, sus líneas de servicio, su sistema de gestión y sus canales de contacto. El sitio <strong>no realiza ventas en línea</strong> ni procesa pagos, por lo que no constituye una relación de consumo en los términos de la normativa venezolana de protección al consumidor.</p>
+
+  <h2>4. Condiciones de uso</h2>
+  <p>El usuario se compromete a utilizar el sitio de forma lícita, de buena fe y conforme a estos Términos. En particular, se obliga a no:</p>
+  <ul>
+    <li>Acceder sin autorización a sistemas, servidores o áreas restringidas del sitio, ni interceptar, interferir o sabotear su funcionamiento, conductas tipificadas en la Ley Especial contra los Delitos Informáticos.</li>
+    <li>Introducir virus, código malicioso o cualquier elemento que pueda dañar el sitio o los equipos de otros usuarios.</li>
+    <li>Suplantar la identidad de NEX, de sus representantes o de terceros, o enviar información falsa a través de los formularios.</li>
+    <li>Extraer contenidos de forma masiva o automatizada sin autorización previa y por escrito.</li>
+    <li>Utilizar el sitio para enviar publicidad no solicitada o para cualquier fin contrario a la ley, la moral o el orden público.</li>
+  </ul>
+  <p>NEX podrá restringir el acceso de cualquier usuario que incumpla estas condiciones, sin perjuicio de las acciones legales que correspondan.</p>
+
+  <h2>5. Propiedad intelectual e industrial</h2>
+  <p>Todos los contenidos del sitio son titularidad de NEX o de sus licenciantes. Esto incluye los textos, la marca y denominación comercial "NEX Comstuct &amp; Energy", los logotipos, el diseño, las imágenes, los gráficos y el código fuente. Estos contenidos están protegidos por la Ley sobre el Derecho de Autor, la Ley de Propiedad Industrial y los tratados internacionales suscritos por Venezuela.</p>
+  <p>Se permite visualizar e imprimir contenidos para uso personal e informativo, siempre que se cite la fuente. Cualquier reproducción, distribución, comunicación pública, transformación o uso comercial requiere la autorización previa y por escrito de NEX.</p>
+
+  <h2>6. Información técnica y propuestas</h2>
+  <p>La información sobre servicios, capacidades, estándares e indicadores publicada en el sitio es de carácter general y referencial. <strong>No constituye una oferta vinculante</strong> ni una cotización.</p>
+  <p>Toda prestación de servicios se formaliza mediante una propuesta técnica y económica específica y el contrato correspondiente. Si el cliente es un ente público o una empresa del Estado, la prestación se rige además por la Ley de Contrataciones Públicas, el pliego de condiciones de cada procedimiento y el contrato que resulte de él. En caso de discrepancia, prevalecen esos documentos sobre el contenido del sitio.</p>
+
+  <h2>7. Formularios y comunicaciones electrónicas</h2>
+  <p>Al enviar un formulario o un correo electrónico a NEX, usted declara que la información suministrada es veraz y que está autorizado para facilitarla en nombre de su organización, si fuese el caso.</p>
+  <p>Conforme al Decreto con Fuerza de Ley sobre Mensajes de Datos y Firmas Electrónicas, los mensajes intercambiados por medios electrónicos tienen la misma eficacia probatoria que los documentos escritos. Esto no sustituye la firma de los documentos contractuales que deban otorgarse por escrito.</p>
+
+  <h2>8. Datos personales</h2>
+  <p>El tratamiento de los datos personales que usted nos suministre se rige por nuestra <a href="/es/privacidad/">Política de Privacidad</a> y por el derecho de <em>habeas data</em> consagrado en el artículo 28 de la Constitución. El uso de cookies se describe en la <a href="/es/cookies/">Política de Cookies</a>.</p>
+
+  <h2>9. Limitación de responsabilidad</h2>
+  <p>NEX procura que la información del sitio sea exacta y esté actualizada, pero no garantiza la ausencia de errores u omisiones ni la disponibilidad ininterrumpida del sitio. NEX no será responsable por:</p>
+  <ul>
+    <li>Las decisiones que el usuario tome basándose exclusivamente en la información general del sitio.</li>
+    <li>Las interrupciones, fallas técnicas o de conectividad, incluidas las fallas del servicio eléctrico o de telecomunicaciones ajenas a NEX.</li>
+    <li>Los daños causados por virus o ataques informáticos de terceros, cuando NEX haya adoptado medidas de seguridad razonables.</li>
+  </ul>
+  <p>Esta limitación se aplica en la medida permitida por la ley venezolana y no excluye la responsabilidad que corresponda por hecho ilícito conforme al Código Civil.</p>
+
+  <h2>10. Caso fortuito y fuerza mayor</h2>
+  <p>NEX no será responsable por el incumplimiento o retraso de sus obligaciones relacionadas con el sitio cuando se deba a una causa extraña no imputable, caso fortuito o fuerza mayor, conforme al artículo 1.272 del Código Civil.</p>
+
+  <h2>11. Enlaces a sitios de terceros</h2>
+  <p>El sitio puede incluir enlaces a sitios de terceros, como mapas, redes sociales o entes regulatorios. NEX no controla esos sitios ni es responsable de su contenido, disponibilidad o políticas de privacidad. El acceso a ellos es responsabilidad del usuario.</p>
+
+  <h2>12. Idioma</h2>
+  <p>El sitio se ofrece en español y en inglés. Conforme al artículo 9 de la Constitución, el castellano es el idioma oficial. En caso de discrepancia entre ambas versiones de estos Términos, prevalecerá la versión en español.</p>
+
+  <h2>13. Modificaciones</h2>
+  <p>NEX podrá modificar estos Términos en cualquier momento para adaptarlos a cambios legislativos, operativos o del propio sitio. La versión vigente será siempre la publicada en esta página con su fecha de actualización. El uso continuado del sitio después de su publicación implica la aceptación de los cambios.</p>
+
+  <h2>14. Divisibilidad</h2>
+  <p>Si alguna disposición de estos Términos fuese declarada nula o inaplicable por autoridad competente, las demás mantendrán su plena validez y eficacia.</p>
+
+  <h2>15. Ley aplicable y jurisdicción</h2>
+  <p>Estos Términos se rigen e interpretan conforme a las leyes de la República Bolivariana de Venezuela. Las partes procurarán resolver cualquier controversia de forma amistosa. De no lograrse, y conforme al artículo 32 del Código Civil, se elige como domicilio especial la ciudad de {CORP.city}, a cuya jurisdicción se someten las partes. Las controversias se conocerán ante los tribunales competentes de la Circunscripción Judicial del Estado {CORP.region}, sin perjuicio de las normas de competencia que sean de orden público.</p>
+
+  <h2>16. Contacto</h2>
+  <p>Para cualquier consulta sobre estos Términos, escríbanos a <a href={`mailto:${CORP.email}`}>{CORP.email}</a> o use nuestro <a href={nav.contact}>formulario de contacto</a>.</p>
+</LegalLayout>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import StatCard from "../../components/StatCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { navItems } from "../../data/site";
+
+const lang = "en";
+const nav = navItems(lang);
+
+const figures = [
+  { value: "USD 7.3M", label: "Projected revenue, year 5" },
+  { value: "~33%", label: "EBITDA margin, year 5" },
+  { value: "USD 750K", label: "Seed capital" },
+  { value: "~150%", label: "Base ROI, year 3" },
+];
+
+const governance = [
+  { icon: "file-text", title: "Auditable financial model", text: "Projections backed by verifiable assumptions and formal accounting from the start." },
+  { icon: "scale", title: "Integrated compliance", text: "FCPA, UKBA and OFAC built in, reducing reputational and legal risk for the investor." },
+  { icon: "users", title: "Clear governance", text: "Four-level corporate structure with accountability and control." },
+];
+---
+
+<BaseLayout
+  title="Investors | NEX Comstuct & Energy | Business Plan 2026-2031"
+  description="Investment opportunity in NEX: USD 7.3M revenue projection year 5, 33% EBITDA margin, 150% base ROI. USD 3.72M identified pipeline. Auditable financial model."
+  keywords="oil gas investment venezuela, oil business plan, oil gas investment opportunity, oil EBITDA"
+  esRest="/inversionistas/"
+  enRest="/investors/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Investors" }]}
+>
+  <PageHero
+    eyebrow="Investors"
+    title="Take part in the growth of an institutionally solid company"
+    subtitle="NEX combines a large-scale market with the institutional discipline that development banks and private investors require."
+    crumbs={[{ name: "Investors" }]}
+  />
+
+  <Section eyebrow="Business Plan 2026–2031" title="Key figures" center>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {figures.map((f) => <StatCard value={f.value} label={f.label} />)}
+    </div>
+    <p class="mt-6 text-center text-sm text-nex-gris max-w-2xl mx-auto">Business Plan projections. The full assumptions and financial model are available under a confidentiality agreement.</p>
+  </Section>
+
+  <Section variant="navy" eyebrow="Commercial pipeline" title="Identified opportunities">
+    <div class="grid gap-8 lg:grid-cols-[1fr_1.4fr] items-center">
+      <div class="text-center lg:text-left">
+        <div class="text-6xl font-extrabold text-nex-oro">12</div>
+        <p class="text-nex-blanco text-lg mt-2">identified commercial opportunities</p>
+        <div class="text-4xl font-extrabold text-nex-oro mt-6">USD 3.72M</div>
+        <p class="text-nex-gris mt-2">in potential pipeline value</p>
+      </div>
+      <div class="card bg-nex-surface/5 border border-white/10">
+        <p class="text-nex-gris">The pipeline combines workover, remediation and welding services for PDVSA, joint ventures and international operators, spread across the Orinoco Belt, the Eastern Basin and the Barinas-Apure Basin.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="Governance and transparency" title="Why NEX reduces investor risk">
+    <div class="grid gap-6 md:grid-cols-3">
+      {governance.map((g) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={g.icon} size={26} /></span>
+          <h3 class="text-lg mb-2">{g.title}</h3>
+          <p class="text-nex-gris text-sm">{g.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Documentation" title="Available under NDA">
+    <div class="card max-w-3xl">
+      <p class="text-nex-gris">The full Business Plan, financial model and detailed pipeline are shared upon signing a confidentiality agreement. Request them selecting "Investor" as the inquiry type.</p>
+      <ul class="mt-5 space-y-2">
+        {["Business Plan 2026–2031", "Financial model and assumptions", "Detailed commercial pipeline", "Round structure and use of funds"].map((x) => (
+          <li class="flex items-center gap-3 text-nex-gris">
+            <span class="text-nex-oro"><Icon name="file-text" size={18} /></span>{x}
+          </li>
+        ))}
+      </ul>
+      <a href={nav.contact} class="btn btn-primary mt-6">Request under NDA <Icon name="arrow-right" size={18} /></a>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Let's schedule a meeting"
+    text="Let's discuss the investment thesis and use of funds."
+    ctaLabel="Schedule meeting"
+    ctaHref={nav.contact}
+  />
+</BaseLayout>

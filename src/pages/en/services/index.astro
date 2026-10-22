@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import Section from "../../../components/Section.astro";
+import CtaBand from "../../../components/CtaBand.astro";
+import Icon from "../../../components/Icon.astro";
+import { SERVICES, servicePath, navItems } from "../../../data/site";
+import { SERVICE_CONTENT } from "../../../data/services";
+
+const lang = "en";
+const nav = navItems(lang);
+---
+
+<BaseLayout
+  title="Oil & Gas Services | Workover, Environmental, Welding, Supply, Engineering | NEX"
+  description="Five oil & gas service lines under one standard: workover, environmental remediation, industrial welding, supply and engineering. HSE and international compliance."
+  keywords="oil gas services venezuela, workover, environmental remediation, industrial welding, oil supply, petroleum engineering"
+  esRest="/servicios/"
+  enRest="/services/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Services" }]}
+>
+  <PageHero
+    eyebrow="Services"
+    title="Five complementary lines, one standard"
+    subtitle="Every service is executed under the same documentary system, the same HSE discipline and the same international compliance framework."
+    crumbs={[{ name: "Services" }]}
+  />
+
+  {SERVICES.map((s, i) => {
+    const c = SERVICE_CONTENT[s.key][lang];
+    const reversed = i % 2 === 1;
+    return (
+      <Section variant={reversed ? "off-white" : "white"}>
+        <div class="grid gap-10 lg:grid-cols-2 items-center">
+          <div class={reversed ? "lg:order-2" : ""}>
+            <div class="flex items-center gap-4 mb-5">
+              <span class="num-badge">{s.num}</span>
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-fondo-alt text-nex-oro"><Icon name={c.icon} size={24} /></span>
+            </div>
+            <h2 class="text-2xl md:text-3xl mb-4">{s.title[lang]}</h2>
+            <p class="text-nex-gris mb-5">{c.summary}</p>
+            <a href={servicePath(lang, s.key)} class="inline-flex items-center gap-2 font-bold text-nex-blanco hover:text-nex-oro transition-colors">
+              Learn more
+              <Icon name="arrow-right" size={18} />
+            </a>
+          </div>
+          <div class={reversed ? "lg:order-1" : ""}>
+            <div class="card">
+              <p class="text-sm font-bold uppercase tracking-wide text-nex-gris mb-4">Applicable standards</p>
+              <div class="flex flex-wrap gap-2">
+                {c.standards.slice(0, 8).map((st) => <span class="chip">{st}</span>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+    );
+  })}
+
+  <CtaBand
+    title="What does your operation need?"
+    text="We combine several lines for a single project. Tell us your scope."
+    ctaLabel="Request proposal"
+    ctaHref={nav.contact}
+  />
+</BaseLayout>

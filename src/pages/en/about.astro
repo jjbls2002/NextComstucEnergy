@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Section from "../../components/Section.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import { CORP, navItems } from "../../data/site";
+
+const lang = "en";
+const nav = navItems(lang);
+
+const ficha = [
+  { k: "Legal name", v: CORP.legalName },
+  { k: "Legal form", v: "Compañía Anónima (C.A.)" },
+  { k: "Tax ID (RIF)", v: CORP.rif },
+  { k: "Registered office", v: `${CORP.addressLine}, ${CORP.city}, ${CORP.region} State, Venezuela` },
+  { k: "President", v: CORP.president },
+  { k: "Year incorporated", v: CORP.founded },
+];
+
+const values = [
+  { icon: "shield-check", title: "Safety first", text: "No operational target justifies a safety deviation." },
+  { icon: "scale", title: "Integrity", text: "Built-in anti-corruption compliance: FCPA, UKBA and OFAC." },
+  { icon: "bar-chart", title: "Financial discipline", text: "Cost control, traceability and accountability." },
+  { icon: "leaf", title: "Environmental commitment", text: "Prevention, remediation and compliance with environmental law." },
+  { icon: "award", title: "Technical excellence", text: "Certified personnel and international standards on every line." },
+  { icon: "users", title: "Respect", text: "Human rights, communities and team, per the UN Guiding Principles." },
+];
+
+const governance = [
+  { level: "01", title: "Shareholders' Assembly", text: "Highest decision-making and corporate control body." },
+  { level: "02", title: "Presidency", text: "Strategic direction and institutional representation." },
+  { level: "03", title: "Functional management", text: "Operations, HSE, Administration and Commercial." },
+  { level: "04", title: "Supervision & field", text: "Technical execution with line and on-site HSE leads." },
+];
+---
+
+<BaseLayout
+  title="About NEX Comstuct & Energy | Venezuelan Oil & Gas Services Company"
+  description="NEX is a Venezuelan company based in Valle de la Pascua, Guárico State, with a 2031 vision of USD 7M revenue and IOC qualification."
+  keywords="oil gas services company venezuela, NEX Comstuct Energy, oilfield contractor guarico, about us"
+  esRest="/nosotros/"
+  enRest="/about/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "About" }]}
+>
+  <PageHero
+    eyebrow="About"
+    title="Who we are"
+    subtitle="A Venezuelan oil & gas services company built from day one as an institution: documented, auditable and aligned with international standards."
+    crumbs={[{ name: "About" }]}
+  />
+
+  <Section eyebrow="Corporate identity" title="Company profile">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <dl class="divide-y divide-white/10 border-y border-white/10">
+        {ficha.map((r) => (
+          <div class="py-4 sm:flex sm:justify-between gap-6">
+            <dt class="text-sm font-bold uppercase tracking-wide text-nex-gris">{r.k}</dt>
+            <dd class="text-nex-blanco font-semibold sm:text-right">{r.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="card-navy">
+        <h3 class="text-nex-blanco text-xl">Our purpose</h3>
+        <p class="mt-4 text-nex-gris">To deliver oil & gas services at international standard in Venezuela and the region, with a management system that lets PDVSA, international operators and development banks trust NEX as a serious, verifiable supplier.</p>
+        <p class="mt-4 text-nex-oro font-semibold">{CORP.slogan[lang]}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Track record" title="History and trajectory">
+    <div class="max-w-3xl prose-nex">
+      <p>NEX Comstuct & Energy C.A. was founded in Valle de la Pascua, Guárico State, at the operational heart of Venezuela's hydrocarbon industry. From incorporation, the company prioritized what most contractors leave for last: a complete documentary system, risk matrices per service line and an international compliance framework.</p>
+      <p>That order of priorities is deliberate. NEX is designed to work with PDVSA, with the international operators present in the country and with the emerging regional market: clients that demand traceability, HSE discipline and transparency before awarding a single contract.</p>
+    </div>
+  </Section>
+
+  <Section eyebrow="Direction" title="Mission and 2031 Vision">
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="target" size={26} /></span>
+        <h3 class="text-xl mb-3">Mission</h3>
+        <p class="text-nex-gris">To deliver safe, environmentally responsible and technically excellent oil & gas services, backed by an auditable management system and an unwavering commitment to integrity.</p>
+      </div>
+      <div class="card">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="trending-up" size={26} /></span>
+        <h3 class="text-xl mb-3">2031 Vision</h3>
+        <p class="text-nex-gris">To be an oil & gas services company qualified by international operators, with USD 7M in annual revenue, ISO 9001/14001/45001 certifications and a consolidated presence in Venezuela and the regional market.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="off-white" eyebrow="Values" title="Six principles that govern every decision">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {values.map((v) => (
+        <article class="card h-full">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={v.icon} size={24} /></span>
+          <h3 class="text-lg mb-2">{v.title}</h3>
+          <p class="text-nex-gris text-[0.95rem]">{v.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Corporate governance" title="A four-level structure">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {governance.map((g) => (
+        <article class="card h-full">
+          <span class="num-badge mb-4">{g.level}</span>
+          <h3 class="text-base mb-2">{g.title}</h3>
+          <p class="text-nex-gris text-sm">{g.text}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="navy" eyebrow="Strategic location" title="Valle de la Pascua, a natural operating hub">
+    <div class="grid gap-8 lg:grid-cols-2 items-center">
+      <div>
+        <p class="text-nex-gris text-lg">Our base is equidistant from the country's three major producing zones, enabling short response times and efficient logistics.</p>
+        <div class="mt-8 space-y-4">
+          {[
+            { name: "Orinoco Oil Belt", note: "The largest crude reserve in the world." },
+            { name: "Eastern Basin of Venezuela", note: "Consolidated conventional production." },
+            { name: "Barinas-Apure Basin", note: "Operations in the west of the country." },
+          ].map((z) => (
+            <div class="flex items-start gap-4 border-l-2 border-nex-gold pl-4">
+              <Icon name="map-pin" size={22} class="text-nex-oro mt-1 shrink-0" />
+              <div>
+                <p class="text-nex-blanco font-semibold">{z.name}</p>
+                <p class="text-nex-gris text-sm">{z.note}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="rounded-lg overflow-hidden border border-white/10 aspect-[4/3]">
+        <iframe
+          title="Map of Valle de la Pascua, Guárico"
+          class="w-full h-full"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-66.05%2C9.16%2C-65.95%2C9.24&layer=mapnik&marker=9.2116%2C-66.0055"
+        ></iframe>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Ready to evaluate NEX?"
+    text="Request our corporate profile and technical credentials."
+    ctaLabel="Request proposal"
+    ctaHref={nav.contact}
+    secondaryLabel="View services"
+    secondaryHref={nav.services}
+  />
+</BaseLayout>

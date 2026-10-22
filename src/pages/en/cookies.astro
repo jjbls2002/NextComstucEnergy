@@ -1,0 +1,52 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import { CORP } from "../../data/site";
+
+const rows = [
+  { cookie: "nex_lang", purpose: "Preferred language", duration: "1 year", cat: "Necessary" },
+  { cookie: "nex_cookie_consent", purpose: "Cookie decision", duration: "1 year", cat: "Necessary" },
+  { cookie: "_ga", purpose: "Google Analytics (user)", duration: "2 years", cat: "Analytics" },
+  { cookie: "_ga_XXXXXXX", purpose: "Google Analytics (session)", duration: "2 years", cat: "Analytics" },
+];
+---
+<LegalLayout
+  title="Cookie Policy | NEX Comstuct & Energy"
+  description="Cookie policy of NEX Comstuct & Energy C.A.: necessary, analytics and marketing cookies, and how to manage your preferences."
+  esRest="/cookies/"
+  enRest="/cookies/"
+  heading="Cookie Policy"
+  breadcrumbLabel="Cookies"
+  updated="Last updated: September 18, 2026"
+>
+  <p>This site uses cookies for its proper operation, to analyze its usage on an aggregated basis and, optionally, for marketing purposes. Below we explain which cookies we use and how you can manage them.</p>
+
+  <h2>1. What are cookies?</h2>
+  <p>Cookies are small text files that a website stores on your device to remember information about your visit.</p>
+
+  <h2>2. Cookie categories</h2>
+  <h3>Necessary</h3>
+  <p>Essential for the site to work: session, language and the record of your cookie decision. Always on.</p>
+  <h3>Analytics</h3>
+  <p>Let us understand how the site is used in an anonymous, aggregated way (Google Analytics 4). They require your consent.</p>
+  <h3>Marketing</h3>
+  <p>Allow campaign measurement and remarketing (for example, LinkedIn). Prepared but with no active code by default. They require your consent.</p>
+
+  <h2>3. Cookies used</h2>
+  <table>
+    <thead>
+      <tr><th>Cookie</th><th>Purpose</th><th>Duration</th><th>Category</th></tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr><td>{r.cookie}</td><td>{r.purpose}</td><td>{r.duration}</td><td>{r.cat}</td></tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>4. Manage your preferences</h2>
+  <p>You can change your decision at any time from the button below or from the "Change cookie preferences" link in the footer.</p>
+  <p><button type="button" data-open-cookie-prefs class="btn btn-primary text-sm not-prose">Manage cookie preferences</button></p>
+
+  <h2>5. Contact</h2>
+  <p>For any inquiry about this policy, write to <a href={`mailto:${CORP.email}`}>{CORP.email}</a>.</p>
+</LegalLayout>
