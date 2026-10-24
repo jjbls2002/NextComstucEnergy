@@ -52,11 +52,6 @@ const faqs = [
   <section class="cx">
     <div class="container-nex cx__grid">
       <aside class="cx-panel band-dark anim-in" aria-labelledby="cx-title">
-        <nav aria-label="Breadcrumb" class="cx-crumbs">
-          <a href={nav.home}>Home</a>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page">Contact</span>
-        </nav>
 
         <p class="cx-kicker">Direct contact</p>
         <h1 id="cx-title" class="cx-title">Let's talk about your next project</h1>
@@ -247,21 +242,15 @@ const faqs = [
     color: #fff;
   }
   .cx-kicker {
+    margin-top: 0;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-top: 2.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  .cx-kicker::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #9fd68c;
-    box-shadow: 0 0 0 4px rgba(159, 214, 140, 0.2);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a9d6ee;
   }
   .cx-title {
     margin-top: 0.9rem;

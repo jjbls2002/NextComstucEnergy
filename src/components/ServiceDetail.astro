@@ -53,14 +53,6 @@ const ficons = featureIcons[serviceKey];
   <section class="sd-hero sd-hero--split">
     <div class="container-nex sd-split">
       <div class="sd-split__text">
-        <nav aria-label="Breadcrumb" class="sd-crumbs anim-in">
-          {crumbs.map((cr, i) => (
-            <>
-              {i > 0 && <span aria-hidden="true">/</span>}
-              {cr.href ? <a href={cr.href}>{cr.name}</a> : <span class="text-nex-blanco">{cr.name}</span>}
-            </>
-          ))}
-        </nav>
         <p class="eyebrow mt-7 anim-in" style="animation-delay:.05s">{c.kicker}</p>
         <h1 class="sd-title text-grad-brand anim-in" style="animation-delay:.1s">{c.hero}</h1>
         <p class="sd-sub anim-in" style="animation-delay:.18s">{c.heroSub}</p>
@@ -91,14 +83,6 @@ const ficons = featureIcons[serviceKey];
     <div class="sd-immersive__shade" aria-hidden="true"></div>
     <div class="container-nex sd-immersive">
       <div class="sd-immersive__text">
-        <nav aria-label="Breadcrumb" class="sd-crumbs sd-crumbs--light anim-in">
-          {crumbs.map((cr, i) => (
-            <>
-              {i > 0 && <span aria-hidden="true">/</span>}
-              {cr.href ? <a href={cr.href}>{cr.name}</a> : <span>{cr.name}</span>}
-            </>
-          ))}
-        </nav>
         <p class="sd-kicker-light anim-in" style="animation-delay:.05s">{c.kicker}</p>
         <h1 class="sd-title sd-title--light anim-in" style="animation-delay:.1s">{c.hero}</h1>
         <p class="sd-sub sd-sub--light anim-in" style="animation-delay:.18s">{c.heroSub}</p>
@@ -121,14 +105,6 @@ const ficons = featureIcons[serviceKey];
 {c.variant === "editorial" && (
   <section class="sd-hero sd-hero--editorial">
     <div class="container-nex">
-      <nav aria-label="Breadcrumb" class="sd-crumbs anim-in">
-        {crumbs.map((cr, i) => (
-          <>
-            {i > 0 && <span aria-hidden="true">/</span>}
-            {cr.href ? <a href={cr.href}>{cr.name}</a> : <span class="text-nex-blanco">{cr.name}</span>}
-          </>
-        ))}
-      </nav>
       <div class="sd-editorial">
         <div>
           <p class="eyebrow anim-in" style="animation-delay:.05s">{c.kicker}</p>
@@ -614,16 +590,15 @@ const ficons = featureIcons[serviceKey];
     align-items: end;
   }
   .sd-kicker-light {
-    display: inline-flex;
     margin-top: 26px;
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(8px);
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a9d6ee;
   }
   .sd-title--light {
     color: #fff;

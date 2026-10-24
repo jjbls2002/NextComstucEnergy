@@ -250,38 +250,28 @@
   }
 
   /* ---------- Badge (section label) ---------- */
+  /* Section label: editorial small caps, no pill and no leading rule */
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.625rem;
-    padding: 0.3rem 1rem;
-    border-radius: 999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0;
-    text-transform: none;
-    color: #1d2b36;
-    background: rgba(16, 42, 67, 0.046);
-    border: 1px solid rgba(16, 42, 67, 0.115);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-  .eyebrow::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--nex-azul-light), var(--nex-verde));
-    box-shadow: 0 0 10px rgba(109, 180, 217, 0.7);
-    flex: none;
+    padding: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--nex-azul);
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  /* Gradient hairline under titles */
+  /* Spacer under card titles (kept for rhythm; the decorative line was removed) */
   .section-rule {
     display: block;
-    width: 220px;
-    max-width: 60%;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(109, 180, 217, 0.55), rgba(104, 176, 90, 0.25), transparent);
+    width: 100%;
+    height: 0;
   }
 
   /* ---------- Cards: double frame + tinted inner panel ---------- */
@@ -710,9 +700,7 @@ section.band-dark::before {
   color: transparent;
 }
 .band-dark .eyebrow {
-  color: #dce8ef;
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.16);
+  color: #a9d6ee;
 }
 .band-dark .lead,
 .band-dark .text-nex-gris {

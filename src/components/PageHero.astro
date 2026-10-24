@@ -20,15 +20,6 @@ const nav = navItems(lang);
 
 <section class="page-hero">
   <div class="container-nex relative text-center flex flex-col items-center">
-    <nav aria-label="Breadcrumb" class="page-hero__crumbs anim-in">
-      <a href={nav.home}>{t.nav.home}</a>
-      {crumbs.map((c) => (
-        <>
-          <span aria-hidden="true">/</span>
-          {c.href ? <a href={c.href}>{c.name}</a> : <span class="text-nex-blanco">{c.name}</span>}
-        </>
-      ))}
-    </nav>
     {eyebrow && <p class="eyebrow mt-7 anim-in" style="animation-delay:.05s">{eyebrow}</p>}
     <h1 class="page-hero__title text-grad-brand anim-in" style="animation-delay:.1s">{title}</h1>
     {subtitle && <p class="page-hero__sub anim-in" style="animation-delay:.2s">{subtitle}</p>}

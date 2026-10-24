@@ -25,11 +25,6 @@ const breadcrumbs = [{ name: t.nav.home, path: nav.home }, { name: breadcrumbLab
 <BaseLayout title={title} description={description} esRest={esRest} enRest={enRest} breadcrumbs={breadcrumbs}>
   <section class="legal-hero">
     <div class="container-nex text-center flex flex-col items-center">
-      <nav aria-label="Breadcrumb" class="legal-hero__crumbs anim-in">
-        <a href={nav.home}>{t.nav.home}</a>
-        <span aria-hidden="true">/</span>
-        <span class="text-nex-blanco">{breadcrumbLabel}</span>
-      </nav>
       <h1 class="legal-hero__title text-grad-brand anim-in" style="animation-delay:.05s">{heading}</h1>
       <p class="legal-hero__updated anim-in" style="animation-delay:.1s">{updated}</p>
       {intro && <p class="legal-hero__intro anim-in" style="animation-delay:.15s">{intro}</p>}
