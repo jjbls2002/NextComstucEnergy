@@ -4,7 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 
-const SITE = process.env.PUBLIC_SITE_URL || "https://nexconstructenergy.com";
+const SITE = process.env.PUBLIC_SITE_URL || "https://nexcomstuct.com";
 
 // https://astro.build/config
 export default defineConfig({

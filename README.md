@@ -122,7 +122,7 @@ Tras el envío se redirige a `/es/gracias/` o `/en/thanks/` (ambas `noindex`).
 Copiar `.env.example` a `.env` y completar:
 
 ```
-PUBLIC_SITE_URL=https://nexconstructenergy.com
+PUBLIC_SITE_URL=https://nexcomstuct.com
 PUBLIC_GA4_ID=                 # ID de Google Analytics 4 (opcional)
 PUBLIC_RECAPTCHA_SITE_KEY=     # reCAPTCHA v3 (opcional)
 RECAPTCHA_SECRET_KEY=
@@ -147,7 +147,7 @@ SMTP_HOST= / SMTP_PORT= / SMTP_USER= / SMTP_PASS=
 ### Cloudflare Pages
 - Build command `pnpm build`, output `dist`. Configurar los headers de seguridad vía `_headers` (equivalente al `netlify.toml`).
 
-### DNS (dominio nexconstructenergy.com)
+### DNS (dominio nexcomstuct.com)
 Apuntar el dominio al hosting elegido:
 - **Netlify:** registro `A` a `75.2.60.5` o `CNAME` a `<site>.netlify.app` (seguir el panel de Netlify).
 - **Vercel:** `A` a `76.76.21.21` o `CNAME` a `cname.vercel-dns.com`.

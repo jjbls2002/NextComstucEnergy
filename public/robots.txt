@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://nexconstructenergy.com/sitemap-index.xml
+Sitemap: https://nexcomstuct.com/sitemap-index.xml

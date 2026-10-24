@@ -6,17 +6,105 @@ const c = t.cookies;
 const ga4 = import.meta.env.PUBLIC_GA4_ID as string | undefined;
 ---
 
-<!-- Cookie banner -->
-<div id="cookie-banner" class="fixed inset-x-0 bottom-5 z-[70] hidden px-4" role="dialog" aria-live="polite" aria-label={c.title}>
-  <div class="mx-auto max-w-[760px] rounded-[20px] border border-white/10 bg-[rgba(255,255,255,0.92)] p-4 pl-5 shadow-[0_20px_50px_rgba(16,42,67,0.16)] backdrop-blur-xl md:flex md:items-center md:gap-6">
-    <p class="mb-3 text-[13.5px] leading-normal text-[#4a5863] md:mb-0 md:flex-1">{c.banner}</p>
-    <div class="flex flex-wrap items-center gap-2 md:shrink-0">
-      <button type="button" data-cookie="reject" class="btn btn-secondary btn-sm !h-9 !px-4 !text-[13px]">{c.rejectOptional}</button>
-      <button type="button" data-cookie="accept" class="btn btn-primary btn-sm !h-9 !px-4 !text-[13px]">{c.acceptAll}</button>
-      <button type="button" data-cookie="prefs" class="px-2 text-[13px] font-medium text-[#33414c] underline underline-offset-4 transition-colors hover:text-white">{c.preferences}</button>
-    </div>
+<!-- Cookie banner: compact card, bottom-left on desktop, full width on phones -->
+<div id="cookie-banner" class="cookie-card hidden" role="dialog" aria-live="polite" aria-labelledby="cookie-card-title">
+  <p id="cookie-card-title" class="cookie-card__title">{lang === "es" ? "Usamos cookies" : "We use cookies"}</p>
+  <p class="cookie-card__text">
+    {c.banner}
+    <a href={lang === "es" ? "/es/cookies/" : "/en/cookies/"}>{lang === "es" ? "Más información" : "Learn more"}</a>
+  </p>
+  <div class="cookie-card__actions">
+    <button type="button" data-cookie="accept" class="btn btn-primary btn-sm">{c.acceptAll}</button>
+    <button type="button" data-cookie="reject" class="btn btn-secondary btn-sm">{c.rejectOptional}</button>
   </div>
+  <button type="button" data-cookie="prefs" class="cookie-card__prefs">{c.preferences}</button>
 </div>
+
+<style>
+  .cookie-card {
+    position: fixed;
+    z-index: 70;
+    left: 20px;
+    bottom: 20px;
+    width: min(380px, calc(100vw - 32px));
+    padding: 20px 20px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    box-shadow: 0 24px 60px -20px rgba(16, 42, 67, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: cookie-in 0.6s var(--nex-ease) both;
+  }
+  .cookie-card.hidden {
+    display: none;
+  }
+  .cookie-card__title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--nex-ink);
+  }
+  .cookie-card__text {
+    margin-top: 6px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #4a5863;
+  }
+  .cookie-card__text a {
+    margin-left: 4px;
+    color: var(--nex-azul);
+    font-weight: 500;
+    border-bottom: 1px solid rgba(47, 120, 180, 0.35);
+  }
+  .cookie-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .cookie-card__actions .btn {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 13.5px;
+  }
+  .cookie-card__prefs {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 4px;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5b6872;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .cookie-card__prefs:hover {
+    color: var(--nex-ink);
+  }
+  @keyframes cookie-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (max-width: 480px) {
+    .cookie-card {
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      width: auto;
+    }
+  }
+</style>
 
 <!-- Preferences modal -->
 <div id="cookie-modal" class="fixed inset-0 z-[80] hidden" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">

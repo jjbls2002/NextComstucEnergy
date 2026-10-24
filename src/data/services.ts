@@ -90,7 +90,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Normas COVENIN", "COVENIN 1753 (concreto)", "COVENIN 1756 (sismorresistencia)", "LOPCYMAT", "Ley de Aguas"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Obras Civiles e Infraestructura en Venezuela | NEX Comstuct & Energy",
+        title: "Obras Civiles e Infraestructura en Venezuela | NEX",
         description: "Construcción y mantenimiento de obras civiles, fundaciones, estructuras, vialidad y perforación de pozos de agua en Valle de la Pascua, Guárico.",
         keywords: "obras civiles venezuela, construcción guárico, mantenimiento infraestructura, perforación pozos de agua",
       },
@@ -140,7 +140,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["COVENIN standards", "COVENIN 1753 (concrete)", "COVENIN 1756 (seismic design)", "LOPCYMAT", "Water Law"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Civil Works & Infrastructure in Venezuela | NEX Comstuct & Energy",
+        title: "Civil Works & Infrastructure in Venezuela | NEX",
         description: "Construction and maintenance of civil works, foundations, structures, roads and water well drilling in Valle de la Pascua, Guárico.",
         keywords: "civil works venezuela, construction guarico, infrastructure maintenance, water well drilling",
       },
@@ -193,7 +193,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["AWS D1.1", "ASME Sección IX", "ASME B31.3", "API 610", "API 674", "Recomendaciones del fabricante"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Mantenimiento Mecánico y Soldadura Petrolera | NEX Comstuct & Energy",
+        title: "Mantenimiento Mecánico y Soldadura Industrial | NEX",
         description: "Construcción y mantenimiento de equipos petroleros, overhaul de motores y bombas, soldadura y estructuras metálicas en Venezuela.",
         keywords: "mantenimiento mecánico petrolero, soldadura industrial venezuela, overhaul motores, reparación bombas",
       },
@@ -243,7 +243,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["AWS D1.1", "ASME Section IX", "ASME B31.3", "API 610", "API 674", "Manufacturer recommendations"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Oilfield Mechanical Maintenance & Welding | NEX Comstuct & Energy",
+        title: "Oilfield Mechanical Maintenance & Welding | NEX",
         description: "Construction and maintenance of oilfield equipment, engine and pump overhauls, welding and steel structures in Venezuela.",
         keywords: "oilfield mechanical maintenance, industrial welding venezuela, engine overhaul, pump repair",
       },
@@ -296,7 +296,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["API 1104", "ASME B31.3", "ASME B31.4", "ASME B31.8", "Ley Penal del Ambiente"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Tendido y Mantenimiento de Tuberías de 3 a 36 Pulgadas | NEX Comstuct & Energy",
+        title: "Tendido y Mantenimiento de Tuberías 3 a 36 in | NEX",
         description: "Tendido, soldadura, pruebas hidrostáticas y mantenimiento de tuberías de 3 a 36 pulgadas para la industria petrolera en Venezuela.",
         keywords: "tendido de tuberías venezuela, mantenimiento de tuberías, soldadura de tuberías, prueba hidrostática",
       },
@@ -346,7 +346,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["API 1104", "ASME B31.3", "ASME B31.4", "ASME B31.8", "Environmental Criminal Law"],
       contractModels: contractModelsEn,
       seo: {
-        title: "3 to 36 Inch Pipeline Installation & Maintenance | NEX Comstuct & Energy",
+        title: "3 to 36 Inch Pipeline Installation & Maintenance | NEX",
         description: "Installation, welding, hydrostatic testing and maintenance of 3 to 36 inch pipelines for the oil industry in Venezuela.",
         keywords: "pipeline installation venezuela, pipeline maintenance, pipeline welding, hydrostatic test",
       },
@@ -399,7 +399,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Ley Orgánica del Ambiente", "Ley Penal del Ambiente", "Ley de Gestión Integral de la Basura", "Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Decreto 883 (calidad de aguas)"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Gestión Ambiental y Saneamiento de Suelos en Venezuela | NEX Comstuct & Energy",
+        title: "Gestión Ambiental y Saneamiento de Suelos | NEX",
         description: "Tratamiento y disposición de desechos tóxicos, recuperación de suelos petroleros, estudios de suelo y aguas, residuos sólidos y reforestación.",
         keywords: "gestión ambiental venezuela, saneamiento de suelos, desechos tóxicos, reforestación, residuos sólidos",
       },
@@ -449,7 +449,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Organic Environmental Law", "Environmental Criminal Law", "Integrated Waste Management Law", "Hazardous Substances, Materials and Waste Law", "Decree 883 (water quality)"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Environmental Management & Soil Remediation in Venezuela | NEX Comstuct & Energy",
+        title: "Environmental Management & Soil Remediation | NEX",
         description: "Toxic waste treatment and disposal, oil-affected soil recovery, soil and water studies, solid waste and reforestation.",
         keywords: "environmental management venezuela, soil remediation, toxic waste, reforestation, solid waste",
       },
@@ -501,7 +501,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Sistema Globalmente Armonizado (SGA)", "Hojas de seguridad (SDS)", "Normativa aduanera venezolana"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Productos Químicos, Importación y Exportación | NEX Comstuct & Energy",
+        title: "Productos Químicos, Importación y Exportación | NEX",
         description: "Compra, venta, importación y exportación de productos químicos industriales y petroleros con manejo seguro y entrega en sitio en Venezuela.",
         keywords: "productos químicos venezuela, químicos petroleros, importación exportación, suministro industrial",
       },
@@ -550,7 +550,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Hazardous Substances, Materials and Waste Law", "Globally Harmonized System (GHS)", "Safety data sheets (SDS)", "Venezuelan customs regulations"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Chemical Products, Import & Export | NEX Comstuct & Energy",
+        title: "Chemical Products, Import & Export | NEX",
         description: "Purchase, sale, import and export of industrial and oilfield chemical products with safe handling and on-site delivery in Venezuela.",
         keywords: "chemical products venezuela, oilfield chemicals, import export, industrial supply",
       },
@@ -602,7 +602,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Ley de Transporte Terrestre", "LOPCYMAT", "Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Permisos de carga sobredimensionada"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Transporte de Carga Pesada y Mudanza de Taladros | NEX Comstuct & Energy",
+        title: "Transporte de Carga Pesada y Mudanza de Taladros | NEX",
         description: "Transporte de carga pesada y liviana, mudanzas industriales y transporte de taladros con planificación de rutas en Venezuela.",
         keywords: "transporte carga pesada venezuela, mudanza de taladros, transporte de taladro, logística petrolera",
       },
@@ -651,7 +651,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["Land Transport Law", "LOPCYMAT", "Hazardous Substances, Materials and Waste Law", "Oversized load permits"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Heavy Cargo Transport & Rig Moves | NEX Comstuct & Energy",
+        title: "Heavy Cargo Transport & Rig Moves | NEX",
         description: "Heavy and light cargo transport, industrial moves and rig transport with route planning in Venezuela.",
         keywords: "heavy cargo transport venezuela, rig moves, rig transport, oilfield logistics",
       },
@@ -703,7 +703,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["LOTTT", "LOPCYMAT", "Ley del Seguro Social", "Solvencia laboral"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Suministro de Personal Especializado | NEX Comstuct & Energy",
+        title: "Suministro de Personal Especializado | NEX",
         description: "Suministro de personal clasificado y especializado y ejecución de servicios en áreas operativas y administrativas en Venezuela.",
         keywords: "suministro de personal venezuela, personal especializado, personal petrolero, servicios operativos",
       },
@@ -752,7 +752,7 @@ export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
       standards: ["LOTTT (labor law)", "LOPCYMAT", "Social Security Law", "Labor compliance certificate"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Specialized Staffing Services | NEX Comstuct & Energy",
+        title: "Specialized Staffing Services | NEX",
         description: "Supply of classified and specialized personnel and execution of services in operational and administrative areas in Venezuela.",
         keywords: "staffing venezuela, specialized personnel, oilfield personnel, operational services",
       },

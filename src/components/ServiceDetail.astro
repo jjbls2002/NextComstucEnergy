@@ -79,7 +79,7 @@ const ficons = featureIcons[serviceKey];
 
 {c.variant === "immersive" && (
   <section class="sd-hero sd-hero--immersive">
-    <img class="sd-immersive__bg" src={meta.image} alt="" width="1800" height="1200" loading="eager" />
+    <img class="sd-immersive__bg" src={meta.image} alt={meta.title[lang]} width="1800" height="1200" loading="eager" />
     <div class="sd-immersive__shade" aria-hidden="true"></div>
     <div class="container-nex sd-immersive">
       <div class="sd-immersive__text">
@@ -242,7 +242,7 @@ const ficons = featureIcons[serviceKey];
       <div class="sd-bento">
         {c.feature.items.map((it, i) => (
           <article class={`sd-bento__cell reveal ${i === 0 ? "sd-bento__cell--lead" : ""}`} style={`--d:${i * 0.07}s`}>
-            {i === 0 && <img src={meta.image} alt="" width="1200" height="900" loading="lazy" />}
+            {i === 0 && <img src={meta.image} alt={it.title} width="1200" height="900" loading="lazy" />}
             <div class="sd-bento__body">
               <span class="icon-tile"><Icon name={ficons[i]} size={22} /></span>
               <h3>{it.title}</h3>
@@ -386,7 +386,7 @@ const ficons = featureIcons[serviceKey];
       <div class="sd-related__track" data-carousel-track>
         {others.map((s) => (
           <a href={servicePath(lang, s.key)} class="sd-related__card group">
-            <img src={s.image} alt="" width="600" height="400" loading="lazy" />
+            <img src={s.image} alt={s.title[lang]} width="600" height="400" loading="lazy" />
             <div class="sd-related__body">
               <span class="chip">{s.num}</span>
               <h3>{s.title[lang]}</h3>

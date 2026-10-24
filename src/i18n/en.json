@@ -77,7 +77,7 @@
     "thanksBody": "We have received your request. Our team will respond within a maximum of 48 business hours."
   },
   "cookies": {
-    "banner": "We use cookies to enhance your experience, analyze site usage and personalize content. You can accept all, reject optional cookies, or manage your preferences.",
+    "banner": "They keep the site working and help us understand how it is used. Optional cookies only run if you accept them.",
     "acceptAll": "Accept all",
     "rejectOptional": "Reject optional",
     "preferences": "Preferences",
