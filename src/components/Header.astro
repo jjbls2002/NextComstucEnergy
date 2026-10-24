@@ -159,8 +159,8 @@ const groupActive = (e: NavEntry) =>
     inset: 0;
     z-index: -1;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(16, 42, 67, 0.103);
+    background: rgba(20, 24, 20, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.175);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow: 0 10px 30px rgba(16, 42, 67, 0.135);
@@ -225,7 +225,7 @@ const groupActive = (e: NavEntry) =>
     font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(90deg, #2f78b4, #3f9a5a);
+    background: linear-gradient(90deg, #a9d6ee, #9fd68c);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -235,20 +235,7 @@ const groupActive = (e: NavEntry) =>
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.02em;
-    color: #33414c;
-  }
-
-  /* pages that open on a dark full-bleed photo: light logo text and hamburger until the page scrolls */
-  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .site-logo__name {
-    background: linear-gradient(90deg, #a9d6ee, #9fd68c);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .site-logo__sub {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .nav-toggle:not(.is-open) span {
-    background: #fff;
+    color: #e3eaef;
   }
 
   /* ---------- Pill nav ---------- */
@@ -263,8 +250,8 @@ const groupActive = (e: NavEntry) =>
     gap: 2px;
     padding: 5px 8px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(16, 42, 67, 0.115);
+    background: rgba(20, 24, 20, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow: 0 10px 30px rgba(16, 42, 67, 0.135);
@@ -342,8 +329,8 @@ const groupActive = (e: NavEntry) =>
     padding: 8px;
     list-style: none;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.97);
-    border: 1px solid rgba(16, 42, 67, 0.115);
+    background: rgba(24, 28, 24, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow: 0 20px 50px rgba(16, 42, 67, 0.165);
@@ -392,7 +379,7 @@ const groupActive = (e: NavEntry) =>
   }
   .site-nav__menu-desc {
     font-size: 13px;
-    color: #55626c;
+    color: #dbe3e8;
   }
 
   .site-header__actions {
@@ -490,7 +477,7 @@ const groupActive = (e: NavEntry) =>
       transition:
         opacity 0.3s,
         visibility 0.3s;
-      background: rgba(246, 249, 251, 0.86);
+      background: rgba(18, 20, 16, 0.9);
       backdrop-filter: blur(34px) saturate(140%);
       -webkit-backdrop-filter: blur(34px) saturate(140%);
     }
@@ -561,7 +548,7 @@ const groupActive = (e: NavEntry) =>
     .site-nav__menu-name {
       font-size: 16px;
       font-weight: 500;
-      color: #33414c;
+      color: #e3eaef;
       text-align: center;
     }
     .site-nav__menu-desc {

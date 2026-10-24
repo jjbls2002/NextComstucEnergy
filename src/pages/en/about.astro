@@ -279,7 +279,7 @@ const zones = [
     flex-wrap: wrap;
     gap: 8px;
     font-size: 14px;
-    color: #5c6873;
+    color: #dbe3e8;
   }
   .ab-crumbs a {
     transition: color 0.2s ease;
@@ -335,7 +335,7 @@ const zones = [
     width: min(300px, 80%);
     padding: 18px 20px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.1);
     -webkit-backdrop-filter: blur(16px) saturate(1.3);
     backdrop-filter: blur(16px) saturate(1.3);
     border: 1px solid rgba(255, 255, 255, 0.9);
@@ -352,7 +352,7 @@ const zones = [
   }
   .ab-glass li + li {
     padding-top: 14px;
-    border-top: 1px solid rgba(16, 42, 67, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.136);
   }
   .ab-glass__icon {
     display: inline-flex;
@@ -362,7 +362,7 @@ const zones = [
     height: 36px;
     flex: none;
     border-radius: 10px;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     background: rgba(47, 120, 180, 0.1);
   }
   .ab-glass__txt {
@@ -416,7 +416,7 @@ const zones = [
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     gap: 72px;
     padding-top: 48px;
-    border-top: 1px solid rgba(16, 42, 67, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.17);
   }
   .ab-story__quote {
     margin-top: 24px;
@@ -433,7 +433,7 @@ const zones = [
     font-size: 1.8em;
     line-height: 0.6;
     margin-bottom: 8px;
-    background: linear-gradient(90deg, #2f78b4, #3f9a5a);
+    background: linear-gradient(90deg, #a9d6ee, #9fd68c);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -443,13 +443,13 @@ const zones = [
     padding-left: 16px;
     border-left: 2px solid var(--nex-verde);
     font-weight: 600;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .ab-story__body {
     display: grid;
     gap: 18px;
     align-content: start;
-    color: #3d4a55;
+    color: #d6dfe5;
     font-size: 17px;
     line-height: 1.7;
   }
@@ -459,7 +459,7 @@ const zones = [
     line-height: 0.85;
     padding: 6px 10px 0 0;
     font-weight: 700;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .ab-lines {
     display: flex;
@@ -492,8 +492,8 @@ const zones = [
     box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
   }
   .ab-mv__panel--light {
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.08);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.136);
   }
   .ab-mv__icon-dark {
     display: inline-flex;
@@ -513,7 +513,7 @@ const zones = [
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .ab-mv__label--dark {
     color: #a9d6ee;
@@ -547,7 +547,7 @@ const zones = [
     top: 120px;
   }
   .ab-vlist {
-    border-top: 1px solid rgba(16, 42, 67, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.17);
   }
   .ab-vrow {
     position: relative;
@@ -558,7 +558,7 @@ const zones = [
       "num text icon";
     column-gap: 20px;
     padding: 26px 20px 26px 24px;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.17);
     outline: none;
     transition: background 0.45s var(--nex-ease), padding 0.45s var(--nex-ease);
   }
@@ -609,13 +609,13 @@ const zones = [
     width: 40px;
     height: 40px;
     border-radius: 12px;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     background: rgba(47, 120, 180, 0.08);
     transition: transform 0.45s var(--nex-ease), background 0.35s ease, color 0.35s ease;
   }
   .ab-vrow:hover,
   .ab-vrow:focus-visible {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.08);
     padding-left: 32px;
   }
   .ab-vrow:hover::before,
@@ -624,7 +624,7 @@ const zones = [
   }
   .ab-vrow:hover .ab-vrow__num,
   .ab-vrow:focus-visible .ab-vrow__num {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .ab-vrow:hover .ab-vrow__text,
   .ab-vrow:focus-visible .ab-vrow__text {
@@ -663,17 +663,17 @@ const zones = [
     display: flex;
     gap: 18px;
     padding: 18px 0;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.136);
   }
   .ab-gov__list li:first-child {
-    border-top: 1px solid rgba(16, 42, 67, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.136);
   }
   .ab-gov__lvl {
     flex: none;
     width: 40px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     padding-top: 3px;
   }
   .ab-gov__list h3 {
@@ -713,7 +713,7 @@ const zones = [
     width: 34px;
     height: 34px;
     border-radius: 10px;
-    color: #3f8a4a;
+    color: #9fd68c;
     background: rgba(104, 176, 90, 0.12);
   }
   .ab-loc__name {
@@ -744,14 +744,14 @@ const zones = [
   }
   .ab-spec__dl {
     margin-top: 32px;
-    border-top: 1px solid rgba(16, 42, 67, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.238);
   }
   .ab-spec__row {
     display: grid;
     grid-template-columns: 180px minmax(0, 1fr);
     gap: 24px;
     padding: 18px 0;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.17);
     transition: background 0.35s ease, padding 0.35s var(--nex-ease);
   }
   .ab-spec__row:hover {

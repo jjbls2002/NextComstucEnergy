@@ -343,7 +343,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     justify-content: center;
     gap: 8px;
     font-size: 14px;
-    color: #5c6873;
+    color: #dbe3e8;
   }
   .sig-crumbs a {
     transition: color 0.2s ease;
@@ -483,8 +483,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    color: var(--nex-azul);
-    background: #fff;
+    color: var(--nex-azul-text);
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(47, 120, 180, 0.25);
     box-shadow:
       0 0 0 6px rgba(246, 249, 251, 0.9),
@@ -496,7 +496,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
       box-shadow 0.4s ease;
   }
   .orbit__dot--green {
-    color: var(--nex-verde-deep);
+    color: #9fd68c;
     border-color: rgba(63, 138, 74, 0.3);
   }
   .orbit__label {
@@ -505,9 +505,9 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     font-size: 0.8125rem;
     font-weight: 500;
     line-height: 1.25;
-    color: #33414c;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(16, 42, 67, 0.08);
+    color: #e3eaef;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.136);
     transition: color 0.3s ease, border-color 0.3s ease, transform 0.45s var(--nex-ease);
   }
   .orbit__link:hover .orbit__dot,
@@ -537,7 +537,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     padding: clamp(72px, 9vw, 120px) 0;
   }
   .sig-section--alt {
-    background: linear-gradient(180deg, #eef4f8, #f6f9fb);
+    background: transparent;
   }
 
   /* ---------- Pyramid ---------- */
@@ -614,7 +614,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     grid-template-columns: 340px minmax(0, 1fr);
     gap: 8px;
     margin-top: 48px;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
   }
   .tabs__list {
     display: flex;
@@ -622,8 +622,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     gap: 4px;
     padding: 10px;
     border-radius: 20px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
   }
   .tabs__tab {
     display: flex;
@@ -635,7 +635,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     text-align: left;
     font-size: 0.9375rem;
     font-weight: 500;
-    color: #33414c;
+    color: #e3eaef;
     background: transparent;
     border: 1px solid transparent;
     cursor: pointer;
@@ -645,7 +645,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
       border-color 0.25s ease;
   }
   .tabs__tab:hover {
-    background: var(--nex-fondo);
+    background: rgba(255, 255, 255, 0.05);
     color: var(--nex-ink);
   }
   .tabs__tab:focus-visible {
@@ -664,7 +664,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     font-variant-numeric: tabular-nums;
   }
   .tabs__tab[aria-selected="true"] .tabs__num {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .tabs__name {
     flex: 1;
@@ -673,7 +673,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   .tabs__tab :global(.tabs__arrow) {
     opacity: 0;
     transform: translateX(-6px);
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     transition: opacity 0.25s ease, transform 0.35s var(--nex-ease);
   }
   .tabs__tab[aria-selected="true"] :global(.tabs__arrow) {
@@ -690,8 +690,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     border-radius: 20px;
     background:
       radial-gradient(90% 80% at 100% 0%, rgba(47, 120, 180, 0.1), transparent 60%),
-      #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+      rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
     animation: panel-in 0.5s var(--nex-ease) both;
   }
   .tabs__panel[hidden] {
@@ -752,7 +752,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   }
   .tabs__std .chip {
     font-weight: 600;
-    color: var(--nex-azul-deep);
+    color: #a9d6ee;
     background: rgba(47, 120, 180, 0.07);
     border-color: rgba(47, 120, 180, 0.2);
   }
@@ -768,7 +768,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   }
   .tabs__note :global(svg) {
     flex: none;
-    color: var(--nex-verde-deep);
+    color: #9fd68c;
   }
 
   /* ---------- PDCA ---------- */
@@ -811,7 +811,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     min-height: 420px;
     overflow: hidden;
     border-radius: 24px;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    border: 1px solid rgba(255, 255, 255, 0.138);
   }
   .pdca__photo img {
     position: absolute;
@@ -831,8 +831,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     height: 64px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    color: var(--nex-azul);
-    background: rgba(255, 255, 255, 0.88);
+    color: var(--nex-azul-text);
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -846,8 +846,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     flex-direction: column;
     padding: 26px;
     border-radius: 22px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
     transition:
       transform 0.5s var(--nex-ease),
       border-color 0.4s ease,
@@ -898,8 +898,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     align-items: center;
     padding: clamp(22px, 3vw, 32px);
     border-radius: 20px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
   }
   .road__title {
     margin-top: 12px;
@@ -1030,8 +1030,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
       padding: 8px 12px 8px 8px;
       text-align: left;
       border-radius: 14px;
-      background: #fff;
-      border: 1px solid rgba(16, 42, 67, 0.081);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.138);
     }
     .orbit__dot {
       width: 36px;

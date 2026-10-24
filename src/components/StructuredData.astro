@@ -52,7 +52,7 @@ const orgLd = {
       availableLanguage: ["Spanish", "English"],
     },
   ],
-  sameAs: [],
+  sameAs: [CORP.instagram, CORP.linkedin].filter((u) => u.startsWith("http")),
   vatID: CORP.rif,
   taxID: CORP.rif,
   slogan: CORP.slogan.es,

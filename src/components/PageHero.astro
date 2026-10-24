@@ -48,6 +48,7 @@ const nav = navItems(lang);
     pointer-events: none;
   }
   .page-hero::after {
+    display: none;
     content: "";
     position: absolute;
     left: 50%;
@@ -55,7 +56,7 @@ const nav = navItems(lang);
     width: min(1200px, calc(100% - 32px));
     height: 1px;
     transform: translateX(-50%);
-    background: linear-gradient(90deg, transparent, rgba(16, 42, 67, 0.138) 30%, rgba(16, 42, 67, 0.138) 70%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.193) 30%, rgba(255, 255, 255, 0.193) 70%, transparent);
   }
   .page-hero__crumbs {
     display: flex;
@@ -63,7 +64,7 @@ const nav = navItems(lang);
     justify-content: center;
     gap: 8px;
     font-size: 14px;
-    color: #5c6873;
+    color: #dbe3e8;
   }
   .page-hero__crumbs a {
     transition: color 0.2s ease;
@@ -83,7 +84,7 @@ const nav = navItems(lang);
     margin-top: 22px;
     font-size: clamp(16px, 1.4vw, 19px);
     line-height: 1.55;
-    color: #4a5863;
+    color: #e6edf1;
     text-wrap: balance;
   }
   @media (max-width: 480px) {

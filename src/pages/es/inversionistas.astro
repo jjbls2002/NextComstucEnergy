@@ -265,6 +265,8 @@ const docs = [
     color: #fff;
   }
   .inv-hero__img {
+    -webkit-mask: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask: linear-gradient(180deg, #000 70%, transparent 100%);
     position: absolute;
     inset: 0;
     z-index: -2;
@@ -274,6 +276,8 @@ const docs = [
     object-position: center 60%;
   }
   .inv-hero__veil {
+    -webkit-mask: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask: linear-gradient(180deg, #000 70%, transparent 100%);
     position: absolute;
     inset: 0;
     z-index: -1;
@@ -400,7 +404,7 @@ const docs = [
     padding: clamp(72px, 9vw, 120px) 0;
   }
   .inv-section--alt {
-    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    background: transparent;
     border-block: 1px solid rgba(16, 42, 67, 0.06);
   }
   .inv-head {
@@ -449,8 +453,8 @@ const docs = [
     overflow: hidden;
     padding: clamp(1.75rem, 3vw, 2.5rem);
     border-radius: 22px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
     transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease, border-color 0.4s ease;
   }
   .inv-thesis__card::before {
@@ -471,7 +475,7 @@ const docs = [
     line-height: 1;
     font-weight: 700;
     letter-spacing: -0.06em;
-    background: linear-gradient(135deg, #17405f 0%, #2f78b4 50%, #3f9a5a 100%);
+    background: linear-gradient(135deg, #d6ebf6 0%, #a9d6ee 50%, #9fd68c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -500,7 +504,7 @@ const docs = [
     right: 0;
     height: 2px;
     border-radius: 2px;
-    background: rgba(16, 42, 67, 0.1);
+    background: rgba(255, 255, 255, 0.14);
     overflow: hidden;
   }
   .inv-tl__fill {
@@ -536,7 +540,7 @@ const docs = [
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.08);
     border: 2px solid var(--nex-azul);
     box-shadow: 0 0 0 5px rgba(47, 120, 180, 0.12);
   }
@@ -560,7 +564,7 @@ const docs = [
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .inv-tl__year {
     display: block;
@@ -619,7 +623,7 @@ const docs = [
     line-height: 1;
     letter-spacing: -0.05em;
     font-variant-numeric: tabular-nums;
-    background: linear-gradient(90deg, #17405f 0%, #2f78b4 55%, #3f9a5a 100%);
+    background: linear-gradient(90deg, #d6ebf6 0%, #a9d6ee 55%, #9fd68c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -647,13 +651,13 @@ const docs = [
     margin: 0;
   }
   .inv-pipe__chips :global(svg) {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
 
   .inv-ledger {
     border-radius: 24px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
     box-shadow: 0 30px 60px -40px rgba(16, 42, 67, 0.35);
     overflow: hidden;
   }
@@ -675,7 +679,7 @@ const docs = [
     margin: 0;
   }
   .inv-ledger__rows li + li {
-    border-top: 1px solid rgba(16, 42, 67, 0.07);
+    border-top: 1px solid rgba(255, 255, 255, 0.119);
   }
   .inv-ledger__row {
     display: grid;
@@ -702,7 +706,7 @@ const docs = [
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     background: rgba(47, 120, 180, 0.08);
   }
   .inv-ledger__body {
@@ -724,7 +728,7 @@ const docs = [
     transition: transform 0.35s var(--nex-ease), color 0.3s ease;
   }
   .inv-ledger__row:hover .inv-ledger__go {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     transform: translate(2px, -2px);
   }
   .inv-ledger__foot {
@@ -732,8 +736,8 @@ const docs = [
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--nex-gris);
-    background: #f6f9fb;
-    border-top: 1px solid rgba(16, 42, 67, 0.07);
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.119);
   }
 
   /* ---------- Governance ---------- */
@@ -751,7 +755,7 @@ const docs = [
     display: flex;
     gap: 1.25rem;
     padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.09);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.153);
   }
   .inv-gov__item:first-child {
     padding-top: 0.5rem;
@@ -773,7 +777,7 @@ const docs = [
     gap: 0.4rem;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #3f8a4a;
+    color: #9fd68c;
     background: rgba(63, 138, 74, 0.1);
     border: 1px solid rgba(63, 138, 74, 0.22);
     padding: 0.3rem 0.8rem;
@@ -811,7 +815,7 @@ const docs = [
     width: 30px;
     height: 30px;
     border-radius: 8px;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     background: rgba(47, 120, 180, 0.08);
     flex: none;
   }
@@ -832,7 +836,7 @@ const docs = [
     overflow-wrap: anywhere;
   }
   .inv-dataroom__hint a {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;

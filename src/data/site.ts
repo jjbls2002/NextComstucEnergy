@@ -15,7 +15,7 @@ export const CORP = {
   countryName: "Venezuela",
   founded: "2026",
   linkedin: "#",
-  instagram: "#",
+  instagram: "https://www.instagram.com/nexcomstuctenergy/",
   slogan: {
     es: "Construyendo el futuro, impulsando la energía.",
     en: "Building the future, powering energy.",

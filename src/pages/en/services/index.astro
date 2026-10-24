@@ -204,7 +204,7 @@ const steps = [
     transition: color 0.25s ease;
   }
   .sx-crumbs a:hover {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .sx-crumbs [aria-current] {
     color: var(--nex-ink);
@@ -222,14 +222,14 @@ const steps = [
     gap: 0.75rem;
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.204);
   }
   .sx-counter__num {
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .sx-counter__label {
     font-size: 0.9375rem;
@@ -256,12 +256,12 @@ const steps = [
   .sx-jump .pill {
     height: 38px;
     font-size: 0.875rem;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
   }
   .sx-jump__num {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
     font-variant-numeric: tabular-nums;
   }
 
@@ -274,7 +274,7 @@ const steps = [
     justify-content: space-between;
     align-items: baseline;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(16, 42, 67, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.272);
   }
   .sx-list-head__title {
     font-size: 0.875rem;
@@ -289,7 +289,7 @@ const steps = [
     font-variant-numeric: tabular-nums;
   }
   .sx-row {
-    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.17);
     scroll-margin-top: 120px;
   }
   .sx-row__link {
@@ -312,7 +312,7 @@ const steps = [
     line-height: 1;
     letter-spacing: -0.05em;
     font-variant-numeric: tabular-nums;
-    color: rgba(16, 42, 67, 0.18);
+    color: rgba(255, 255, 255, 0.55);
     transition: color 0.45s var(--nex-ease);
   }
   .sx-row__body {
@@ -341,7 +341,7 @@ const steps = [
   .sx-row__chips .chip {
     font-size: 0.8125rem;
     padding: 0.25rem 0.8rem;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
   }
   .sx-row__thumb {
     position: absolute;
@@ -373,8 +373,8 @@ const steps = [
     height: 56px;
     border-radius: 50%;
     color: var(--nex-ink);
-    border: 1px solid rgba(16, 42, 67, 0.14);
-    background: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.238);
+    background: rgba(255, 255, 255, 0.08);
     transition:
       background 0.4s var(--nex-ease),
       color 0.4s var(--nex-ease),
@@ -383,14 +383,14 @@ const steps = [
   }
   .sx-row__link:hover,
   .sx-row__link:focus-visible {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.08);
     box-shadow:
       0 0 0 1px rgba(47, 120, 180, 0.3),
       0 18px 50px -12px rgba(47, 120, 180, 0.35);
   }
   .sx-row__link:hover .sx-row__num,
   .sx-row__link:focus-visible .sx-row__num {
-    color: var(--nex-azul);
+    color: var(--nex-azul-text);
   }
   .sx-row__link:hover .sx-row__arrow,
   .sx-row__link:focus-visible .sx-row__arrow {
@@ -466,8 +466,8 @@ const steps = [
   .sx-engage {
     position: relative;
     padding: 110px 0 120px;
-    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
-    border-top: 1px solid rgba(16, 42, 67, 0.08);
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.136);
   }
   .sx-engage__head {
     display: grid;
@@ -515,7 +515,7 @@ const steps = [
   .sx-model__idx {
     font-size: 0.875rem;
     font-weight: 600;
-    color: rgba(16, 42, 67, 0.3);
+    color: rgba(255, 255, 255, 0.55);
     font-variant-numeric: tabular-nums;
   }
   .sx-model__name {
@@ -536,18 +536,18 @@ const steps = [
     gap: 0.5rem;
     margin-top: 1.5rem;
     padding-top: 1.1rem;
-    border-top: 1px solid rgba(16, 42, 67, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.136);
     font-size: 0.875rem;
     font-weight: 500;
-    color: #3f8a4a;
+    color: #9fd68c;
   }
 
   .sx-steps {
     margin-top: 3rem;
     padding: 2rem 2rem 2.25rem;
     border-radius: 26px;
-    background: #fff;
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.138);
   }
   .sx-steps__label {
     font-size: 0.8125rem;
@@ -584,8 +584,8 @@ const steps = [
     border-radius: 50%;
     font-size: 0.9375rem;
     font-weight: 700;
-    color: var(--nex-azul);
-    background: #fff;
+    color: var(--nex-azul-text);
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(47, 120, 180, 0.35);
     box-shadow: 0 0 0 6px #fff;
     margin-bottom: 1rem;

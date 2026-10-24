@@ -7,37 +7,40 @@
    Black canvas, glass surfaces, brand blue + green from the logo.
    ============================================================ */
 :root {
-  --nex-fondo: #f6f9fb;
-  --nex-fondo-alt: #eef4f8;
-  --nex-surface: #ffffff;
-  --nex-surface-2: #f1f6f9;
-  --nex-blanco: #0e1a24;
-  --nex-gris: #5b6872;
-  --nex-gris-dark: #5c6873;
+  /* Glass-on-photo theme: light text over the blurred refinery backdrop */
+  --nex-fondo: rgba(255, 255, 255, 0.05);
+  --nex-fondo-alt: rgba(255, 255, 255, 0.05);
+  --nex-surface: rgba(255, 255, 255, 0.08);
+  --nex-surface-2: rgba(255, 255, 255, 0.06);
+  --nex-blanco: #ffffff;
+  --nex-gris: #dbe3e8;
+  --nex-gris-dark: #c9d4da;
 
   --nex-azul: #2f78b4;
   --nex-azul-hover: #3a88c6;
   --nex-azul-deep: #17405f;
   --nex-azul-light: #6db4d9;
+  /* brand blue for text on the dark photo */
+  --nex-azul-text: #9fd0ee;
   --nex-verde: #68b05a;
   --nex-verde-light: #8fd07a;
   --nex-verde-deep: #3f8a4a;
 
   /* legacy names, kept so older markup follows the new palette */
-  --nex-oro: var(--nex-azul-light);
-  --nex-oro-light: #a9d6ee;
+  --nex-oro: var(--nex-azul-text);
+  --nex-oro-light: #bfe0f2;
   --nex-oro-dark: var(--nex-azul);
   --nex-navy: #0e1a24;
-  --nex-ink: #0e1a24;
-  --nex-ink-2: #33414c;
-  --nex-gold: var(--nex-azul-light);
+  --nex-ink: #ffffff;
+  --nex-ink-2: #e3eaef;
+  --nex-gold: var(--nex-azul-text);
   --nex-white: var(--nex-blanco);
 
-  --nex-success: #357a3f;
-  --nex-warning: #d9a94b;
-  --nex-danger: #e06b6b;
+  --nex-success: #8fd07a;
+  --nex-warning: #e8c27a;
+  --nex-danger: #f08a8a;
 
-  --nex-line: rgba(16, 42, 67, 0.092);
+  --nex-line: rgba(255, 255, 255, 0.14);
   --nex-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --nex-container: 1200px;
 }
@@ -47,12 +50,13 @@
    ============================================================ */
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: dark;
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(109, 180, 217, 0.15);
-    background-color: var(--nex-fondo);
+    /* solid fallback behind the photo backdrop */
+    background-color: #2a2b22;
   }
 
   body {
@@ -61,7 +65,8 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    background-color: var(--nex-fondo);
+    /* transparent so the fixed .page-bg backdrop shows; <html> keeps the solid fallback color */
+    background-color: transparent;
     color: var(--nex-blanco);
     font-family: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
     line-height: 1.6;
@@ -223,15 +228,15 @@
   .btn-secondary,
   .btn-ghost-navy {
     color: var(--nex-ink);
-    background: rgba(16, 42, 67, 0.046);
-    border: 1px solid rgba(16, 42, 67, 0.184);
+    background: rgba(255, 255, 255, 0.064);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
   .btn-secondary:hover,
   .btn-ghost-navy:hover {
-    background: rgba(16, 42, 67, 0.103);
-    border-color: rgba(16, 42, 67, 0.368);
+    background: rgba(255, 255, 255, 0.144);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
   }
 
@@ -260,7 +265,7 @@
     line-height: 1.2;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--nex-azul);
+    color: #a9d6ee;
     background: none;
     border: 0;
     border-radius: 0;
@@ -278,8 +283,8 @@
   .frame {
     padding: 8px;
     border-radius: 26px;
-    background: rgba(16, 42, 67, 0.017);
-    border: 1px solid rgba(16, 42, 67, 0.081);
+    background: rgba(255, 255, 255, 0.024);
+    border: 1px solid rgba(255, 255, 255, 0.138);
   }
 
   .card {
@@ -288,9 +293,11 @@
     padding: 1.875rem;
     background:
       radial-gradient(120% 90% at 0% 0%, rgba(47, 120, 180, 0.07), transparent 60%),
-      linear-gradient(180deg, #ffffff 0%, #fafcfd 100%);
-    border: 1px solid rgba(16, 42, 67, 0.081);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.138);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
     transition:
       border-color 0.4s ease,
       box-shadow 0.4s ease,
@@ -309,8 +316,8 @@
     border-radius: 24px;
     padding: 2rem;
     color: var(--nex-blanco);
-    background: #eef4f8;
-    border: 1px solid rgba(16, 42, 67, 0.092);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.156);
     transition: border-color 0.4s ease, transform 0.5s var(--nex-ease);
   }
   .card-navy::before {
@@ -381,9 +388,9 @@
     border-radius: 999px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #33414c;
-    background: rgba(16, 42, 67, 0.046);
-    border: 1px solid rgba(16, 42, 67, 0.115);
+    color: #e3eaef;
+    background: rgba(255, 255, 255, 0.064);
+    border: 1px solid rgba(255, 255, 255, 0.196);
     transition:
       color 0.25s ease,
       background 0.25s ease,
@@ -419,8 +426,8 @@
 
   /* Glass surface used by the nav pill, dropdowns and the cookie banner */
   .nav-pill {
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(16, 42, 67, 0.115);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.196);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow: 0 10px 30px rgba(16, 42, 67, 0.135);
@@ -437,7 +444,7 @@
     width: fit-content;
     font-weight: 700;
     letter-spacing: -0.045em;
-    background: linear-gradient(90deg, #17405f 0%, #2f78b4 45%, #3f9a5a 100%);
+    background: linear-gradient(90deg, #d6ebf6 0%, #a9d6ee 45%, #9fd68c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -450,19 +457,19 @@
   .lead {
     font-size: 1.0625rem;
     line-height: 1.6;
-    color: #5b6872;
+    color: #dbe3e8;
     text-wrap: balance;
   }
 
   /* ---------- Accordion (FAQ) ---------- */
   .faq__item {
     border-radius: 18px;
-    background: #ffffff;
-    border: 1px solid rgba(16, 42, 67, 0.092);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.156);
     transition: border-color 0.3s ease, background 0.3s ease;
   }
   .faq__item[open] {
-    background: linear-gradient(180deg, #f5f9fc, #ffffff);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.08));
     border-color: rgba(109, 180, 217, 0.28);
   }
   .faq__q {
@@ -486,7 +493,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 1px solid rgba(16, 42, 67, 0.161);
+    border: 1px solid rgba(255, 255, 255, 0.274);
     transition: background 0.3s ease, border-color 0.3s ease;
   }
   .faq__icon::before,
@@ -511,7 +518,7 @@
   }
   .faq__item[open] .faq__icon::before,
   .faq__item[open] .faq__icon::after {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.08);
   }
   .faq__item[open] .faq__icon::after {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -520,7 +527,7 @@
     padding: 0 1.5rem 1.375rem;
     font-size: 1rem;
     line-height: 1.65;
-    color: #5b6872;
+    color: #dbe3e8;
   }
 }
 
@@ -534,7 +541,7 @@
 
   /* Bright headline gradient; <strong> inside eases into the brand blue/green */
   .text-grad {
-    background: linear-gradient(180deg, #0e1a24 0%, #0e1a24 50%, #2d475c 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #cfdbe3 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -542,7 +549,7 @@
   }
   /* single-line headings (page heroes, closing CTA): ink easing into brand blue and green */
   .text-grad-brand {
-    background: linear-gradient(100deg, #0e1a24 0%, #0e1a24 35%, #2f78b4 70%, #3f9a5a 100%);
+    background: linear-gradient(100deg, #ffffff 0%, #ffffff 35%, #a9d6ee 70%, #9fd68c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -552,7 +559,7 @@
   .text-brand {
     font-weight: 700;
     letter-spacing: -0.05em;
-    background: linear-gradient(90deg, #17405f 0%, #2f78b4 45%, #3f9a5a 100%);
+    background: linear-gradient(90deg, #d6ebf6 0%, #a9d6ee 45%, #9fd68c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -607,7 +614,7 @@
     width: min(1200px, calc(100% - 32px));
     height: 1px;
     transform: translateX(-50%);
-    background: linear-gradient(90deg, transparent, rgba(16, 42, 67, 0.138) 30%, rgba(16, 42, 67, 0.138) 70%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.193) 30%, rgba(255, 255, 255, 0.193) 70%, transparent);
   }
 
   /* Scroll reveal (activated from JS; content stays visible without it) */
@@ -722,6 +729,24 @@ section.band-dark::before {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 18px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Site-wide backdrop: blurred refinery photo, no veil ---------- */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background: #2a2b22 url("/images/fondo-refineria.jpg") center / cover no-repeat;
+}
+.page-bg::after {
+  /* no white veil: the blurred photo shows in its own colors */
+  content: none;
+}
+@media (max-width: 768px) {
+  .page-bg {
+    background-image: url("/images/fondo-refineria-sm.jpg");
+  }
 }
 
 /* ---------- Orb: rotating brand ring with a soft core ---------- */
@@ -864,7 +889,7 @@ body[data-orb="strong"] .orb-pulse {
   letter-spacing: -0.035em;
   color: var(--nex-ink);
   opacity: 0.55;
-  border-right: 1px solid rgba(16, 42, 67, 0.161);
+  border-right: 1px solid rgba(255, 255, 255, 0.274);
   transition: opacity 0.25s ease;
 }
 .marquee__list li:hover {
@@ -887,7 +912,7 @@ body[data-orb="strong"] .orb-pulse {
   white-space: nowrap;
 }
 .statement .ch {
-  color: #c5ced5;
+  color: rgba(255, 255, 255, 0.35);
   transition: color 0.3s ease-in-out;
 }
 
@@ -934,4 +959,16 @@ body.nav-locked #cookie-banner {
   .statement .ch {
     color: var(--nex-ink) !important;
   }
+}
+
+select option {
+  color: #0e1a24;
+  background: #fff;
+}
+
+/* no hairlines between sections: over the photo backdrop they read as hard cuts */
+.rule-bottom::after,
+.about-block::after,
+.ops::after {
+  display: none;
 }

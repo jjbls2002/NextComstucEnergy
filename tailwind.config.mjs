@@ -14,48 +14,47 @@ export default {
     },
     extend: {
       colors: {
-        /* light theme: Tailwind "white"/"black" are remapped so legacy text-white / border-white/x utilities
-           read as ink and hairlines on the light canvas */
-        white: "#0E1A24",
-        black: "#F6F9FB",
+        /* glass-on-photo theme: white is real white again (text and hairlines over the dark backdrop) */
+        white: "#FFFFFF",
+        black: "#1E2019",
         nex: {
           /* NEX brand palette, sampled from the official logo (blue derrick + green leaf/wave) */
-          fondo: "#F6F9FB",
-          "fondo-alt": "#EEF4F8",
-          surface: "#FFFFFF",
-          "surface-2": "#F1F6F9",
-          blanco: "#0E1A24",
-          gris: "#5B6872",
-          "gris-dark": "#5C6873",
+          fondo: "transparent",
+          "fondo-alt": "rgba(255,255,255,0.05)",
+          surface: "rgba(255,255,255,0.08)",
+          "surface-2": "rgba(255,255,255,0.06)",
+          blanco: "#FFFFFF",
+          gris: "#DBE3E8",
+          "gris-dark": "#C9D4DA",
 
           azul: "#2F78B4",
           "azul-hover": "#3A88C6",
           "azul-deep": "#17405F",
-          "azul-light": "#2F78B4",
+          "azul-light": "#9FD0EE",
           verde: "#68B05A",
           "verde-light": "#8FD07A",
           "verde-deep": "#3F8A4A",
 
           /* "oro" was the old accent; it now resolves to the brand blue so existing pages follow the new palette */
-          oro: "#2F78B4",
-          "oro-light": "#3A88C6",
+          oro: "#9FD0EE",
+          "oro-light": "#BFE0F2",
           "oro-dark": "#2F78B4",
 
           /* Backwards-compatible aliases (mapped onto the new palette) */
           navy: "#0E1A24",
           "navy-dark": "#0E1A24",
-          gold: "#2F78B4",
-          "gold-light": "#3A88C6",
-          white: "#0E1A24",
-          "off-white": "#EEF4F8",
-          "gray-900": "#0E1A24",
-          "gray-700": "#4A5863",
-          "gray-500": "#5B6872",
-          "gray-300": "#5C6873",
-          "gray-100": "#E4ECF2",
-          success: "#357A3F",
+          gold: "#9FD0EE",
+          "gold-light": "#BFE0F2",
+          white: "#FFFFFF",
+          "off-white": "rgba(255,255,255,0.05)",
+          "gray-900": "#FFFFFF",
+          "gray-700": "#E3EAEF",
+          "gray-500": "#DBE3E8",
+          "gray-300": "#C9D4DA",
+          "gray-100": "rgba(255,255,255,0.12)",
+          success: "#8FD07A",
           warning: "#D9A94B",
-          danger: "#E06B6B",
+          danger: "#F59A9A",
         },
       },
       fontFamily: {
