@@ -1,13 +1,17 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import Section from "../../components/Section.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Icon from "../../components/Icon.astro";
-import { CORP, navItems } from "../../data/site";
+import { CORP, SERVICES, navItems } from "../../data/site";
 
 const lang = "es";
 const nav = navItems(lang);
+
+const heroFacts = [
+  { k: "Fundada", v: CORP.founded, icon: "building" },
+  { k: "Base operativa", v: `${CORP.city}, ${CORP.region}`, icon: "map-pin" },
+  { k: "Líneas de servicio", v: `${SERVICES.length} líneas`, icon: "layers" },
+];
 
 const ficha = [
   { k: "Razón social", v: CORP.legalName },
@@ -33,6 +37,12 @@ const governance = [
   { level: "03", title: "Gerencias funcionales", text: "Operaciones, HSE, Administración y Comercial." },
   { level: "04", title: "Supervisión y campo", text: "Ejecución técnica con responsables de línea y HSE en sitio." },
 ];
+
+const zones = [
+  { name: "Faja Petrolífera del Orinoco", note: "La mayor reserva de crudo del mundo." },
+  { name: "Cuenca Oriental de Venezuela", note: "Producción convencional consolidada." },
+  { name: "Cuenca Barinas-Apure", note: "Operaciones al occidente del país." },
+];
 ---
 
 <BaseLayout
@@ -43,115 +53,194 @@ const governance = [
   enRest="/about/"
   breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Nosotros" }]}
 >
-  <PageHero
-    eyebrow="Nosotros"
-    title="Quiénes somos"
-    subtitle="Una empresa venezolana de servicios petroleros construida desde el día uno como una institución: documentada, auditable y alineada a estándares internacionales."
-    crumbs={[{ name: "Nosotros" }]}
-  />
-
-  <!-- Identidad corporativa -->
-  <Section eyebrow="Identidad corporativa" title="Ficha técnica">
-    <div class="grid gap-10 lg:grid-cols-2">
-      <dl class="divide-y divide-white/10 border-y border-white/10">
-        {ficha.map((r) => (
-          <div class="py-4 sm:flex sm:justify-between gap-6">
-            <dt class="text-sm font-bold uppercase tracking-wide text-nex-gris">{r.k}</dt>
-            <dd class="text-nex-blanco font-semibold sm:text-right">{r.v}</dd>
-          </div>
-        ))}
-      </dl>
-      <div class="card-navy">
-        <h3 class="text-nex-blanco text-xl">Nuestro propósito</h3>
-        <p class="mt-4 text-nex-gris">Prestar servicios petroleros de calidad internacional en Venezuela y la región, con un sistema de gestión que permita a PDVSA, a las operadoras internacionales y a la banca de desarrollo confiar en NEX como proveedor serio y verificable.</p>
-        <p class="mt-4 text-nex-oro font-semibold">{CORP.slogan[lang]}</p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Historia -->
-  <Section variant="off-white" eyebrow="Trayectoria" title="Historia y trayectoria">
-    <div class="max-w-3xl prose-nex">
-      <p>NEX Comstuct & Energy C.A. nace en Valle de la Pascua, Estado Guárico, en el corazón operativo de la industria de hidrocarburos venezolana. Desde su constitución, la empresa priorizó lo que la mayoría de los contratistas deja para el final: un sistema documental completo, matrices de riesgo por línea de servicio y un marco de cumplimiento internacional.</p>
-      <p>Ese orden de prioridades es deliberado. NEX se concibe para operar con PDVSA, con las operadoras internacionales presentes en el país y con el mercado regional emergente: clientes que exigen trazabilidad, disciplina HSE y transparencia antes de adjudicar un solo contrato.</p>
-    </div>
-  </Section>
-
-  <!-- Misión / Visión -->
-  <Section eyebrow="Rumbo" title="Misión y Visión 2031">
-    <div class="grid gap-6 md:grid-cols-2">
-      <div class="card">
-        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="target" size={26} /></span>
-        <h3 class="text-xl mb-3">Misión</h3>
-        <p class="text-nex-gris">Prestar servicios petroleros seguros, ambientalmente responsables y técnicamente excelentes, sostenidos por un sistema de gestión auditable y un compromiso inquebrantable con la integridad.</p>
-      </div>
-      <div class="card">
-        <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-5"><Icon name="trending-up" size={26} /></span>
-        <h3 class="text-xl mb-3">Visión 2031</h3>
-        <p class="text-nex-gris">Ser una empresa de servicios petroleros calificada por operadoras internacionales, con USD 7M facturados anuales, certificaciones ISO 9001/14001/45001 y presencia consolidada en Venezuela y el mercado regional.</p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Valores -->
-  <Section variant="off-white" eyebrow="Valores" title="Seis principios que gobiernan cada decisión">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {values.map((v) => (
-        <article class="card h-full">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={v.icon} size={24} /></span>
-          <h3 class="text-lg mb-2">{v.title}</h3>
-          <p class="text-nex-gris text-[0.95rem]">{v.text}</p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <!-- Gobernanza -->
-  <Section eyebrow="Gobernanza corporativa" title="Una estructura de cuatro niveles">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {governance.map((g) => (
-        <article class="card h-full">
-          <span class="num-badge mb-4">{g.level}</span>
-          <h3 class="text-base mb-2">{g.title}</h3>
-          <p class="text-nex-gris text-sm">{g.text}</p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <!-- Ubicación -->
-  <Section variant="navy" eyebrow="Ubicación estratégica" title="Valle de la Pascua, un centro operativo natural">
-    <div class="grid gap-8 lg:grid-cols-2 items-center">
-      <div>
-        <p class="text-nex-gris text-lg">Nuestra base equidista de las tres grandes zonas productoras del país, lo que permite tiempos de respuesta cortos y logística eficiente.</p>
-        <div class="mt-8 space-y-4">
-          {[
-            { name: "Faja Petrolífera del Orinoco", note: "La mayor reserva de crudo del mundo." },
-            { name: "Cuenca Oriental de Venezuela", note: "Producción convencional consolidada." },
-            { name: "Cuenca Barinas-Apure", note: "Operaciones al occidente del país." },
-          ].map((z) => (
-            <div class="flex items-start gap-4 border-l-2 border-nex-gold pl-4">
-              <Icon name="map-pin" size={22} class="text-nex-oro mt-1 shrink-0" />
-              <div>
-                <p class="text-nex-blanco font-semibold">{z.name}</p>
-                <p class="text-nex-gris text-sm">{z.note}</p>
-              </div>
-            </div>
-          ))}
+  <!-- Hero editorial asimétrico -->
+  <section class="ab-hero">
+    <div class="container-nex ab-hero__grid">
+      <div class="ab-hero__copy">
+        <nav aria-label="Breadcrumb" class="ab-crumbs anim-in">
+          <a href={nav.home}>Inicio</a>
+          <span aria-hidden="true">/</span>
+          <span class="ab-crumbs__current" aria-current="page">Nosotros</span>
+        </nav>
+        <p class="eyebrow mt-7 anim-in" style="animation-delay:.05s">Nosotros</p>
+        <h1 class="ab-hero__title text-grad-brand anim-in" style="animation-delay:.1s">
+          Una empresa construida como institución
+        </h1>
+        <p class="lead ab-hero__lead anim-in" style="animation-delay:.2s">
+          NEX Comstuct & Energy es una empresa venezolana de servicios industriales y petroleros, documentada, auditable y alineada a estándares internacionales desde el primer día.
+        </p>
+        <div class="ab-hero__actions anim-in" style="animation-delay:.3s">
+          <a href={nav.services} class="btn btn-primary">Ver servicios <Icon name="arrow-right" size={18} /></a>
+          <a href="#ficha" class="btn btn-secondary">Ficha corporativa</a>
         </div>
       </div>
-      <div class="rounded-lg overflow-hidden border border-white/10 aspect-[4/3]">
-        <!-- Mapa de Valle de la Pascua (OpenStreetMap) -->
-        <iframe
-          title="Mapa de Valle de la Pascua, Guárico"
-          class="w-full h-full"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-66.05%2C9.16%2C-65.95%2C9.24&layer=mapnik&marker=9.2116%2C-66.0055"
-        ></iframe>
+
+      <div class="ab-hero__media anim-in" style="animation-delay:.15s">
+        <div class="ab-hero__photo">
+          <img
+            src="/images/refineria.webp"
+            width="1800"
+            height="1200"
+            alt="Instalaciones industriales de una refinería, entorno operativo de NEX"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <aside class="ab-glass" aria-label="Datos clave">
+          <ul>
+            {heroFacts.map((f) => (
+              <li>
+                <span class="ab-glass__icon"><Icon name={f.icon} size={18} /></span>
+                <span class="ab-glass__txt">
+                  <span class="ab-glass__k">{f.k}</span>
+                  <span class="ab-glass__v">{f.v}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
     </div>
-  </Section>
+  </section>
+
+  <!-- Historia -->
+  <section class="ab-section">
+    <div class="container-nex">
+      <div class="ab-story">
+        <div class="ab-story__head reveal">
+          <p class="eyebrow">Trayectoria</p>
+          <p class="ab-story__quote">
+            Priorizamos lo que la mayoría de los contratistas deja para el final: el orden, la trazabilidad y el cumplimiento.
+          </p>
+          <p class="ab-story__sign">{CORP.slogan[lang]}</p>
+        </div>
+        <div class="ab-story__body reveal" style="--d:0.1s">
+          <p>NEX Comstuct & Energy C.A. nace en Valle de la Pascua, Estado Guárico, en el corazón operativo de la industria de hidrocarburos venezolana. Desde su constitución, la empresa priorizó un sistema documental completo, matrices de riesgo por línea de servicio y un marco de cumplimiento internacional.</p>
+          <p>Ese orden de prioridades es deliberado. NEX se concibe para operar con PDVSA, con las operadoras internacionales presentes en el país y con el mercado regional emergente: clientes que exigen trazabilidad, disciplina HSE y transparencia antes de adjudicar un solo contrato.</p>
+          <p>Nuestro propósito es prestar servicios de calidad internacional en Venezuela y la región, con un sistema de gestión que permita a PDVSA, a las operadoras internacionales y a la banca de desarrollo confiar en NEX como proveedor serio y verificable.</p>
+          <ul class="ab-lines" aria-label="Líneas de servicio">
+            {SERVICES.map((s) => (
+              <li class="chip">{s.title[lang]}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Misión / Visión -->
+  <section class="ab-section ab-section--tight">
+    <div class="container-nex">
+      <div class="ab-head reveal">
+        <p class="eyebrow">Rumbo</p>
+        <h2 class="title-split ab-h2">Misión y <span>Visión 2031</span></h2>
+      </div>
+      <div class="ab-mv">
+        <div class="ab-mv__cell reveal">
+          <article class="ab-mv__panel ab-mv__panel--light">
+            <span class="icon-tile"><Icon name="target" size={22} /></span>
+            <p class="ab-mv__label">Misión</p>
+            <h3 class="ab-mv__title">Servicio seguro, responsable y técnicamente excelente</h3>
+            <p class="ab-mv__text">Prestar servicios petroleros seguros, ambientalmente responsables y técnicamente excelentes, sostenidos por un sistema de gestión auditable y un compromiso inquebrantable con la integridad.</p>
+          </article>
+        </div>
+        <div class="ab-mv__cell reveal" style="--d:0.1s">
+          <article class="ab-mv__panel ab-mv__panel--dark band-dark">
+            <span class="ab-mv__icon-dark"><Icon name="trending-up" size={22} /></span>
+            <p class="ab-mv__label ab-mv__label--dark">Visión 2031</p>
+            <h3 class="ab-mv__title" style="color:#fff">Calificada por operadoras internacionales</h3>
+            <p class="ab-mv__text ab-mv__text--dark">Ser una empresa de servicios petroleros calificada por operadoras internacionales, con USD 7M facturados anuales, certificaciones ISO 9001/14001/45001 y presencia consolidada en Venezuela y el mercado regional.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Valores -->
+  <section class="ab-section">
+    <div class="container-nex ab-values">
+      <div class="ab-values__head reveal">
+        <p class="eyebrow">Valores</p>
+        <h2 class="title-split ab-h2">Seis principios <span>que gobiernan cada decisión</span></h2>
+        <p class="ab-muted">Cada principio se traduce en procedimientos, responsables y evidencia verificable en campo.</p>
+      </div>
+      <ol class="ab-vlist reveal" style="--d:0.1s">
+        {values.map((v, i) => (
+          <li class="ab-vrow" tabindex="0">
+            <span class="ab-vrow__num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="ab-vrow__title">{v.title}</h3>
+            <p class="ab-vrow__text">{v.text}</p>
+            <span class="ab-vrow__icon" aria-hidden="true"><Icon name={v.icon} size={20} /></span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Gobernanza y ubicación -->
+  <section class="ab-section ab-section--tight">
+    <div class="container-nex ab-gov">
+      <div class="reveal">
+        <p class="eyebrow">Gobernanza corporativa</p>
+        <h2 class="title-split ab-h2 ab-h2--sm">Una estructura <span>de cuatro niveles</span></h2>
+        <ol class="ab-gov__list">
+          {governance.map((g) => (
+            <li>
+              <span class="ab-gov__lvl">{g.level}</span>
+              <div>
+                <h3>{g.title}</h3>
+                <p>{g.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="ab-loc frame reveal" style="--d:0.1s">
+        <div class="card ab-loc__card">
+          <p class="eyebrow">Ubicación estratégica</p>
+          <h3 class="ab-loc__title">Valle de la Pascua, un centro operativo natural</h3>
+          <p class="ab-muted">Nuestra base equidista de las tres grandes zonas productoras del país, lo que permite tiempos de respuesta cortos y logística eficiente.</p>
+          <ul class="ab-loc__zones">
+            {zones.map((z) => (
+              <li>
+                <span class="ab-loc__pin"><Icon name="map-pin" size={18} /></span>
+                <div>
+                  <p class="ab-loc__name">{z.name}</p>
+                  <p class="ab-loc__note">{z.note}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ficha corporativa -->
+  <section class="ab-section" id="ficha">
+    <div class="container-nex ab-spec">
+      <div class="ab-spec__media reveal">
+        <img
+          src="/images/obras-civiles-2.webp"
+          alt="Cuadrilla ejecutando obras civiles en un sitio industrial"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="ab-spec__body reveal" style="--d:0.1s">
+        <p class="eyebrow">Identidad corporativa</p>
+        <h2 class="title-split ab-h2">Ficha <span>técnica</span></h2>
+        <dl class="ab-spec__dl">
+          {ficha.map((r) => (
+            <div class="ab-spec__row">
+              <dt>{r.k}</dt>
+              <dd>{r.v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
 
   <CtaBand
     title="¿Listo para evaluar a NEX?"
@@ -162,3 +251,595 @@ const governance = [
     secondaryHref={nav.services}
   />
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .ab-hero {
+    position: relative;
+    isolation: isolate;
+    padding: 140px 0 88px;
+    overflow: hidden;
+  }
+  .ab-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -160px;
+    right: -10%;
+    width: min(900px, 120vw);
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(47, 120, 180, 0.22), rgba(104, 176, 90, 0.08) 60%, transparent);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+  .ab-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .ab-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .ab-crumbs a {
+    transition: color 0.2s ease;
+  }
+  .ab-crumbs a:hover {
+    color: var(--nex-ink);
+  }
+  .ab-crumbs__current {
+    color: var(--nex-ink);
+  }
+  .ab-hero__title {
+    margin-top: 22px;
+    font-size: clamp(40px, 5.6vw, 76px);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    padding-bottom: 0.06em;
+  }
+  .ab-hero__lead {
+    margin-top: 24px;
+    max-width: 520px;
+  }
+  .ab-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .ab-hero__media {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .ab-hero__photo {
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 30px 80px -30px rgba(16, 42, 67, 0.45);
+  }
+  .ab-hero__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 1.2s var(--nex-ease);
+  }
+  .ab-hero__media:hover .ab-hero__photo img {
+    transform: scale(1.06);
+  }
+  .ab-glass {
+    position: absolute;
+    left: -48px;
+    bottom: 0;
+    width: min(300px, 80%);
+    padding: 18px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 24px 60px -20px rgba(16, 42, 67, 0.35);
+  }
+  .ab-glass ul {
+    display: grid;
+    gap: 14px;
+  }
+  .ab-glass li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ab-glass li + li {
+    padding-top: 14px;
+    border-top: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .ab-glass__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 10px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.1);
+  }
+  .ab-glass__txt {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .ab-glass__k {
+    font-size: 12px;
+    color: var(--nex-gris);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .ab-glass__v {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--nex-ink);
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Sections ---------- */
+  .ab-section {
+    padding: 104px 0;
+  }
+  .ab-section--tight {
+    padding: 72px 0;
+  }
+  .ab-head {
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+  .ab-h2 {
+    margin-top: 18px;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.04;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+  .ab-h2--sm {
+    font-size: clamp(28px, 3.2vw, 40px);
+  }
+  .ab-muted {
+    margin-top: 16px;
+    color: var(--nex-gris);
+    line-height: 1.6;
+  }
+
+  /* ---------- Story ---------- */
+  .ab-story {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 72px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(16, 42, 67, 0.1);
+  }
+  .ab-story__quote {
+    margin-top: 24px;
+    font-size: clamp(26px, 3vw, 40px);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    color: var(--nex-ink);
+    text-wrap: balance;
+  }
+  .ab-story__quote::before {
+    content: "\201C";
+    display: block;
+    font-size: 1.8em;
+    line-height: 0.6;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #2f78b4, #3f9a5a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ab-story__sign {
+    margin-top: 24px;
+    padding-left: 16px;
+    border-left: 2px solid var(--nex-verde);
+    font-weight: 600;
+    color: var(--nex-azul);
+  }
+  .ab-story__body {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+    color: #3d4a55;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .ab-story__body > p:first-child::first-letter {
+    float: left;
+    font-size: 3.4em;
+    line-height: 0.85;
+    padding: 6px 10px 0 0;
+    font-weight: 700;
+    color: var(--nex-azul);
+  }
+  .ab-lines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* ---------- Mission / Vision ---------- */
+  .ab-mv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .ab-mv__cell {
+    display: grid;
+  }
+  .ab-mv__panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    padding: clamp(28px, 4vw, 52px);
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.45s var(--nex-ease), box-shadow 0.45s var(--nex-ease);
+  }
+  .ab-mv__panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .ab-mv__panel--light {
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .ab-mv__icon-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .ab-mv__label {
+    margin-top: auto;
+    padding-top: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--nex-azul);
+  }
+  .ab-mv__label--dark {
+    color: #a9d6ee;
+  }
+  .ab-mv__title {
+    margin-top: 10px;
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--nex-ink);
+  }
+  .ab-mv__text {
+    margin-top: 14px;
+    line-height: 1.65;
+    color: var(--nex-gris);
+  }
+  .ab-mv__text--dark {
+    color: #dce8ef;
+  }
+
+  /* ---------- Values ---------- */
+  .ab-values {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 64px;
+    align-items: start;
+  }
+  .ab-values__head {
+    position: sticky;
+    top: 120px;
+  }
+  .ab-vlist {
+    border-top: 1px solid rgba(16, 42, 67, 0.1);
+  }
+  .ab-vrow {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "num title icon"
+      "num text icon";
+    column-gap: 20px;
+    padding: 26px 20px 26px 24px;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    outline: none;
+    transition: background 0.45s var(--nex-ease), padding 0.45s var(--nex-ease);
+  }
+  .ab-vrow::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--nex-azul), var(--nex-verde));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.45s var(--nex-ease);
+  }
+  .ab-vrow__num {
+    grid-area: num;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nex-gris);
+    padding-top: 6px;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.35s ease;
+  }
+  .ab-vrow__title {
+    grid-area: title;
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .ab-vrow__text {
+    grid-area: text;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    color: var(--nex-gris);
+    line-height: 1.6;
+    transition: max-height 0.5s var(--nex-ease), opacity 0.4s ease, margin 0.45s var(--nex-ease);
+  }
+  .ab-vrow__icon {
+    grid-area: icon;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+    transition: transform 0.45s var(--nex-ease), background 0.35s ease, color 0.35s ease;
+  }
+  .ab-vrow:hover,
+  .ab-vrow:focus-visible {
+    background: #fff;
+    padding-left: 32px;
+  }
+  .ab-vrow:hover::before,
+  .ab-vrow:focus-visible::before {
+    transform: scaleY(1);
+  }
+  .ab-vrow:hover .ab-vrow__num,
+  .ab-vrow:focus-visible .ab-vrow__num {
+    color: var(--nex-azul);
+  }
+  .ab-vrow:hover .ab-vrow__text,
+  .ab-vrow:focus-visible .ab-vrow__text {
+    max-height: 120px;
+    opacity: 1;
+    margin-top: 8px;
+  }
+  .ab-vrow:hover .ab-vrow__icon,
+  .ab-vrow:focus-visible .ab-vrow__icon {
+    color: #fff;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+    transform: rotate(-6deg);
+  }
+  /* Touch devices: no hover, always show text */
+  @media (hover: none) {
+    .ab-vrow__text {
+      max-height: none;
+      opacity: 1;
+      margin-top: 8px;
+    }
+  }
+
+  /* ---------- Governance + location ---------- */
+  .ab-gov {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+  .ab-gov__list {
+    margin-top: 32px;
+    display: grid;
+    gap: 0;
+  }
+  .ab-gov__list li {
+    display: flex;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .ab-gov__list li:first-child {
+    border-top: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .ab-gov__lvl {
+    flex: none;
+    width: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nex-azul);
+    padding-top: 3px;
+  }
+  .ab-gov__list h3 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--nex-ink);
+  }
+  .ab-gov__list p {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--nex-gris);
+  }
+  .ab-loc__title {
+    margin-top: 16px;
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .ab-loc__zones {
+    margin-top: 24px;
+    display: grid;
+    gap: 14px;
+  }
+  .ab-loc__zones li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .ab-loc__pin {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    color: #3f8a4a;
+    background: rgba(104, 176, 90, 0.12);
+  }
+  .ab-loc__name {
+    font-weight: 600;
+    color: var(--nex-ink);
+  }
+  .ab-loc__note {
+    font-size: 14px;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Spec sheet ---------- */
+  .ab-spec {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: stretch;
+  }
+  .ab-spec__media {
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .ab-spec__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ab-spec__dl {
+    margin-top: 32px;
+    border-top: 1px solid rgba(16, 42, 67, 0.14);
+  }
+  .ab-spec__row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    transition: background 0.35s ease, padding 0.35s var(--nex-ease);
+  }
+  .ab-spec__row:hover {
+    background: rgba(47, 120, 180, 0.04);
+    padding-left: 12px;
+  }
+  .ab-spec__row dt {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--nex-gris);
+    padding-top: 2px;
+  }
+  .ab-spec__row dd {
+    font-weight: 600;
+    color: var(--nex-ink);
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .ab-hero__grid,
+    .ab-story,
+    .ab-mv,
+    .ab-values,
+    .ab-gov,
+    .ab-spec {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+    .ab-values__head {
+      position: static;
+    }
+    .ab-hero__photo {
+      aspect-ratio: 4 / 3;
+    }
+    .ab-glass {
+      left: 16px;
+    }
+    .ab-mv__panel {
+      min-height: 0;
+    }
+    .ab-spec__media {
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+    }
+    .ab-section {
+      padding: 72px 0;
+    }
+    .ab-section--tight {
+      padding: 56px 0;
+    }
+  }
+  @media (max-width: 560px) {
+    .ab-hero {
+      padding: 112px 0 64px;
+    }
+    .ab-hero__media {
+      padding-bottom: 0;
+    }
+    .ab-glass {
+      position: relative;
+      left: auto;
+      width: auto;
+      margin: -48px 16px 0;
+    }
+    .ab-spec__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+    .ab-vrow {
+      grid-template-columns: 36px minmax(0, 1fr) auto;
+      column-gap: 12px;
+      padding: 22px 12px 22px 16px;
+    }
+    .ab-vrow:hover,
+    .ab-vrow:focus-visible {
+      padding-left: 20px;
+    }
+    .ab-story__body {
+      font-size: 16px;
+    }
+  }
+</style>

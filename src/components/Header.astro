@@ -238,6 +238,19 @@ const groupActive = (e: NavEntry) =>
     color: #33414c;
   }
 
+  /* pages that open on a dark full-bleed photo: light logo text and hamburger until the page scrolls */
+  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .site-logo__name {
+    background: linear-gradient(90deg, #a9d6ee, #9fd68c);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .site-logo__sub {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  body:has(.sd-hero--immersive, .inv-hero) .site-header:not(.is-scrolled) .nav-toggle:not(.is-open) span {
+    background: #fff;
+  }
+
   /* ---------- Pill nav ---------- */
   .site-nav {
     justify-self: center;

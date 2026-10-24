@@ -1,27 +1,25 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import Section from "../../components/Section.astro";
-import StatCard from "../../components/StatCard.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Icon from "../../components/Icon.astro";
 import { navItems } from "../../data/site";
 
 const lang = "en";
 const nav = navItems(lang);
+const year = new Date().getFullYear();
 
-const commitments = [
-  { value: "< 1.0", label: "TRIR per 200,000 man-hours" },
-  { value: "0", label: "Fatalities" },
-  { value: "0", label: "Uncontained spills" },
-  { value: "100%", label: "Current HSE induction" },
+// Zero targets (absolute value)
+const zeroTargets = [
+  { value: "0", label: "Fatalities", note: "Zero target across all operations", icon: "shield" },
+  { value: "0", label: "Uncontained spills", note: "On-site containment and response", icon: "droplet" },
 ];
 
-const compliance = [
-  { icon: "scale", title: "FCPA", text: "Foreign Corrupt Practices Act: absolute prohibition of improper payments and accounting controls." },
-  { icon: "shield-check", title: "UK Bribery Act", text: "Prevention of active and passive bribery, with documented adequate procedures." },
-  { icon: "lock", title: "OFAC / Sanctions", text: "Compliance with sanctions and counterparty due diligence." },
-  { icon: "users", title: "UNGP: Human Rights", text: "UN Guiding Principles on Business and Human Rights." },
+// Percentage targets with a progress ring
+const rings = [
+  { p: 100, value: "100%", label: "Current HSE induction", note: "Before every field assignment" },
+  { p: 100, value: "100%", label: "IPER matrices per service line", note: "One matrix per line, with a hierarchy of controls" },
+  { p: 100, value: "100%", label: "Work permits on every job", note: "No critical task without an issued permit" },
+  { p: 100, value: "100%", label: "Stop-work authority", note: "Every worker can stop an unsafe job" },
 ];
 
 const permits = [
@@ -30,10 +28,38 @@ const permits = [
   "Electrical work", "Process line breaking",
 ];
 
-const iper = [
-  { value: "30", label: "hazards identified in workover" },
-  { value: "23", label: "hazards in environmental remediation" },
-  { value: "22", label: "hazards in welding" },
+const compliance = [
+  {
+    icon: "scale",
+    title: "FCPA",
+    sub: "Foreign Corrupt Practices Act",
+    text: "Absolute prohibition of improper payments to officials and third parties, with accounting controls that ensure complete and accurate records of every transaction.",
+  },
+  {
+    icon: "shield-check",
+    title: "UK Bribery Act",
+    sub: "Bribery prevention",
+    text: "Prevention of active and passive bribery, with documented adequate procedures, staff training and channels to report deviations.",
+  },
+  {
+    icon: "lock",
+    title: "OFAC / Sanciones",
+    sub: "Counterparty due diligence",
+    text: "Compliance with sanctions regimes and due diligence on clients, suppliers and partners before every business relationship.",
+  },
+  {
+    icon: "users",
+    title: "UNGP: Human Rights",
+    sub: "UN Guiding Principles",
+    text: "Respect for the UN Guiding Principles on Business and Human Rights in our operations, with our people and with neighboring communities.",
+  },
+];
+
+const bbs = [
+  { icon: "target", title: "Observe", text: "Planned observation of field behaviors, by peers and supervisors." },
+  { icon: "handshake", title: "Give feedback", text: "Immediate, positive feedback that reinforces safe behavior." },
+  { icon: "file-text", title: "Report", text: "Near-miss reporting without retaliation, to learn before an event happens." },
+  { icon: "hard-hat", title: "Stop", text: "Stop-work authority for every worker in the face of any unsafe condition." },
 ];
 ---
 
@@ -45,81 +71,933 @@ const iper = [
   enRest="/hse-compliance/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "HSE & Compliance" }]}
 >
-  <PageHero
-    eyebrow="HSE & Compliance"
-    title="Safety is the condition of every operation"
-    subtitle="No operational, commercial or schedule target justifies a deviation in safety, environment or integrity."
-    crumbs={[{ name: "HSE & Compliance" }]}
-  />
-
-  <Section eyebrow="HSE Policy" title="Signed by the Presidency">
-    <div class="card-navy max-w-4xl">
-      <Icon name="file-text" size={32} class="text-nex-oro mb-4" />
-      <blockquote class="text-lg text-nex-gris italic">
-        "NEX Comstuct & Energy C.A. treats safety, occupational health and environmental protection as non-negotiable values. Every person in the organization has the authority and the duty to stop any work that poses a risk. Integrity and legal and international compliance are the basis of our license to operate."
-      </blockquote>
-      <p class="mt-5 text-nex-oro font-semibold">Presidency, {new Date().getFullYear()}</p>
-    </div>
-  </Section>
-
-  <Section variant="off-white" eyebrow="Quantitative commitments" title="Four measurable targets" center>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {commitments.map((c) => <StatCard value={c.value} label={c.label} />)}
-    </div>
-  </Section>
-
-  <Section eyebrow="HSE System" title="HSE/SSPA Manual v2 with IPER per service line">
-    <p class="max-w-3xl text-nex-gris mb-8">Each service line has its own Hazard Identification and Risk Assessment (IPER) matrix, with hierarchical control measures and field verification.</p>
-    <div class="grid gap-6 sm:grid-cols-3">
-      {iper.map((i) => <StatCard value={i.value} label={i.label} variant="navy" />)}
-    </div>
-  </Section>
-
-  <Section variant="off-white" eyebrow="International compliance" title="Four frameworks built into management">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {compliance.map((c) => (
-        <article class="card h-full">
-          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={c.icon} size={26} /></span>
-          <h3 class="text-lg mb-2">{c.title}</h3>
-          <p class="text-nex-gris text-sm">{c.text}</p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <Section eyebrow="Work permit system" title="Eight controlled permit types">
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {permits.map((p, i) => (
-        <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-nex-surface p-4 shadow-card">
-          <span class="text-nex-oro font-bold text-sm w-6">{String(i + 1).padStart(2, "0")}</span>
-          <span class="text-nex-gris text-sm font-medium">{p}</span>
+  <!-- ============ Cover ============ -->
+  <section class="hse-hero">
+    <div class="container-nex">
+      <div class="cover anim-in">
+        <div class="cover__inner">
+          <div class="cover__text">
+            <nav aria-label="Breadcrumb" class="cover__crumbs">
+              <a href={nav.home}>Home</a>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page">HSE & Compliance</span>
+            </nav>
+            <p class="eyebrow mt-6 anim-in" style="animation-delay:.08s">HSE & Compliance</p>
+            <h1 class="cover__title text-grad-brand anim-in" style="animation-delay:.14s">Safety is the condition of every operation</h1>
+            <p class="lead cover__lead anim-in" style="animation-delay:.22s">
+              No operational, commercial or schedule target justifies a deviation in safety, environment or integrity. Our policy says so, and every work front is measured against it.
+            </p>
+            <div class="cover__sign anim-in" style="animation-delay:.3s">
+              <span class="cover__sign-icon" aria-hidden="true"><Icon name="file-text" size={18} /></span>
+              <span><strong>HSE policy signed by the Presidency</strong><span class="cover__sign-year"> | In force {year}</span></span>
+            </div>
+            <div class="cover__actions anim-in" style="animation-delay:.36s">
+              <a href="#tablero" class="btn btn-primary btn-sm">View HSE targets <Icon name="arrow-right" size={16} /></a>
+              <a href="#cumplimiento" class="btn btn-secondary btn-sm">Compliance frameworks</a>
+            </div>
+          </div>
+          <figure class="cover__media">
+            <img
+              src="/images/hse.webp"
+              width="1100"
+              height="1650"
+              alt="Worker seen from behind wearing a white safety helmet and a reflective vest at a work site"
+              loading="eager"
+              decoding="async"
+            />
+            <figcaption class="cover__tag">
+              <span class="cover__tag-dot" aria-hidden="true"></span>
+              Stop-work authority for every worker
+            </figcaption>
+          </figure>
         </div>
-      ))}
-    </div>
-  </Section>
-
-  <Section variant="off-white" eyebrow="Safety culture" title="BBS: Behavior-Based Safety Program">
-    <div class="grid gap-8 lg:grid-cols-2 items-center">
-      <p class="text-nex-gris text-lg">Behavior observations, positive feedback and reinforcement of safe conduct. The goal is not to penalize, but to build a culture where stopping unsafe work is the norm, not the exception.</p>
-      <div class="card">
-        <ul class="space-y-3">
-          {["Planned behavior observation", "Immediate, positive feedback", "Near-miss reporting without reprisal", "Stop-work authority for all personnel"].map((x) => (
-            <li class="flex items-start gap-3">
-              <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
-              <span class="text-nex-gris">{x}</span>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
-  </Section>
+  </section>
+
+  <!-- ============ Targets dashboard ============ -->
+  <section id="tablero" class="hse-section">
+    <div class="container-nex">
+      <div class="dash-head">
+        <div class="reveal">
+          <p class="eyebrow">Measurable commitments</p>
+          <h2 class="title-split mt-5 text-3xl md:text-[44px] leading-[1.05]">HSE dashboard <span>with targets that get audited</span></h2>
+        </div>
+        <p class="lead dash-head__lead reveal" style="--d:.1s">
+          Our HSE/SSPA Manual v2 gives each service line its own Hazard Identification and Risk Assessment (IPER) matrix, with a hierarchy of control measures and field verification.
+        </p>
+      </div>
+
+      <div class="dash frame reveal" style="--d:.1s">
+        <div class="dash__bar">
+          <span class="dash__live" aria-hidden="true"></span>
+          <span>Corporate HSE targets</span>
+          <span class="dash__bar-meta">HSE/SSPA System v2</span>
+        </div>
+
+        <div class="dash__grid">
+          <!-- TRIR -->
+          <article class="tile tile--trir">
+            <div class="tile__top">
+              <span class="tile__kpi">KPI 01</span>
+              <span class="tile__status">Target</span>
+            </div>
+            <p class="tile__value tile__value--xl">&lt; 1.0</p>
+            <h3 class="tile__label">TRIR per 200,000 man-hours</h3>
+            <div class="trir-scale" aria-hidden="true">
+              <div class="trir-scale__track">
+                <span class="trir-scale__fill"></span>
+                <span class="trir-scale__mark"></span>
+              </div>
+              <div class="trir-scale__legend">
+                <span>0</span><span>Threshold 1.0</span><span>2.0</span>
+              </div>
+            </div>
+            <p class="tile__note">Total recordable incident rate, calculated on the international standard of 200,000 man-hours.</p>
+          </article>
+
+          {zeroTargets.map((z, i) => (
+            <article class="tile">
+              <div class="tile__top">
+                <span class="tile__kpi">KPI 0{i + 2}</span>
+                <span class="tile__ico" aria-hidden="true"><Icon name={z.icon} size={18} /></span>
+              </div>
+              <p class="tile__value">{z.value}</p>
+              <h3 class="tile__label">{z.label}</h3>
+              <p class="tile__note">{z.note}</p>
+            </article>
+          ))}
+
+          {rings.map((r, i) => (
+            <article class="tile tile--ring">
+              <div class="tile__top">
+                <span class="tile__kpi">KPI 0{i + 4}</span>
+                <span class="tile__status tile__status--green">Target</span>
+              </div>
+              <div class="ring" style={`--p:${r.p}`} role="img" aria-label={`Target: ${r.value}`}>
+                <span class="ring__val">{r.value}</span>
+              </div>
+              <h3 class="tile__label">{r.label}</h3>
+              <p class="tile__note">{r.note}</p>
+            </article>
+          ))}
+
+          <!-- Permisos -->
+          <article class="tile tile--wide">
+            <div class="tile__top">
+              <span class="tile__kpi">Operational control</span>
+              <span class="tile__ico" aria-hidden="true"><Icon name="clipboard-check" size={18} /></span>
+            </div>
+            <div class="permits">
+              <div>
+                <p class="tile__value">8</p>
+                <h3 class="tile__label">Controlled work permit types</h3>
+              </div>
+              <ul class="permits__list">
+                {permits.map((p, i) => (
+                  <li><span class="permits__n">{String(i + 1).padStart(2, "0")}</span>{p}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ International compliance ============ -->
+  <section id="cumplimiento" class="hse-section hse-section--alt">
+    <div class="container-nex comp">
+      <div class="comp__aside">
+        <div class="comp__sticky reveal">
+          <p class="eyebrow">International compliance</p>
+          <h2 class="title-split mt-5 text-3xl md:text-[44px] leading-[1.05]">Four frameworks <span>built into management</span></h2>
+          <p class="lead mt-5">Integrity is part of our license to operate. These frameworks guide our relationships with clients, suppliers, officials and communities.</p>
+          <span class="section-rule mt-8"></span>
+        </div>
+      </div>
+      <div class="comp__list">
+        {compliance.map((c, i) => (
+          <div class="reveal" style={`--d:${i * 0.08}s`}>
+          <details class="faq__item comp__item" open={i === 0}>
+            <summary class="faq__q">
+              <span class="comp__q">
+                <span class={`icon-tile comp__tile ${i % 2 ? "icon-tile--green" : ""}`} aria-hidden="true"><Icon name={c.icon} size={22} /></span>
+                <span>
+                  <span class="comp__title">{c.title}</span>
+                  <span class="comp__sub">{c.sub}</span>
+                </span>
+              </span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq__a comp__a">{c.text}</div>
+          </details>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Safety culture / BBS ============ -->
+  <section class="hse-section">
+    <div class="container-nex">
+      <div class="text-center flex flex-col items-center">
+        <p class="eyebrow reveal">Safety culture</p>
+        <h2 class="title-split text-center mt-5 text-3xl md:text-[44px] leading-[1.05] reveal" style="--d:.05s">BBS program <span>Behavior-Based Safety</span></h2>
+        <p class="lead mt-5 max-w-2xl reveal" style="--d:.1s">The goal is not to punish, but to build a culture where stopping an unsafe job is the norm, not the exception.</p>
+      </div>
+
+      <div class="cycle-wrap">
+      <span class="cycle__line" aria-hidden="true"></span>
+      <ol class="cycle">
+        {bbs.map((s, i) => (
+          <li class="cycle__step reveal" style={`--d:${0.1 + i * 0.1}s`}>
+            <span class="cycle__node" aria-hidden="true"><Icon name={s.icon} size={24} /></span>
+            <span class="cycle__num">Step {String(i + 1).padStart(2, "0")}</span>
+            <h3 class="cycle__title">{s.title}</h3>
+            <p class="cycle__text">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      </div>
+      <p class="cycle__loop reveal" style="--d:.5s"><Icon name="refresh-cw" size={16} /> A continuous cycle: every observation feeds the next one.</p>
+    </div>
+  </section>
+
+  <!-- ============ Policy quote ============ -->
+  <section class="hse-section hse-section--tight">
+    <div class="container-nex">
+      <figure class="policy band-dark reveal">
+        <span class="policy__mark" aria-hidden="true">&ldquo;</span>
+        <p class="eyebrow">HSE Policy | Presidency</p>
+        <blockquote class="policy__quote">
+          <p>NEX Comstuct & Energy C.A. embraces safety, occupational health and environmental protection as non-negotiable values. Every person in the organization has the authority and the duty to stop any work that poses a risk. Integrity and legal and international compliance are the foundation of our license to operate.</p>
+        </blockquote>
+        <figcaption class="policy__by">
+          <span class="policy__line" aria-hidden="true"></span>
+          Presidency, {year}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
 
   <CtaBand
     title="HSE Manual available under NDA"
     text="Request the HSE/SSPA Manual and IPER matrices by signing a confidentiality agreement."
     ctaLabel="Request under NDA"
-    ctaHref={`${nav.contact}?inquiry=technical`}
+    ctaHref={`${nav.contact}?consulta=tecnica`}
     secondaryLabel="View Management System"
     secondaryHref={nav.sig}
   />
 </BaseLayout>
+
+<style>
+  @property --p {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+  }
+  @property --spin {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  /* ---------- Hero cover ---------- */
+  .hse-hero {
+    padding: 140px 0 40px;
+  }
+  .cover {
+    position: relative;
+    padding: 1.5px;
+    border-radius: 32px;
+    background: conic-gradient(
+      from var(--spin),
+      rgba(47, 120, 180, 0.65),
+      rgba(104, 176, 90, 0.55),
+      rgba(16, 42, 67, 0.08) 35%,
+      rgba(16, 42, 67, 0.08) 65%,
+      rgba(47, 120, 180, 0.65)
+    );
+    box-shadow: 0 30px 80px -30px rgba(47, 120, 180, 0.35);
+    animation: cover-spin 9s linear infinite;
+  }
+  @keyframes cover-spin {
+    to {
+      --spin: 360deg;
+    }
+  }
+  .cover__inner {
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    overflow: hidden;
+    border-radius: 30.5px;
+    background:
+      radial-gradient(70% 60% at 0% 0%, rgba(47, 120, 180, 0.08), transparent 70%),
+      #fff;
+    min-height: 560px;
+  }
+  .cover__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: clamp(28px, 5vw, 64px);
+  }
+  .cover__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .cover__crumbs a {
+    transition: color 0.2s ease;
+  }
+  .cover__crumbs a:hover {
+    color: var(--nex-ink);
+  }
+  .cover__crumbs [aria-current] {
+    color: var(--nex-ink);
+  }
+  .cover__title {
+    margin-top: 20px;
+    max-width: 620px;
+    font-size: clamp(36px, 4.8vw, 62px);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+  .cover__lead {
+    margin-top: 20px;
+    max-width: 540px;
+  }
+  .cover__sign {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--nex-line);
+    font-size: 0.9375rem;
+    color: var(--nex-ink);
+    width: 100%;
+    max-width: 540px;
+  }
+  .cover__sign strong {
+    font-weight: 600;
+  }
+  .cover__sign-year {
+    color: var(--nex-gris);
+  }
+  .cover__sign-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 10px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+    border: 1px solid rgba(47, 120, 180, 0.18);
+  }
+  .cover__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .cover__media {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+  }
+  .cover__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 40% 32%;
+  }
+  .cover__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), transparent 22%);
+    pointer-events: none;
+  }
+  .cover__tag {
+    position: absolute;
+    z-index: 1;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--nex-ink);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .cover__tag-dot {
+    width: 8px;
+    height: 8px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--nex-verde-deep);
+    box-shadow: 0 0 0 4px rgba(63, 138, 74, 0.18);
+  }
+
+  /* ---------- Sections ---------- */
+  .hse-section {
+    position: relative;
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+  .hse-section--alt {
+    background: linear-gradient(180deg, #eef4f8, #f6f9fb);
+  }
+  .hse-section--tight {
+    padding-top: 0;
+  }
+
+  /* ---------- Dashboard ---------- */
+  .dash-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .dash-head__lead {
+    max-width: 520px;
+    justify-self: end;
+  }
+  .dash {
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .dash__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px 14px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--nex-ink);
+  }
+  .dash__bar-meta {
+    margin-left: auto;
+    color: var(--nex-gris);
+    font-variant-numeric: tabular-nums;
+  }
+  .dash__live {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--nex-verde);
+  }
+  .dash__live::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--nex-verde);
+    animation: live 2s ease-out infinite;
+  }
+  @keyframes live {
+    from {
+      transform: scale(0.6);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+  .dash__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    transition:
+      transform 0.5s var(--nex-ease),
+      border-color 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .tile--trir {
+    grid-column: span 2;
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(47, 120, 180, 0.1), transparent 60%),
+      #fff;
+  }
+  .tile--wide {
+    grid-column: 1 / -1;
+  }
+  .tile__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .tile__kpi {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--nex-gris);
+  }
+  .tile__status {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.09);
+  }
+  .tile__status--green {
+    color: var(--nex-verde-deep);
+    background: rgba(63, 138, 74, 0.1);
+  }
+  .tile__ico {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+  }
+  .tile__value {
+    font-size: clamp(40px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(100deg, #0e1a24 0%, #17405f 40%, #2f78b4 80%, #3f9a5a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 0.06em;
+  }
+  .tile__value--xl {
+    font-size: clamp(52px, 6vw, 84px);
+  }
+  .tile__label {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: var(--nex-ink);
+  }
+  .tile__note {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--nex-gris);
+  }
+
+  /* TRIR scale */
+  .trir-scale {
+    margin-top: 18px;
+  }
+  .trir-scale__track {
+    position: relative;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(16, 42, 67, 0.07);
+  }
+  .trir-scale__fill {
+    position: absolute;
+    inset: 0 50% 0 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--nex-verde), var(--nex-azul));
+  }
+  .trir-scale__mark {
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    width: 2px;
+    height: 20px;
+    border-radius: 2px;
+    background: var(--nex-ink);
+  }
+  .trir-scale__legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--nex-gris);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Ring */
+  .ring {
+    --size: 104px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: conic-gradient(var(--nex-verde) 0, var(--nex-azul) calc(var(--p) * 1%), rgba(16, 42, 67, 0.08) 0);
+    transition: --p 1.6s var(--nex-ease);
+  }
+  .ring::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .ring__val {
+    position: relative;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  :global(.js) .dash.reveal:not(.is-in) .ring {
+    --p: 0 !important;
+  }
+
+  /* Permits */
+  .permits {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .permits__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .permits__list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #33414c;
+    background: var(--nex-fondo);
+    border: 1px solid rgba(16, 42, 67, 0.07);
+  }
+  .permits__n {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--nex-azul);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Compliance ---------- */
+  .comp {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: start;
+  }
+  .comp__sticky {
+    position: sticky;
+    top: 130px;
+  }
+  .comp__list {
+    display: grid;
+    gap: 12px;
+  }
+  .comp__item {
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      transform 0.5s var(--nex-ease),
+      box-shadow 0.4s ease;
+  }
+  .comp__item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.3);
+  }
+  .comp__q {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+  .comp__tile {
+    width: 46px;
+    height: 46px;
+  }
+  .comp__title {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .comp__sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--nex-gris);
+  }
+  .comp__a {
+    padding-left: calc(1.5rem + 46px + 16px);
+  }
+
+  /* ---------- BBS cycle ---------- */
+  .cycle-wrap {
+    position: relative;
+    margin-top: 56px;
+  }
+  .cycle {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cycle__line {
+    position: absolute;
+    top: 31px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--nex-azul), var(--nex-azul-light) 50%, var(--nex-verde));
+    opacity: 0.6;
+  }
+  .cycle__step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cycle__node {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    color: var(--nex-azul);
+    background: #fff;
+    border: 1px solid rgba(47, 120, 180, 0.25);
+    box-shadow:
+      0 0 0 8px var(--nex-fondo),
+      0 12px 30px -10px rgba(47, 120, 180, 0.4);
+    transition: transform 0.5s var(--nex-ease), color 0.3s ease, background 0.3s ease;
+  }
+  .cycle__step:nth-child(even) .cycle__node {
+    color: var(--nex-verde-deep);
+    border-color: rgba(63, 138, 74, 0.3);
+  }
+  .cycle__step:hover .cycle__node {
+    transform: translateY(-4px);
+  }
+  .cycle__num {
+    margin-top: 22px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--nex-gris);
+  }
+  .cycle__title {
+    margin-top: 6px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .cycle__text {
+    margin-top: 8px;
+    max-width: 240px;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--nex-gris);
+  }
+  .cycle__loop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+    font-size: 0.875rem;
+    color: var(--nex-gris);
+  }
+  .cycle__loop :global(svg) {
+    color: var(--nex-verde-deep);
+  }
+
+  /* ---------- Policy quote ---------- */
+  .policy {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: clamp(36px, 7vw, 88px);
+    border-radius: 32px;
+    color: #fff;
+  }
+  .policy__mark {
+    position: absolute;
+    top: -0.18em;
+    right: 0.08em;
+    font-size: clamp(180px, 26vw, 340px);
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+  .policy__quote {
+    position: relative;
+    margin-top: 28px;
+  }
+  .policy__quote p {
+    max-width: 960px;
+    font-size: clamp(22px, 2.7vw, 36px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-wrap: pretty;
+  }
+  .policy__by {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 36px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+  }
+  .policy__line {
+    width: 48px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a9d6ee, #9fd68c);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .dash__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .permits {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .permits__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 900px) {
+    .cover__inner {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .cover__media {
+      order: -1;
+      height: 320px;
+    }
+    .cover__media::after {
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0.35), transparent 30%);
+    }
+    .dash-head,
+    .comp {
+      grid-template-columns: 1fr;
+    }
+    .dash-head__lead {
+      justify-self: start;
+    }
+    .comp__sticky {
+      position: static;
+    }
+    .cycle {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 44px;
+    }
+    .cycle__line {
+      display: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .hse-hero {
+      padding-top: 112px;
+    }
+    .tile {
+      padding: 16px;
+    }
+    .tile__top {
+      margin-bottom: 14px;
+    }
+    .tile__status {
+      display: none;
+    }
+    .ring {
+      --size: 84px;
+    }
+    .ring::before {
+      inset: 7px;
+    }
+    .ring__val {
+      font-size: 1.125rem;
+    }
+    .tile__label {
+      font-size: 0.9375rem;
+    }
+    .permits__list {
+      grid-template-columns: 1fr;
+    }
+    .dash__bar-meta {
+      display: none;
+    }
+    .comp__a {
+      padding-left: 1.5rem;
+    }
+    .cycle {
+      grid-template-columns: 1fr;
+    }
+    .cycle__step {
+      flex-direction: column;
+    }
+    .cover__media {
+      height: 260px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cover,
+    .dash__live::after {
+      animation: none;
+    }
+    .ring {
+      transition: none;
+    }
+  }
+</style>

@@ -5,6 +5,7 @@ import StatCard from "./StatCard.astro";
 import CtaBand from "./CtaBand.astro";
 import Icon from "./Icon.astro";
 import { SERVICES, servicePath, navItems } from "../data/site";
+import { SERVICE_CONTENT } from "../data/services";
 import type { Lang } from "../utils/i18n";
 
 interface Props {
@@ -16,25 +17,25 @@ const nav = navItems(lang);
 const COPY = {
   es: {
     hero: {
-      title: "Servicios petroleros",
-      strong: "de talla internacional.",
+      title: "Servicios integrales",
+      strong: "para la industria y la energía.",
       subtitle:
-        "Empresa venezolana con sistema documental auditable, cumplimiento FCPA/UKBA integrado y disciplina HSE de clase mundial.",
+        "Obras civiles, mantenimiento mecánico, tuberías, gestión ambiental, productos químicos, transporte y personal especializado, con un mismo estándar de calidad y seguridad.",
       primary: "Solicitar propuesta",
-      secondary: "Conocer NEX",
-      trustLabel: "Estándares con los que trabajamos",
+      secondary: "Ver servicios",
+      trustLabel: "Lo que hacemos",
     },
     about: {
       badge: "Quiénes somos",
       statement:
-        "NEX integra cinco líneas de servicio petrolero bajo un solo estándar: documentación auditable, cumplimiento internacional y disciplina HSE en cada operación, desde el primer día.",
+        "NEX reúne siete líneas de servicio para la industria bajo un solo estándar: documentación auditable, cumplimiento legal y disciplina de seguridad en cada operación, desde el primer día.",
       cta: "Conocer NEX",
     },
     ops: {
       badge: "Líneas de servicio",
-      title: "Cinco capacidades,",
+      title: "Siete capacidades,",
       muted: "un solo estándar.",
-      lead: "Un mismo contratista para intervenir el pozo, remediar el entorno, soldar, suministrar y gerenciar el proyecto, con la misma exigencia técnica en cada frente.",
+      lead: "Un mismo aliado para construir, mantener, tender tuberías, cuidar el ambiente, suministrar, transportar y reforzar su equipo, con la misma exigencia técnica en cada frente.",
       more: "Conocer más",
       all: "Ver todas las líneas de servicio",
       mediaCaption: "Construyendo el futuro, impulsando la energía.",
@@ -60,25 +61,25 @@ const COPY = {
   },
   en: {
     hero: {
-      title: "Oil & gas services",
-      strong: "at international standard.",
+      title: "Integrated services",
+      strong: "for industry and energy.",
       subtitle:
-        "A Venezuelan company with an auditable documentary system, integrated FCPA/UKBA compliance and world-class HSE discipline.",
+        "Civil works, mechanical maintenance, pipelines, environmental management, chemical products, transport and specialized staffing, all held to the same quality and safety standard.",
       primary: "Request proposal",
-      secondary: "Learn about NEX",
-      trustLabel: "Standards we work to",
+      secondary: "View services",
+      trustLabel: "What we do",
     },
     about: {
       badge: "Who we are",
       statement:
-        "NEX brings five oil & gas service lines under a single standard: auditable documentation, international compliance and HSE discipline in every operation, from day one.",
+        "NEX brings seven industrial service lines under a single standard: auditable documentation, legal compliance and safety discipline in every operation, from day one.",
       cta: "Learn about NEX",
     },
     ops: {
       badge: "Service lines",
-      title: "Five capabilities,",
+      title: "Seven capabilities,",
       muted: "one standard.",
-      lead: "One contractor to intervene the well, remediate the site, weld, supply and manage the project, with the same technical rigor on every front.",
+      lead: "One partner to build, maintain, lay pipelines, care for the environment, supply, transport and strengthen your team, with the same technical rigor on every front.",
       more: "Learn more",
       all: "View all service lines",
       mediaCaption: "Building the future, powering energy.",
@@ -104,59 +105,10 @@ const COPY = {
   },
 }[lang];
 
-const standards = ["API Spec 16A", "IWCF", "IADC", "ASME IX", "AWS D1.1", "ISO 9001", "ISO 14001", "ISO 45001", "FCPA", "UK Bribery Act"];
-
-const serviceCopy = {
-  workover: {
-    icon: "wrench",
-    keys: ["IWCF", "IADC", "API 16A"],
-    desc: {
-      es: "Intervención y reacondicionamiento de pozos con personal certificado IWCF/IADC, control de pozo garantizado y equipos conforme a API Spec 16A.",
-      en: "Well intervention and workover with IWCF/IADC-certified personnel, guaranteed well control and equipment compliant with API Spec 16A.",
-    },
-  },
-  environmental: {
-    icon: "leaf",
-    keys: ["Biorremediación", "Landfarming", "MPPEA"],
-    desc: {
-      es: "Remediación de suelos y aguas contaminadas con hidrocarburos: biorremediación, landfarming y disposición controlada con certificación MPPEA.",
-      en: "Remediation of hydrocarbon-contaminated soil and water: bioremediation, landfarming and controlled disposal with MPPEA certification.",
-    },
-  },
-  welding: {
-    icon: "flame",
-    keys: ["ASME IX", "AWS D1.1", "CWI"],
-    desc: {
-      es: "Soldadura industrial certificada ASME IX y AWS D1.1, con soldadores calificados, inspección CWI y ensayos no destructivos disponibles.",
-      en: "ASME IX and AWS D1.1 certified industrial welding, with qualified welders, CWI inspection and non-destructive testing available.",
-    },
-  },
-  supply: {
-    icon: "package",
-    keys: ["MTR", "Trazabilidad", "Proveedores"],
-    desc: {
-      es: "Suministro de equipos y materiales para operaciones petroleras con trazabilidad MTR y una red de proveedores certificada.",
-      en: "Supply of equipment and materials for oil operations with MTR traceability and a certified supplier network.",
-    },
-  },
-  engineering: {
-    icon: "compass",
-    keys: ["Diseño", "Supervisión", "Gerencia"],
-    desc: {
-      es: "Ingeniería y consultoría técnica: diseño operativo, supervisión, gerencia de proyectos y consultoría especializada con personal senior.",
-      en: "Engineering and technical consulting: operational design, supervision, project management and specialized consulting with senior staff.",
-    },
-  },
-} as const;
-
-const keysEn: Record<string, string> = {
-  Biorremediación: "Bioremediation",
-  Trazabilidad: "Traceability",
-  Proveedores: "Suppliers",
-  Diseño: "Design",
-  Supervisión: "Supervision",
-  Gerencia: "Management",
-};
+const trustItems = {
+  es: ["Obras civiles", "Mantenimiento mecánico", "Soldadura", "Tuberías de 3 a 36 pulgadas", "Gestión ambiental", "Productos químicos", "Transporte de carga", "Mudanza de taladros", "Personal especializado"],
+  en: ["Civil works", "Mechanical maintenance", "Welding", "3 to 36 inch pipelines", "Environmental management", "Chemical products", "Cargo transport", "Rig moves", "Specialized staffing"],
+}[lang];
 
 const commitments = {
   es: [
@@ -178,14 +130,14 @@ const differentiators = {
     { title: "Sistema documental desde el día 1", text: "48 documentos auditables y procesos formalizados que sostienen cada operación con trazabilidad completa." },
     { title: "Cumplimiento internacional integrado", text: "FCPA, UK Bribery Act, OFAC/sanciones y Principios Rectores ONU incorporados a la gestión, no añadidos después." },
     { title: "HSE no negociable y medido", text: "Metas cuantitativas (TRIR < 1.0, cero fatalidades, cero derrames) con matrices IPER por línea de servicio." },
-    { title: "Cinco líneas bajo un solo paraguas", text: "Workover, saneamiento, soldadura, suministro e ingeniería integrados para un mismo cliente y un mismo estándar." },
+    { title: "Siete líneas bajo un solo paraguas", text: "Obras civiles, mantenimiento, tuberías, ambiente, químicos, transporte y personal integrados para un mismo cliente y un mismo estándar." },
     { title: "Ubicación estratégica", text: "Valle de la Pascua, equidistante de la Faja del Orinoco, la Cuenca Oriental y la Cuenca Barinas-Apure." },
   ],
   en: [
     { title: "Documentary system from day 1", text: "48 auditable documents and formalized processes that support every operation with full traceability." },
     { title: "Integrated international compliance", text: "FCPA, UK Bribery Act, OFAC/sanctions and UN Guiding Principles built into management, not bolted on afterwards." },
     { title: "Non-negotiable, measured HSE", text: "Quantitative targets (TRIR < 1.0, zero fatalities, zero spills) with IPER matrices per service line." },
-    { title: "Five lines under one umbrella", text: "Workover, remediation, welding, supply and engineering integrated for a single client and a single standard." },
+    { title: "Seven lines under one umbrella", text: "Civil works, maintenance, pipelines, environment, chemicals, transport and staffing integrated for a single client and a single standard." },
     { title: "Strategic location", text: "Valle de la Pascua, equidistant from the Orinoco Belt, the Eastern Basin and the Barinas-Apure Basin." },
   ],
 }[lang];
@@ -207,13 +159,13 @@ const systemStats = {
   es: [
     { value: "48", label: "documentos auditables" },
     { value: "7", label: "pilares del Sistema Integrado de Gestión" },
-    { value: "5", label: "líneas de servicio" },
+    { value: "7", label: "líneas de servicio" },
     { value: "3", label: "mercados objetivo" },
   ],
   en: [
     { value: "48", label: "auditable documents" },
     { value: "7", label: "pillars of the Integrated Management System" },
-    { value: "5", label: "service lines" },
+    { value: "7", label: "service lines" },
     { value: "3", label: "target markets" },
   ],
 }[lang];
@@ -224,8 +176,8 @@ const systemStats = {
   strong={COPY.hero.strong}
   subtitle={COPY.hero.subtitle}
   primary={{ label: COPY.hero.primary, href: nav.contact }}
-  secondary={{ label: COPY.hero.secondary, href: nav.about }}
-  trust={{ label: COPY.hero.trustLabel, items: standards }}
+  secondary={{ label: COPY.hero.secondary, href: nav.services }}
+  trust={{ label: COPY.hero.trustLabel, items: trustItems }}
 />
 
 <!-- Statement: characters light up as the section scrolls -->
@@ -237,7 +189,7 @@ const systemStats = {
       {SERVICES.map((s) => (
         <li>
           <a href={servicePath(lang, s.key)} class="pill">
-            <Icon name={serviceCopy[s.key].icon} size={16} />
+            <Icon name={s.icon} size={16} />
             {s.title[lang]}
           </a>
         </li>
@@ -264,25 +216,25 @@ const systemStats = {
       </div>
       <ul class="ops__cards">
         {SERVICES.map((s) => {
-          const c = serviceCopy[s.key];
+          const c = SERVICE_CONTENT[s.key][lang];
           return (
             <li class="ops__card frame reveal" data-ops-card>
               <a href={servicePath(lang, s.key)} class="card ops__svc group">
                 <div class="flex items-center justify-between">
                   <span class="icon-tile">
-                    <Icon name={c.icon} size={24} />
+                    <Icon name={s.icon} size={24} />
                   </span>
                   <span class="chip">{s.num}</span>
                 </div>
                 <h3 class="mt-7 text-[19px]">{s.title[lang]}</h3>
                 <span class="section-rule my-5" />
-                <p class="text-[#5b6872] leading-relaxed">{c.desc[lang]}</p>
+                <p class="text-[#5b6872] leading-relaxed">{c.heroSub}</p>
                 <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
                   <p class="text-sm font-medium text-nex-azul-light">
-                    {c.keys.map((k, i) => (
+                    {c.feature.items.slice(0, 3).map((k, i) => (
                       <>
                         {i > 0 && <span class="mx-1.5 opacity-60">·</span>}
-                        {lang === "en" ? keysEn[k] ?? k : k}
+                        {k.title}
                       </>
                     ))}
                   </p>
@@ -305,7 +257,7 @@ const systemStats = {
     <div class="ops__media" data-ops-media>
       <div class="frame">
         <div class="ops__panel">
-          <img src="/assets/logo-nex.png" alt="NEX Comstuct & Energy C.A." width="712" height="649" loading="lazy" />
+          <img src="/images/refineria.webp" alt={lang === "es" ? "Instalación industrial con tanques y tuberías" : "Industrial facility with tanks and pipework"} width="1800" height="1200" loading="lazy" />
           <p>{COPY.ops.mediaCaption}</p>
         </div>
       </div>
@@ -479,28 +431,33 @@ const systemStats = {
     background: linear-gradient(90deg, transparent, rgba(109, 180, 217, 0.8), rgba(104, 176, 90, 0.6), transparent);
   }
   .ops__panel {
-    aspect-ratio: 1 / 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
-    padding: 12%;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
     border-radius: 19px;
-    background:
-      radial-gradient(80% 70% at 50% 40%, rgba(47, 120, 180, 0.22), transparent 70%),
-      linear-gradient(180deg, #ffffff, #eef4f8);
-    border: 1px solid rgba(16, 42, 67, 0.069);
   }
   .ops__panel img {
-    width: 78%;
-    height: auto;
-    filter: drop-shadow(0 20px 40px rgba(16, 42, 67, 0.18));
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ops__panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(14, 42, 64, 0.85));
   }
   .ops__panel p {
-    font-size: 15px;
-    color: #55626c;
-    text-align: center;
+    position: absolute;
+    z-index: 1;
+    left: 24px;
+    right: 24px;
+    bottom: 22px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #fff;
   }
   @keyframes halo-pulse {
     0% {
@@ -538,9 +495,6 @@ const systemStats = {
     }
     .ops__panel {
       aspect-ratio: 4 / 3;
-    }
-    .ops__panel img {
-      width: 52%;
     }
     .ops__cards {
       order: 3;

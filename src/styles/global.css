@@ -643,10 +643,12 @@
 .band-dark {
   isolation: isolate;
   color: #dce8ef;
-  background:
-    radial-gradient(60% 80% at 15% 0%, rgba(47, 120, 180, 0.45), transparent 70%),
-    radial-gradient(50% 70% at 90% 100%, rgba(63, 138, 74, 0.35), transparent 70%),
-    linear-gradient(180deg, #0e2a40 0%, #0a1f30 100%);
+  /* brand gradient: deep blue easing into the logo's green */
+  --band-grad:
+    radial-gradient(55% 90% at 10% 0%, rgba(58, 136, 198, 0.55), transparent 70%),
+    radial-gradient(50% 90% at 95% 100%, rgba(104, 176, 90, 0.5), transparent 70%),
+    linear-gradient(115deg, #0f3554 0%, #17405f 30%, #1c5a6e 62%, #2c6e4c 100%);
+  background: var(--band-grad);
 }
 .band-dark::after {
   display: none;
@@ -661,6 +663,36 @@
   -webkit-mask: radial-gradient(ellipse 70% 60% at 50% 50%, #000 15%, transparent 75%);
   mask: radial-gradient(ellipse 70% 60% at 50% 50%, #000 15%, transparent 75%);
   pointer-events: none;
+}
+/* full-width bands melt into the light page at the top and bottom instead of a hard edge;
+   rounded panels that use .band-dark keep their solid edges */
+section.band-dark {
+  background: none;
+  padding-block: 180px;
+}
+section.band-dark::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  left: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  z-index: -2;
+  transform: none;
+  background: var(--band-grad);
+  -webkit-mask: linear-gradient(180deg, transparent 0, #000 130px, #000 calc(100% - 130px), transparent 100%);
+  mask: linear-gradient(180deg, transparent 0, #000 130px, #000 calc(100% - 130px), transparent 100%);
+}
+@media (max-width: 768px) {
+  section.band-dark {
+    padding-block: 130px;
+  }
+  section.band-dark::after {
+    -webkit-mask: linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+    mask: linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+  }
 }
 .band-dark .title-split {
   color: #fff;

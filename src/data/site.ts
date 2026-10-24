@@ -2,13 +2,13 @@ import type { Lang } from "../utils/i18n";
 
 /** Immutable corporate facts (CEO-approved, do not alter). */
 export const CORP = {
-  legalName: "NEX COMSTUCT & ENERGY C.A.",
+  legalName: "NEX COMSTUCT & ENERGY, C.A.",
   displayName: "NEX Comstuct & Energy C.A.",
   rif: "J-508065115",
   president: "Robert Alexis Marrero Cueto",
-  email: "nexconstuctenergy@gmail.com",
-  phone: "+58 000-0000000",
-  addressLine: "Calle Corpo Industria",
+  email: "administracion@nexcomstuct.com",
+  phone: "+58 424-437-5975",
+  addressLine: "Calle Corpoindustria, Zona Industrial, Municipio Leonardo Infante",
   city: "Valle de la Pascua",
   region: "Guárico",
   country: "VE",
@@ -22,13 +22,15 @@ export const CORP = {
   },
 } as const;
 
-/** Service line route slugs by language. */
+/** Service line route slugs by language (based on the company's registered corporate purpose). */
 export const SERVICE_SLUGS = {
-  workover: { es: "workover", en: "workover" },
-  environmental: { es: "saneamiento-ambiental", en: "environmental-remediation" },
-  welding: { es: "soldadura-industrial", en: "industrial-welding" },
-  supply: { es: "suministro", en: "supply" },
-  engineering: { es: "ingenieria", en: "engineering" },
+  civil: { es: "obras-civiles", en: "civil-works" },
+  mechanical: { es: "mantenimiento-mecanico-soldadura", en: "mechanical-maintenance-welding" },
+  pipelines: { es: "tuberias", en: "pipelines" },
+  environmental: { es: "gestion-ambiental", en: "environmental-management" },
+  chemicals: { es: "productos-quimicos", en: "chemical-products" },
+  logistics: { es: "transporte-logistica", en: "transport-logistics" },
+  staffing: { es: "personal-especializado", en: "specialized-staffing" },
 } as const;
 
 export type ServiceKey = keyof typeof SERVICE_SLUGS;
@@ -38,41 +40,70 @@ export const SERVICES_BASE = { es: "servicios", en: "services" } as const;
 export interface ServiceMeta {
   key: ServiceKey;
   num: string;
+  icon: string;
+  /** cover photo in /public/images */
+  image: string;
   title: Record<Lang, string>;
-  /** one-line summary used in the nav dropdown */
+  /** one-line summary used in the nav dropdown and cards */
   short: Record<Lang, string>;
 }
 
 export const SERVICES: ServiceMeta[] = [
   {
-    key: "workover",
+    key: "civil",
     num: "01",
-    title: { es: "Workover y Pulling", en: "Workover & Pulling" },
-    short: { es: "Intervención y reacondicionamiento de pozos", en: "Well intervention and workover" },
+    icon: "construction",
+    image: "/images/obras-civiles.webp",
+    title: { es: "Obras civiles e infraestructura", en: "Civil works & infrastructure" },
+    short: { es: "Construcción, mantenimiento y pozos de agua", en: "Construction, maintenance and water wells" },
+  },
+  {
+    key: "mechanical",
+    num: "02",
+    icon: "wrench",
+    image: "/images/mecanica-soldadura.webp",
+    title: { es: "Mantenimiento mecánico y soldadura", en: "Mechanical maintenance & welding" },
+    short: { es: "Equipos petroleros, motores, bombas y soldadura", en: "Oilfield equipment, engines, pumps and welding" },
+  },
+  {
+    key: "pipelines",
+    num: "03",
+    icon: "pipe",
+    image: "/images/tuberias.webp",
+    title: { es: "Tendido y mantenimiento de tuberías", en: "Pipeline installation & maintenance" },
+    short: { es: "Líneas de 3 a 36 pulgadas", en: "Lines from 3 to 36 inches" },
   },
   {
     key: "environmental",
-    num: "02",
-    title: { es: "Saneamiento ambiental", en: "Environmental remediation" },
-    short: { es: "Remediación de suelos y aguas", en: "Soil and water remediation" },
-  },
-  {
-    key: "welding",
-    num: "03",
-    title: { es: "Soldadura industrial", en: "Industrial welding" },
-    short: { es: "Soldadura certificada ASME IX y AWS D1.1", en: "ASME IX and AWS D1.1 certified welding" },
-  },
-  {
-    key: "supply",
     num: "04",
-    title: { es: "Suministro", en: "Supply" },
-    short: { es: "Equipos y materiales con trazabilidad", en: "Traceable equipment and materials" },
+    icon: "leaf",
+    image: "/images/ambiental.webp",
+    title: { es: "Gestión ambiental y saneamiento", en: "Environmental management & remediation" },
+    short: { es: "Desechos, suelos, aguas y reforestación", en: "Waste, soil, water and reforestation" },
   },
   {
-    key: "engineering",
+    key: "chemicals",
     num: "05",
-    title: { es: "Ingeniería y consultoría", en: "Engineering & consulting" },
-    short: { es: "Diseño, supervisión y gerencia de proyectos", en: "Design, supervision and project management" },
+    icon: "flask",
+    image: "/images/quimicos.webp",
+    title: { es: "Productos químicos e importación", en: "Chemical products & trade" },
+    short: { es: "Compra, venta, importación y exportación", en: "Purchase, sale, import and export" },
+  },
+  {
+    key: "logistics",
+    num: "06",
+    icon: "truck",
+    image: "/images/transporte.webp",
+    title: { es: "Transporte y logística", en: "Transport & logistics" },
+    short: { es: "Carga pesada y liviana, mudanzas y taladros", en: "Heavy and light cargo, moves and rigs" },
+  },
+  {
+    key: "staffing",
+    num: "07",
+    icon: "users",
+    image: "/images/personal.webp",
+    title: { es: "Personal y servicios operativos", en: "Staffing & operational services" },
+    short: { es: "Personal clasificado y especializado", en: "Classified and specialized personnel" },
   },
 ];
 

@@ -1,6 +1,6 @@
 # NEX Comstuct & Energy C.A. — Sitio web corporativo
 
-Sitio web institucional **bilingüe (ES/EN)** de NEX COMSTUCT & ENERGY C.A., empresa venezolana de servicios petroleros (RIF J-508065115), domiciliada en Valle de la Pascua, Estado Guárico.
+Sitio web institucional **bilingüe (ES/EN)** de NEX COMSTUCT & ENERGY, C.A., empresa venezolana de servicios petroleros (RIF J-508065115), domiciliada en Valle de la Pascua, Estado Guárico.
 
 > Slogan: **"Construyendo el futuro, impulsando la energía." / "Building the future, powering energy."**
 
@@ -126,7 +126,7 @@ PUBLIC_SITE_URL=https://nexconstructenergy.com
 PUBLIC_GA4_ID=                 # ID de Google Analytics 4 (opcional)
 PUBLIC_RECAPTCHA_SITE_KEY=     # reCAPTCHA v3 (opcional)
 RECAPTCHA_SECRET_KEY=
-CONTACT_FORM_TO_EMAIL=nexconstuctenergy@gmail.com
+CONTACT_FORM_TO_EMAIL=administracion@nexcomstuct.com
 SMTP_HOST= / SMTP_PORT= / SMTP_USER= / SMTP_PASS=
 ```
 

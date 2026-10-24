@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import PageHero from "../../../components/PageHero.astro";
-import Section from "../../../components/Section.astro";
 import CtaBand from "../../../components/CtaBand.astro";
 import Icon from "../../../components/Icon.astro";
 import { SERVICES, servicePath, navItems } from "../../../data/site";
@@ -9,58 +7,653 @@ import { SERVICE_CONTENT } from "../../../data/services";
 
 const lang = "en";
 const nav = navItems(lang);
+const total = String(SERVICES.length).padStart(2, "0");
+
+const models = [
+  {
+    icon: "layers",
+    name: "Unit price",
+    text: "A price is quoted per item (meter, unit, shift). You pay for the work actually executed and measured in the field. Best when quantities may change.",
+    fit: "Scope with variable quantities",
+  },
+  {
+    icon: "file-text",
+    name: "Lump sum",
+    text: "One fixed, all-in price for a defined and documented scope. The client knows the total cost before work begins.",
+    fit: "Closed, well-defined scope",
+  },
+  {
+    icon: "refresh-cw",
+    name: "Time & materials",
+    text: "Personnel and equipment hours are billed at agreed rates, plus the materials used. Useful for emergencies or work without a closed scope.",
+    fit: "Emergencies and open scope",
+  },
+];
+
+const steps = [
+  { name: "Request", text: "You send us your need, tender package or scope of work." },
+  { name: "Site visit", text: "We assess the site and the real execution conditions." },
+  { name: "Proposal", text: "We deliver a technical and commercial offer with a schedule." },
+  { name: "Execution", text: "We mobilize crews and equipment with supervision and records." },
+];
 ---
 
 <BaseLayout
-  title="Oil & Gas Services | Workover, Environmental, Welding, Supply, Engineering | NEX"
-  description="Five oil & gas service lines under one standard: workover, environmental remediation, industrial welding, supply and engineering. HSE and international compliance."
-  keywords="oil gas services venezuela, workover, environmental remediation, industrial welding, oil supply, petroleum engineering"
+  title="Services | Civil Works, Mechanical, Pipelines, Environmental, Chemicals, Logistics & Staffing | NEX"
+  description="Seven industrial and oilfield service lines in Venezuela: civil works, mechanical maintenance and welding, pipelines, environmental management, chemical products, transport and specialized staffing."
+  keywords="industrial services venezuela, civil works guarico, oilfield welding, pipeline installation, environmental remediation, heavy cargo transport, specialized staffing"
   esRest="/servicios/"
   enRest="/services/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Services" }]}
 >
-  <PageHero
-    eyebrow="Services"
-    title="Five complementary lines, one standard"
-    subtitle="Every service is executed under the same documentary system, the same HSE discipline and the same international compliance framework."
-    crumbs={[{ name: "Services" }]}
-  />
+  <!-- Hero: compact directory -->
+  <section class="sx-hero">
+    <div class="container-nex">
+      <nav aria-label="Breadcrumb" class="sx-crumbs anim-in">
+        <a href={nav.home}>Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Services</span>
+      </nav>
 
-  {SERVICES.map((s, i) => {
-    const c = SERVICE_CONTENT[s.key][lang];
-    const reversed = i % 2 === 1;
-    return (
-      <Section variant={reversed ? "off-white" : "white"}>
-        <div class="grid gap-10 lg:grid-cols-2 items-center">
-          <div class={reversed ? "lg:order-2" : ""}>
-            <div class="flex items-center gap-4 mb-5">
-              <span class="num-badge">{s.num}</span>
-              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-fondo-alt text-nex-oro"><Icon name={c.icon} size={24} /></span>
-            </div>
-            <h2 class="text-2xl md:text-3xl mb-4">{s.title[lang]}</h2>
-            <p class="text-nex-gris mb-5">{c.summary}</p>
-            <a href={servicePath(lang, s.key)} class="inline-flex items-center gap-2 font-bold text-nex-blanco hover:text-nex-oro transition-colors">
-              Learn more
-              <Icon name="arrow-right" size={18} />
-            </a>
-          </div>
-          <div class={reversed ? "lg:order-1" : ""}>
-            <div class="card">
-              <p class="text-sm font-bold uppercase tracking-wide text-nex-gris mb-4">Applicable standards</p>
-              <div class="flex flex-wrap gap-2">
-                {c.standards.slice(0, 8).map((st) => <span class="chip">{st}</span>)}
-              </div>
-            </div>
-          </div>
+      <div class="sx-hero__grid">
+        <div>
+          <p class="sx-counter anim-in" style="animation-delay:.05s">
+            <span class="sx-counter__num">{total}</span>
+            <span class="sx-counter__label">service lines</span>
+          </p>
+          <h1 class="sx-hero__title text-grad-brand anim-in" style="animation-delay:.1s">
+            Everything your operation needs, from one contractor
+          </h1>
         </div>
-      </Section>
-    );
-  })}
+        <p class="lead sx-hero__lead anim-in" style="animation-delay:.2s">
+          We build, maintain, transport and supply for the oil industry and the productive sector in Venezuela. Choose a line to see its full scope.
+        </p>
+      </div>
+
+      <ul class="sx-jump anim-in" style="animation-delay:.3s" aria-label="Jump to a service">
+        {SERVICES.map((s) => (
+          <li>
+            <a href={`#srv-${s.key}`} class="pill">
+              <span class="sx-jump__num">{s.num}</span>
+              {s.title[lang]}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Service directory -->
+  <section class="sx-list-wrap" aria-labelledby="sx-list-title">
+    <div class="container-nex">
+      <div class="sx-list-head">
+        <h2 id="sx-list-title" class="sx-list-head__title">Service index</h2>
+        <span class="sx-list-head__meta">{total} / {total}</span>
+      </div>
+
+      <ol class="sx-list">
+        {SERVICES.map((s, i) => {
+          const c = SERVICE_CONTENT[s.key][lang];
+          const chips = c.feature.items.slice(0, 3).map((it) => it.title);
+          return (
+            <li id={`srv-${s.key}`} class="sx-row reveal" style={`--d:${(i * 0.05).toFixed(2)}s`}>
+              <a href={servicePath(lang, s.key)} class="sx-row__link">
+                <span class="sx-row__num">{s.num}</span>
+                <div class="sx-row__body">
+                  <h3 class="sx-row__title">{s.title[lang]}</h3>
+                  <p class="sx-row__short">{s.short[lang]}</p>
+                  <ul class="sx-row__chips" aria-label={c.feature.title}>
+                    {chips.map((t) => <li class="chip">{t}</li>)}
+                  </ul>
+                </div>
+                <span class="sx-row__thumb">
+                  <img src={s.image} alt={`${s.title[lang]}: NEX field work`} loading="lazy" decoding="async" width="560" height="380" />
+                </span>
+                <span class="sx-row__arrow" aria-hidden="true"><Icon name="arrow-up-right" size={22} /></span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  <!-- How to engage -->
+  <section class="sx-engage" aria-labelledby="sx-engage-title">
+    <div class="container-nex">
+      <div class="sx-engage__head">
+        <div>
+          <p class="eyebrow reveal">How to engage</p>
+          <h2 id="sx-engage-title" class="title-split sx-h2 reveal" style="--d:.05s">
+            Three contract models
+            <span>one level of control</span>
+          </h2>
+        </div>
+        <p class="lead sx-engage__lead reveal" style="--d:.1s">
+          We match the contract form to the type of work and how well the scope is defined. Any service line can be offered under these models.
+        </p>
+      </div>
+
+      <div class="sx-models">
+        {models.map((m, i) => (
+          <article class="frame sx-model reveal" style={`--d:${(i * 0.08).toFixed(2)}s`}>
+            <div class="card sx-model__card">
+              <div class="sx-model__top">
+                <span class={i === 1 ? "icon-tile icon-tile--green" : "icon-tile"}><Icon name={m.icon} size={24} /></span>
+                <span class="sx-model__idx">0{i + 1}</span>
+              </div>
+              <h3 class="sx-model__name">{m.name}</h3>
+              <p class="sx-model__text">{m.text}</p>
+              <p class="sx-model__fit"><Icon name="check-circle" size={16} /> {m.fit}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="sx-steps reveal">
+        <p class="sx-steps__label">Engagement process</p>
+        <ol class="sx-steps__list">
+          {steps.map((st, i) => (
+            <li class="sx-step">
+              <span class="sx-step__dot">{i + 1}</span>
+              <div>
+                <h3 class="sx-step__name">{st.name}</h3>
+                <p class="sx-step__text">{st.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
 
   <CtaBand
     title="What does your operation need?"
-    text="We combine several lines for a single project. Tell us your scope."
-    ctaLabel="Request proposal"
+    text="We combine several service lines in a single project. Send us your scope or tender package and we will respond with a proposal."
+    ctaLabel="Request a proposal"
     ctaHref={nav.contact}
+    secondaryLabel="About the company"
+    secondaryHref={nav.about}
   />
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .sx-hero {
+    position: relative;
+    padding: 140px 0 56px;
+    overflow: hidden;
+  }
+  .sx-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -180px;
+    right: -120px;
+    width: 620px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(47, 120, 180, 0.14), rgba(63, 138, 74, 0.06) 60%, transparent);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .sx-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--nex-gris);
+  }
+  .sx-crumbs a {
+    color: var(--nex-gris);
+    transition: color 0.25s ease;
+  }
+  .sx-crumbs a:hover {
+    color: var(--nex-azul);
+  }
+  .sx-crumbs [aria-current] {
+    color: var(--nex-ink);
+  }
+  .sx-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: end;
+    margin-top: 2.25rem;
+  }
+  .sx-counter {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.12);
+  }
+  .sx-counter__num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--nex-azul);
+  }
+  .sx-counter__label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--nex-gris);
+  }
+  .sx-hero__title {
+    font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    max-width: 16ch;
+  }
+  .sx-hero__lead {
+    max-width: 44ch;
+    padding-bottom: 0.4rem;
+  }
+  .sx-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-top: 2.5rem;
+  }
+  .sx-jump .pill {
+    height: 38px;
+    font-size: 0.875rem;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .sx-jump__num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--nex-azul);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Directory list ---------- */
+  .sx-list-wrap {
+    padding: 40px 0 110px;
+  }
+  .sx-list-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.16);
+  }
+  .sx-list-head__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--nex-gris);
+  }
+  .sx-list-head__meta {
+    font-size: 0.875rem;
+    color: var(--nex-gris);
+    font-variant-numeric: tabular-nums;
+  }
+  .sx-row {
+    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+    scroll-margin-top: 120px;
+  }
+  .sx-row__link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 56px;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.25rem 1.5rem;
+    margin-inline: -1.5rem;
+    border-radius: 24px;
+    color: var(--nex-ink);
+    transition:
+      background 0.45s var(--nex-ease),
+      box-shadow 0.45s var(--nex-ease);
+  }
+  .sx-row__num {
+    font-size: clamp(2.6rem, 4.6vw, 4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(16, 42, 67, 0.18);
+    transition: color 0.45s var(--nex-ease);
+  }
+  .sx-row__body {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    transition: transform 0.5s var(--nex-ease);
+  }
+  .sx-row__title {
+    font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+  .sx-row__short {
+    margin-top: 0.4rem;
+    color: var(--nex-gris);
+    font-size: 1rem;
+  }
+  .sx-row__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .sx-row__chips .chip {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .sx-row__thumb {
+    position: absolute;
+    top: 50%;
+    right: 110px;
+    width: 300px;
+    aspect-ratio: 3 / 2;
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(24px, -50%) rotate(2deg) scale(0.94);
+    box-shadow: 0 24px 60px -18px rgba(16, 42, 67, 0.45);
+    pointer-events: none;
+    transition:
+      opacity 0.45s var(--nex-ease),
+      transform 0.6s var(--nex-ease);
+  }
+  .sx-row__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 0.9s var(--nex-ease);
+  }
+  .sx-row__arrow {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: var(--nex-ink);
+    border: 1px solid rgba(16, 42, 67, 0.14);
+    background: #fff;
+    transition:
+      background 0.4s var(--nex-ease),
+      color 0.4s var(--nex-ease),
+      border-color 0.4s var(--nex-ease),
+      transform 0.5s var(--nex-ease);
+  }
+  .sx-row__link:hover,
+  .sx-row__link:focus-visible {
+    background: #fff;
+    box-shadow:
+      0 0 0 1px rgba(47, 120, 180, 0.3),
+      0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .sx-row__link:hover .sx-row__num,
+  .sx-row__link:focus-visible .sx-row__num {
+    color: var(--nex-azul);
+  }
+  .sx-row__link:hover .sx-row__arrow,
+  .sx-row__link:focus-visible .sx-row__arrow {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+    transform: rotate(45deg);
+  }
+  @media (hover: hover) and (min-width: 1240px) {
+    .sx-row__link:hover .sx-row__thumb,
+    .sx-row__link:focus-visible .sx-row__thumb {
+      opacity: 1;
+      transform: translate(0, -50%) rotate(-2deg) scale(1);
+    }
+    .sx-row__link:hover .sx-row__thumb img {
+      transform: scale(1);
+    }
+    .sx-row__link:hover .sx-row__body {
+      transform: translateX(6px);
+    }
+  }
+  /* Below wide desktop: image as a permanent thumbnail */
+  @media (max-width: 1239px), (hover: none) {
+    .sx-row__link {
+      grid-template-columns: 84px minmax(0, 1fr) 150px 48px;
+      gap: 1.5rem;
+    }
+    .sx-row__thumb {
+      position: static;
+      width: 150px;
+      opacity: 1;
+      transform: none;
+      box-shadow: 0 10px 30px -14px rgba(16, 42, 67, 0.4);
+      border-radius: 16px;
+    }
+    .sx-row__thumb img {
+      transform: none;
+    }
+    .sx-row__arrow {
+      width: 48px;
+      height: 48px;
+    }
+  }
+  @media (max-width: 700px) {
+    .sx-row__link {
+      grid-template-columns: minmax(0, 1fr) 96px;
+      grid-template-areas:
+        "num thumb"
+        "body body";
+      gap: 1rem;
+      padding: 1.75rem 1rem;
+      margin-inline: -1rem;
+      border-radius: 20px;
+    }
+    .sx-row__num {
+      grid-area: num;
+      align-self: start;
+    }
+    .sx-row__thumb {
+      grid-area: thumb;
+      width: 96px;
+      border-radius: 14px;
+    }
+    .sx-row__body {
+      grid-area: body;
+    }
+    .sx-row__arrow {
+      display: none;
+    }
+  }
+
+  /* ---------- How to engage ---------- */
+  .sx-engage {
+    position: relative;
+    padding: 110px 0 120px;
+    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    border-top: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .sx-engage__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+  .sx-h2 {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.06;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+  .sx-engage__lead {
+    max-width: 46ch;
+  }
+  .sx-models {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .sx-model {
+    display: flex;
+    transition: border-color 0.4s ease;
+  }
+  .sx-model:hover {
+    border-color: rgba(47, 120, 180, 0.3);
+  }
+  .sx-model:hover .sx-model__card {
+    transform: translateY(-4px);
+  }
+  .sx-model__card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .sx-model__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+  .sx-model__idx {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(16, 42, 67, 0.3);
+    font-variant-numeric: tabular-nums;
+  }
+  .sx-model__name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--nex-ink);
+  }
+  .sx-model__text {
+    margin-top: 0.75rem;
+    color: var(--nex-gris);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .sx-model__fit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(16, 42, 67, 0.08);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #3f8a4a;
+  }
+
+  .sx-steps {
+    margin-top: 3rem;
+    padding: 2rem 2rem 2.25rem;
+    border-radius: 26px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+  }
+  .sx-steps__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--nex-gris);
+    margin-bottom: 1.75rem;
+  }
+  .sx-steps__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    position: relative;
+  }
+  .sx-steps__list::before {
+    content: "";
+    position: absolute;
+    top: 19px;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(47, 120, 180, 0.5), rgba(63, 138, 74, 0.5));
+  }
+  .sx-step {
+    position: relative;
+  }
+  .sx-step__dot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--nex-azul);
+    background: #fff;
+    border: 1px solid rgba(47, 120, 180, 0.35);
+    box-shadow: 0 0 0 6px #fff;
+    margin-bottom: 1rem;
+  }
+  .sx-step:last-child .sx-step__dot {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+  }
+  .sx-step__name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .sx-step__text {
+    margin-top: 0.35rem;
+    font-size: 0.9375rem;
+    color: var(--nex-gris);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .sx-hero {
+      padding: 112px 0 40px;
+    }
+    .sx-hero__grid,
+    .sx-engage__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+    .sx-models {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .sx-steps {
+      padding: 1.5rem;
+    }
+    .sx-steps__list {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+    .sx-steps__list::before {
+      top: 20px;
+      bottom: 20px;
+      left: 19px;
+      right: auto;
+      width: 1px;
+      height: auto;
+      background: linear-gradient(180deg, rgba(47, 120, 180, 0.5), rgba(63, 138, 74, 0.5));
+    }
+    .sx-step {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 1rem;
+    }
+    .sx-step__dot {
+      margin-bottom: 0;
+    }
+    .sx-engage {
+      padding: 80px 0 90px;
+    }
+    .sx-list-wrap {
+      padding-bottom: 80px;
+    }
+  }
+</style>

@@ -1,74 +1,619 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import Section from "../../components/Section.astro";
 import ContactForm from "../../components/ContactForm.astro";
 import Icon from "../../components/Icon.astro";
-import { CORP } from "../../data/site";
+import { CORP, navItems } from "../../data/site";
 
-const data = [
-  { icon: "building", label: "Razón social", value: CORP.legalName },
-  { icon: "file-text", label: "RIF", value: CORP.rif },
-  { icon: "map-pin", label: "Dirección", value: `${CORP.addressLine}, ${CORP.city}, Estado ${CORP.region}, Venezuela` },
-  { icon: "mail", label: "Email", value: CORP.email, href: `mailto:${CORP.email}` },
-  { icon: "phone", label: "Teléfono", value: CORP.phone, href: `tel:${CORP.phone.replace(/\s/g, "")}` },
+const nav = navItems("es");
+const tel = `tel:${CORP.phone.replace(/[\s-]/g, "")}`;
+const whatsapp = "https://wa.me/584244375975";
+
+const channels = [
+  { icon: "phone", label: "Teléfono", value: CORP.phone, href: tel, note: "Lunes a viernes, horario de oficina" },
+  { icon: "chat", label: "WhatsApp", value: "Escríbanos por chat", href: whatsapp, external: true, note: CORP.phone },
+  { icon: "mail", label: "Correo", value: CORP.email, href: `mailto:${CORP.email}`, note: "Propuestas, pliegos y consultas" },
+];
+
+const nextSteps = [
+  { icon: "clipboard-check", title: "Revisamos su solicitud", text: "Un responsable técnico lee su mensaje y le responde en un máximo de 48 horas hábiles." },
+  { icon: "phone", title: "Llamada o visita técnica", text: "Aclaramos el alcance por teléfono y, si el trabajo lo requiere, coordinamos una visita al sitio." },
+  { icon: "file-text", title: "Propuesta técnica y económica", text: "Recibe una oferta con alcance, cronograma, recursos y el modelo de contrato que mejor se ajuste." },
+];
+
+const faqs = [
+  {
+    q: "¿En cuánto tiempo responden?",
+    a: "Respondemos toda solicitud en un máximo de 48 horas hábiles. Para emergencias operativas, llámenos o escríbanos por WhatsApp para una atención más rápida.",
+  },
+  {
+    q: "¿En qué zonas de Venezuela trabajan?",
+    a: `Nuestra base está en ${CORP.city}, Estado ${CORP.region}. Desde allí atendemos proyectos en los llanos centrales y orientales, y movilizamos personal y equipos a otras regiones del país según el alcance del trabajo.`,
+  },
+  {
+    q: "¿Qué servicios puedo solicitar?",
+    a: "Siete líneas: obras civiles e infraestructura, mantenimiento mecánico y soldadura, tendido y mantenimiento de tuberías, gestión ambiental y saneamiento, productos químicos, transporte y logística, y personal especializado. Puede combinar varias en un mismo proyecto.",
+  },
+  {
+    q: "¿Cómo envío un pliego o licitación?",
+    a: `Envíe el pliego y sus anexos a ${CORP.email}, indicando el número de proceso y la fecha límite de entrega de ofertas. También puede usar el formulario de esta página y describir el alcance; le confirmaremos la recepción.`,
+  },
 ];
 ---
 
 <BaseLayout
   title="Contacto | NEX Comstuct & Energy | Solicitar Propuesta"
-  description="Contacte a NEX Comstuct & Energy C.A. en Valle de la Pascua, Guárico. Solicite una propuesta técnica, información o agende una reunión con nuestro equipo."
-  keywords="contacto NEX, solicitar propuesta petrolera, contratista petrolero guarico contacto"
+  description="Contacte a NEX Comstuct & Energy C.A. en Valle de la Pascua, Guárico: teléfono, WhatsApp y correo. Envíe su pliego o alcance y reciba respuesta en un máximo de 48 horas hábiles."
+  keywords="contacto NEX, solicitar propuesta, contratista industrial guarico, enviar pliego licitación, valle de la pascua"
   esRest="/contacto/"
   enRest="/contact/"
   breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Contacto" }]}
 >
-  <PageHero
-    eyebrow="Contacto"
-    title="Conversemos"
-    subtitle="Cuéntenos su necesidad y prepararemos una respuesta técnica ajustada a su operación."
-    crumbs={[{ name: "Contacto" }]}
-  />
+  <!-- Split concierge -->
+  <section class="cx">
+    <div class="container-nex cx__grid">
+      <aside class="cx-panel band-dark anim-in" aria-labelledby="cx-title">
+        <nav aria-label="Breadcrumb" class="cx-crumbs">
+          <a href={nav.home}>Inicio</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Contacto</span>
+        </nav>
 
-  <Section>
-    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-      <!-- Datos corporativos -->
-      <div>
-        <h2 class="text-2xl mb-6">Datos corporativos</h2>
-        <ul class="space-y-5">
-          {data.map((d) => (
-            <li class="flex items-start gap-4">
-              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-fondo-alt text-nex-oro shrink-0"><Icon name={d.icon} size={22} /></span>
-              <div>
-                <p class="text-xs uppercase tracking-wide text-nex-gris font-bold">{d.label}</p>
-                {d.href ? (
-                  <a href={d.href} class="text-nex-blanco font-semibold hover:text-nex-oro break-all">{d.value}</a>
-                ) : (
-                  <p class="text-nex-blanco font-semibold">{d.value}</p>
-                )}
-              </div>
+        <p class="cx-kicker">Contacto directo</p>
+        <h1 id="cx-title" class="cx-title">Conversemos sobre su próximo proyecto</h1>
+        <p class="cx-text">
+          Cuéntenos qué necesita su operación. Un responsable técnico le responde con una solución ajustada a su alcance, plazos y sitio de trabajo.
+        </p>
+
+        <ul class="cx-channels">
+          {channels.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                class="cx-channel"
+                {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                <span class="cx-channel__icon">
+                  {c.icon === "chat" ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.6A8.4 8.4 0 1 1 21 11.5Z" /><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" /></svg>
+                  ) : (
+                    <Icon name={c.icon} size={20} />
+                  )}
+                </span>
+                <span class="cx-channel__body">
+                  <span class="cx-channel__label">{c.label}</span>
+                  <span class="cx-channel__value">{c.value}</span>
+                  <span class="cx-channel__note">{c.note}</span>
+                </span>
+                <span class="cx-channel__go" aria-hidden="true"><Icon name="arrow-up-right" size={18} /></span>
+              </a>
             </li>
           ))}
+          <li>
+            <div class="cx-channel cx-channel--static">
+              <span class="cx-channel__icon"><Icon name="map-pin" size={20} /></span>
+              <span class="cx-channel__body">
+                <span class="cx-channel__label">Dirección</span>
+                <span class="cx-channel__value cx-channel__value--sm">{CORP.addressLine}</span>
+                <span class="cx-channel__note">{CORP.city}, Estado {CORP.region}, Venezuela</span>
+              </span>
+            </div>
+          </li>
         </ul>
-      </div>
 
-      <!-- Formulario -->
-      <div>
-        <h2 class="text-2xl mb-6">Formulario de contacto</h2>
+        <p class="cx-legal">{CORP.legalName} | RIF {CORP.rif}</p>
+      </aside>
+
+      <div class="cx-form anim-in" style="animation-delay:.12s">
+        <div class="cx-form__head">
+          <span class="icon-tile"><Icon name="mail" size={22} /></span>
+          <div>
+            <h2 class="cx-form__title">Solicite una propuesta</h2>
+            <p class="cx-form__sub">Los campos con * son obligatorios. Sus datos solo se usan para responder su consulta.</p>
+          </div>
+        </div>
         <ContactForm formName="contact" action="/es/gracias/" />
       </div>
     </div>
-  </Section>
+  </section>
 
-  <Section variant="off-white" eyebrow="Ubicación" title="Valle de la Pascua, Estado Guárico">
-    <div class="rounded-lg overflow-hidden border border-white/15 aspect-[16/7]">
-      <iframe
-        title="Mapa de Valle de la Pascua, Guárico"
-        class="w-full h-full"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-66.08%2C9.15%2C-65.92%2C9.26&layer=mapnik&marker=9.2116%2C-66.0055"
-      ></iframe>
+  <!-- Qué pasa después -->
+  <section class="cx-next" aria-labelledby="cx-next-title">
+    <div class="container-nex cx-next__grid">
+      <figure class="cx-next__photo reveal">
+        <img src="/images/contacto.webp" alt="Válvulas industriales en una instalación de proceso" width="1100" height="1650" loading="lazy" decoding="async" />
+        <figcaption class="cx-next__badge">
+          <Icon name="check-circle" size={18} />
+          Respuesta en 48 horas hábiles
+        </figcaption>
+      </figure>
+
+      <div>
+        <p class="eyebrow reveal">Después de escribirnos</p>
+        <h2 id="cx-next-title" class="title-split cx-h2 reveal" style="--d:.05s">
+          Qué pasa después
+          <span>de enviar su mensaje</span>
+        </h2>
+        <ol class="cx-steps">
+          {nextSteps.map((s, i) => (
+            <li class="cx-step reveal" style={`--d:${(0.1 + i * 0.08).toFixed(2)}s`}>
+              <span class="cx-step__num">0{i + 1}</span>
+              <div class="cx-step__body">
+                <h3 class="cx-step__title"><Icon name={s.icon} size={18} /> {s.title}</h3>
+                <p class="cx-step__text">{s.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
-  </Section>
+  </section>
+
+  <!-- Ubicación -->
+  <section class="cx-map" aria-labelledby="cx-map-title">
+    <div class="container-nex">
+      <div class="cx-map__head">
+        <p class="eyebrow reveal">Ubicación</p>
+        <h2 id="cx-map-title" class="title-split cx-h2 reveal" style="--d:.05s">
+          Valle de la Pascua
+          <span>Estado Guárico</span>
+        </h2>
+      </div>
+      <div class="cx-map__wrap reveal">
+        <div class="cx-map__frame">
+          <iframe
+            title="Mapa de Valle de la Pascua, Guárico"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-66.08%2C9.15%2C-65.92%2C9.26&layer=mapnik&marker=9.2116%2C-66.0055"
+          ></iframe>
+        </div>
+        <div class="cx-map__card">
+          <span class="icon-tile icon-tile--green"><Icon name="building" size={22} /></span>
+          <p class="cx-map__name">{CORP.displayName}</p>
+          <address class="cx-map__addr">
+            {CORP.addressLine}<br />
+            {CORP.city}, Estado {CORP.region}<br />
+            Venezuela
+          </address>
+          <a href={tel} class="btn btn-secondary btn-sm">
+            <Icon name="phone" size={16} /> {CORP.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="cx-faq" aria-labelledby="cx-faq-title">
+    <div class="container-nex cx-faq__grid">
+      <div>
+        <p class="eyebrow reveal">Preguntas frecuentes</p>
+        <h2 id="cx-faq-title" class="title-split cx-h2 reveal" style="--d:.05s">
+          Antes de escribirnos
+          <span>lo que suelen preguntar</span>
+        </h2>
+        <p class="lead cx-faq__lead reveal" style="--d:.1s">
+          Si su pregunta no está aquí, envíela por el formulario o por correo y la respondemos.
+        </p>
+      </div>
+      <div class="cx-faq__list">
+        {faqs.map((f, i) => (
+          <details class="faq__item reveal" style={`--d:${(i * 0.06).toFixed(2)}s`}>
+            <summary class="faq__q">{f.q}<span class="faq__icon"></span></summary>
+            <div class="faq__a">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---------- Split concierge ---------- */
+  .cx {
+    padding: 140px 0 100px;
+  }
+  .cx__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .cx-panel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
+    padding: 2.5rem 2.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 30px 80px -30px rgba(15, 53, 84, 0.55);
+  }
+  .cx-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .cx-crumbs a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.25s ease;
+  }
+  .cx-crumbs a:hover {
+    color: #fff;
+  }
+  .cx-crumbs [aria-current] {
+    color: #fff;
+  }
+  .cx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .cx-kicker::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9fd68c;
+    box-shadow: 0 0 0 4px rgba(159, 214, 140, 0.2);
+  }
+  .cx-title {
+    margin-top: 0.9rem;
+    font-size: clamp(2.1rem, 3.8vw, 3.2rem);
+    line-height: 1.04;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    color: #fff;
+    max-width: 14ch;
+  }
+  .cx-text {
+    margin-top: 1.1rem;
+    max-width: 44ch;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .cx-channels {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+  .cx-channel {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      transform 0.45s var(--nex-ease),
+      background 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.45s var(--nex-ease);
+  }
+  a.cx-channel:hover,
+  a.cx-channel:focus-visible {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.36);
+    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.45);
+  }
+  .cx-channel--static {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+  .cx-channel__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .cx-channel__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .cx-channel__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .cx-channel__value {
+    margin-top: 0.15rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    overflow-wrap: anywhere;
+  }
+  .cx-channel__value--sm {
+    font-size: 0.975rem;
+    line-height: 1.4;
+  }
+  .cx-channel__note {
+    margin-top: 0.1rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cx-channel__go {
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.45s var(--nex-ease), color 0.3s ease;
+  }
+  a.cx-channel:hover .cx-channel__go {
+    color: #fff;
+    transform: translate(2px, -2px);
+  }
+  .cx-legal {
+    margin-top: auto;
+    padding-top: 2rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .cx-form {
+    border-radius: 32px;
+    padding: 2.5rem 2.25rem;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    box-shadow: 0 30px 80px -40px rgba(16, 42, 67, 0.3);
+  }
+  .cx-form__head {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .cx-form__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--nex-ink);
+  }
+  .cx-form__sub {
+    margin-top: 0.3rem;
+    font-size: 0.9375rem;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Shared heading ---------- */
+  .cx-h2 {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    line-height: 1.06;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  /* ---------- What happens next ---------- */
+  .cx-next {
+    padding: 40px 0 110px;
+  }
+  .cx-next__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 4.5rem;
+    align-items: center;
+  }
+  .cx-next__photo {
+    position: relative;
+    margin: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 30px 70px -30px rgba(16, 42, 67, 0.45);
+  }
+  .cx-next__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cx-next__badge {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--nex-ink);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px -10px rgba(16, 42, 67, 0.35);
+  }
+  .cx-next__badge :global(svg) {
+    color: #3f8a4a;
+  }
+  .cx-steps {
+    margin-top: 2.25rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+  .cx-step {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(16, 42, 67, 0.1);
+  }
+  .cx-step:last-child {
+    border-bottom: 1px solid rgba(16, 42, 67, 0.1);
+  }
+  .cx-step__num {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cx-step__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .cx-step__title :global(svg) {
+    color: var(--nex-azul);
+    flex: none;
+  }
+  .cx-step__text {
+    margin-top: 0.4rem;
+    color: var(--nex-gris);
+    line-height: 1.6;
+  }
+
+  /* ---------- Map ---------- */
+  .cx-map {
+    padding: 100px 0 140px;
+    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    border-top: 1px solid rgba(16, 42, 67, 0.08);
+  }
+  .cx-map__head {
+    margin-bottom: 2.5rem;
+  }
+  .cx-map__wrap {
+    position: relative;
+  }
+  .cx-map__frame {
+    padding: 8px;
+    border-radius: 32px;
+    background: rgba(16, 42, 67, 0.017);
+    border: 1px solid rgba(16, 42, 67, 0.081);
+  }
+  .cx-map__frame iframe {
+    display: block;
+    width: 100%;
+    height: 460px;
+    border: 0;
+    border-radius: 25px;
+  }
+  .cx-map__card {
+    position: absolute;
+    left: 2.5rem;
+    bottom: -2.5rem;
+    width: min(360px, calc(100% - 5rem));
+    padding: 1.75rem;
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .cx-map__name {
+    margin-top: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+  }
+  .cx-map__addr {
+    margin: 0.5rem 0 1.25rem;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- FAQ ---------- */
+  .cx-faq {
+    padding: 120px 0 130px;
+  }
+  .cx-faq__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 4rem;
+    align-items: start;
+  }
+  .cx-faq__lead {
+    margin-top: 1.25rem;
+    max-width: 38ch;
+  }
+  .cx-faq__list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .cx {
+      padding: 112px 0 72px;
+    }
+    .cx__grid,
+    .cx-next__grid,
+    .cx-faq__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .cx-next__grid {
+      gap: 2.5rem;
+    }
+    .cx-next__photo {
+      aspect-ratio: 4 / 3;
+    }
+    .cx-faq__grid {
+      gap: 2rem;
+    }
+    .cx-map {
+      padding: 72px 0 80px;
+    }
+    .cx-map__frame iframe {
+      height: 340px;
+    }
+    .cx-map__card {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: auto;
+      margin: -3rem 1rem 0;
+    }
+    .cx-faq {
+      padding: 80px 0 90px;
+    }
+  }
+  @media (max-width: 560px) {
+    .cx-panel,
+    .cx-form {
+      padding: 1.75rem 1.25rem;
+      border-radius: 26px;
+    }
+    .cx-channel {
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+      gap: 0.75rem;
+      padding: 0.9rem;
+    }
+    .cx-channel--static {
+      grid-template-columns: 40px minmax(0, 1fr);
+    }
+    .cx-channel__icon {
+      width: 40px;
+      height: 40px;
+    }
+    .cx-step {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+  }
+</style>

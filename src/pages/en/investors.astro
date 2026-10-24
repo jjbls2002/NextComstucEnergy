@@ -1,95 +1,919 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import Section from "../../components/Section.astro";
-import StatCard from "../../components/StatCard.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Icon from "../../components/Icon.astro";
-import { navItems } from "../../data/site";
+import { CORP, SERVICES, servicePath, navItems } from "../../data/site";
 
 const lang = "en";
 const nav = navItems(lang);
+const mailInvestor = `mailto:${CORP.email}?subject=${encodeURIComponent("Investor | NEX information request")}`;
 
-const figures = [
+const tickers = [
   { value: "USD 7.3M", label: "Projected revenue, year 5" },
   { value: "~33%", label: "EBITDA margin, year 5" },
   { value: "USD 750K", label: "Seed capital" },
   { value: "~150%", label: "Base ROI, year 3" },
 ];
 
+const thesis = [
+  {
+    title: "A large-scale market",
+    text: "The Venezuelan oil sector needs reliable contractors for civil works, maintenance, pipelines, logistics and environmental management in the field.",
+  },
+  {
+    title: "Seven lines, one contractor",
+    text: "A diversified portfolio that reduces dependence on a single service and lets one team, under one standard, deliver integrated contracts.",
+  },
+  {
+    title: "Institutional discipline",
+    text: "NEX operates with the discipline development banks and private investors require: formal accounting, controls and accountability from day one.",
+  },
+  {
+    title: "Pipeline already identified",
+    text: "12 commercial opportunities worth USD 3.72M in potential value, aimed at PDVSA, joint ventures and international operators.",
+  },
+];
+
+const phases = [
+  { tag: "Year 1", year: "2026", title: "Start-up", text: "Incorporation, USD 750K seed capital and launch of the service lines with formal accounting from the start." },
+  { tag: "Year 3", year: "Return", title: "Base ROI ~150%", text: "The plan's base scenario projects a return on investment close to 150% by the third year." },
+  { tag: "Year 5", year: "Scale", title: "USD 7.3M in revenue", text: "Projected revenue of USD 7.3M with an EBITDA margin close to 33%." },
+  { tag: "Horizon", year: "2031", title: "Plan completion", text: "Completion of the 2026 to 2031 Business Plan, with a consolidated portfolio of seven service lines." },
+];
+
+const markets = ["PDVSA", "Joint ventures", "International operators"];
+const basins = ["Orinoco Belt", "Eastern Basin", "Barinas-Apure Basin"];
+
 const governance = [
   { icon: "file-text", title: "Auditable financial model", text: "Projections backed by verifiable assumptions and formal accounting from the start." },
   { icon: "scale", title: "Integrated compliance", text: "FCPA, UKBA and OFAC built in, reducing reputational and legal risk for the investor." },
-  { icon: "users", title: "Clear governance", text: "Four-level corporate structure with accountability and control." },
+  { icon: "layers", title: "Clear governance", text: "Four-level corporate structure with accountability and control." },
+];
+
+const docs = [
+  "Business Plan 2026 to 2031",
+  "Financial model and assumptions",
+  "Detailed commercial pipeline",
+  "Round structure and use of funds",
 ];
 ---
 
 <BaseLayout
   title="Investors | NEX Comstuct & Energy | Business Plan 2026-2031"
-  description="Investment opportunity in NEX: USD 7.3M revenue projection year 5, 33% EBITDA margin, 150% base ROI. USD 3.72M identified pipeline. Auditable financial model."
+  description="Invest in NEX Comstuct & Energy: USD 7.3M projected revenue by year 5, EBITDA margin close to 33%, 150% base ROI and a USD 3.72M pipeline across seven service lines."
   keywords="oil gas investment venezuela, oil business plan, oil gas investment opportunity, oil EBITDA"
   esRest="/inversionistas/"
   enRest="/investors/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Investors" }]}
 >
-  <PageHero
-    eyebrow="Investors"
-    title="Take part in the growth of an institutionally solid company"
-    subtitle="NEX combines a large-scale market with the institutional discipline that development banks and private investors require."
-    crumbs={[{ name: "Investors" }]}
-  />
-
-  <Section eyebrow="Business Plan 2026–2031" title="Key figures" center>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {figures.map((f) => <StatCard value={f.value} label={f.label} />)}
-    </div>
-    <p class="mt-6 text-center text-sm text-nex-gris max-w-2xl mx-auto">Business Plan projections. The full assumptions and financial model are available under a confidentiality agreement.</p>
-  </Section>
-
-  <Section variant="navy" eyebrow="Commercial pipeline" title="Identified opportunities">
-    <div class="grid gap-8 lg:grid-cols-[1fr_1.4fr] items-center">
-      <div class="text-center lg:text-left">
-        <div class="text-6xl font-extrabold text-nex-oro">12</div>
-        <p class="text-nex-blanco text-lg mt-2">identified commercial opportunities</p>
-        <div class="text-4xl font-extrabold text-nex-oro mt-6">USD 3.72M</div>
-        <p class="text-nex-gris mt-2">in potential pipeline value</p>
+  <!-- ============ HERO: prospectus cover ============ -->
+  <section class="inv-hero">
+    <img
+      src="/images/inversionistas.webp"
+      alt="Oil pump jacks on a green field"
+      width="1800"
+      height="1214"
+      class="inv-hero__img"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="inv-hero__veil" aria-hidden="true"></div>
+    <div class="container-nex inv-hero__inner">
+      <nav class="inv-hero__crumbs anim-in" aria-label="Breadcrumb">
+        <a href="/en/">Home</a><span aria-hidden="true">/</span><span>Investors</span>
+      </nav>
+      <p class="inv-hero__kicker anim-in" style="animation-delay:.05s">Prospectus | Business Plan 2026 to 2031</p>
+      <h1 class="inv-hero__title anim-in" style="animation-delay:.12s">
+        Take part in the growth of an <em>institutionally solid</em> company
+      </h1>
+      <p class="inv-hero__lead anim-in" style="animation-delay:.2s">
+        NEX combines a large-scale market with the institutional discipline that development banks and private investors require.
+      </p>
+      <div class="inv-hero__actions anim-in" style="animation-delay:.28s">
+        <a href={mailInvestor} class="btn btn-primary">Request information <Icon name="arrow-right" size={18} /></a>
+        <a href="#plan" class="inv-ghost">See the plan <Icon name="chevron-down" size={18} /></a>
       </div>
-      <div class="card bg-nex-surface/5 border border-white/10">
-        <p class="text-nex-gris">The pipeline combines workover, remediation and welding services for PDVSA, joint ventures and international operators, spread across the Orinoco Belt, the Eastern Basin and the Barinas-Apure Basin.</p>
-      </div>
-    </div>
-  </Section>
-
-  <Section eyebrow="Governance and transparency" title="Why NEX reduces investor risk">
-    <div class="grid gap-6 md:grid-cols-3">
-      {governance.map((g) => (
-        <article class="card h-full">
-          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-nex-fondo-alt text-nex-oro mb-4"><Icon name={g.icon} size={26} /></span>
-          <h3 class="text-lg mb-2">{g.title}</h3>
-          <p class="text-nex-gris text-sm">{g.text}</p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <Section variant="off-white" eyebrow="Documentation" title="Available under NDA">
-    <div class="card max-w-3xl">
-      <p class="text-nex-gris">The full Business Plan, financial model and detailed pipeline are shared upon signing a confidentiality agreement. Request them selecting "Investor" as the inquiry type.</p>
-      <ul class="mt-5 space-y-2">
-        {["Business Plan 2026–2031", "Financial model and assumptions", "Detailed commercial pipeline", "Round structure and use of funds"].map((x) => (
-          <li class="flex items-center gap-3 text-nex-gris">
-            <span class="text-nex-oro"><Icon name="file-text" size={18} /></span>{x}
+      <ul class="inv-tickers anim-in" style="animation-delay:.36s" aria-label="Key plan figures">
+        {tickers.map((t) => (
+          <li class="inv-ticker">
+            <span class="inv-ticker__value">{t.value}</span>
+            <span class="inv-ticker__label">{t.label}</span>
           </li>
         ))}
       </ul>
-      <a href={nav.contact} class="btn btn-primary mt-6">Request under NDA <Icon name="arrow-right" size={18} /></a>
+      <p class="inv-hero__note anim-in" style="animation-delay:.42s">Business Plan projections. Full assumptions and model available under a confidentiality agreement.</p>
     </div>
-  </Section>
+  </section>
+
+  <!-- ============ INVESTMENT THESIS ============ -->
+  <section class="inv-section">
+    <div class="container-nex">
+      <div class="inv-head reveal">
+        <span class="eyebrow">Investment thesis</span>
+        <h2 class="title-split">Four reasons <span>to invest in NEX</span></h2>
+      </div>
+      <div class="inv-thesis">
+        {thesis.map((t, i) => (
+          <article class="inv-thesis__card reveal" style={`--d:${i * 0.08}s`}>
+            <span class="inv-thesis__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="inv-thesis__title">{t.title}</h3>
+            <p class="inv-thesis__text">{t.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUSINESS PLAN TIMELINE ============ -->
+  <section class="inv-section inv-section--alt" id="plan">
+    <div class="container-nex">
+      <div class="inv-head inv-head--row reveal">
+        <div>
+          <span class="eyebrow">Business Plan 2026 to 2031</span>
+          <h2 class="title-split">A roadmap <span>with measurable milestones</span></h2>
+        </div>
+        <p class="lead inv-head__aside">Milestones are taken from the plan's base scenario. The year-by-year detail is shared under a confidentiality agreement.</p>
+      </div>
+
+      <div class="inv-tl reveal">
+        <div class="inv-tl__track" aria-hidden="true"><span class="inv-tl__fill"></span></div>
+        <ol class="inv-tl__list">
+          {phases.map((p, i) => (
+            <li class="inv-tl__item" style={`--i:${i}`}>
+              <span class="inv-tl__node" aria-hidden="true"></span>
+              <span class="inv-tl__tag">{p.tag}</span>
+              <span class="inv-tl__year">{p.year}</span>
+              <h3 class="inv-tl__title">{p.title}</h3>
+              <p class="inv-tl__text">{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PIPELINE / MARKETS ============ -->
+  <section class="inv-section">
+    <div class="container-nex inv-pipe">
+      <div class="inv-pipe__side reveal">
+        <span class="eyebrow">Commercial pipeline</span>
+        <h2 class="title-split">Opportunities <span>already identified</span></h2>
+        <div class="inv-pipe__figs">
+          <div>
+            <span class="inv-pipe__big">12</span>
+            <span class="inv-pipe__cap">identified commercial opportunities</span>
+          </div>
+          <div>
+            <span class="inv-pipe__big">USD 3.72M</span>
+            <span class="inv-pipe__cap">in potential pipeline value</span>
+          </div>
+        </div>
+        <p class="inv-pipe__label">Target clients</p>
+        <ul class="inv-pipe__chips">
+          {markets.map((m) => <li class="chip"><Icon name="building" size={15} />{m}</li>)}
+        </ul>
+        <p class="inv-pipe__label">Basins</p>
+        <ul class="inv-pipe__chips">
+          {basins.map((b) => <li class="chip"><Icon name="map-pin" size={15} />{b}</li>)}
+        </ul>
+      </div>
+
+      <div class="inv-ledger reveal" style="--d:.1s">
+        <div class="inv-ledger__head">
+          <span>Portfolio</span>
+          <span>Seven service lines</span>
+        </div>
+        <ul class="inv-ledger__rows">
+          {SERVICES.map((s) => (
+            <li>
+              <a href={servicePath(lang, s.key)} class="inv-ledger__row">
+                <span class="inv-ledger__num">{s.num}</span>
+                <span class="inv-ledger__icon"><Icon name={s.icon} size={18} /></span>
+                <span class="inv-ledger__body">
+                  <span class="inv-ledger__title">{s.title[lang]}</span>
+                  <span class="inv-ledger__short">{s.short[lang]}</span>
+                </span>
+                <span class="inv-ledger__go" aria-hidden="true"><Icon name="arrow-up-right" size={16} /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="inv-ledger__foot">The pipeline targets PDVSA, joint ventures and international operators across the Orinoco Belt, the Eastern Basin and the Barinas-Apure Basin, backed by this integrated portfolio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GOVERNANCE + INVESTOR CONTACT ============ -->
+  <section class="inv-section inv-section--alt">
+    <div class="container-nex">
+      <div class="inv-head reveal">
+        <span class="eyebrow">Governance and compliance</span>
+        <h2 class="title-split">Why NEX reduces <span>investor risk</span></h2>
+      </div>
+
+      <div class="inv-gov">
+        <div class="inv-gov__list">
+          {governance.map((g, i) => (
+            <article class="inv-gov__item reveal" style={`--d:${i * 0.08}s`}>
+              <span class="icon-tile"><Icon name={g.icon} size={24} /></span>
+              <div>
+                <h3 class="inv-gov__title">{g.title}</h3>
+                <p class="inv-gov__text">{g.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <aside class="frame reveal" style="--d:.15s">
+          <div class="card inv-dataroom">
+            <span class="inv-dataroom__badge"><Icon name="lock" size={15} /> Available under NDA</span>
+            <h3 class="inv-dataroom__title">Investor data room</h3>
+            <p class="inv-dataroom__text">The full Business Plan, financial model and detailed pipeline are shared upon signing a confidentiality agreement.</p>
+            <ul class="inv-dataroom__docs">
+              {docs.map((d) => (
+                <li><span class="inv-dataroom__check"><Icon name="file-text" size={16} /></span>{d}</li>
+              ))}
+            </ul>
+            <div class="inv-dataroom__actions">
+              <a href={mailInvestor} class="btn btn-primary"><Icon name="mail" size={18} /> Send an email</a>
+              <a href={nav.contact} class="btn btn-secondary">Contact form</a>
+            </div>
+            <p class="inv-dataroom__hint">Email: <a href={mailInvestor}>{CORP.email}</a>. On the form, select "Investor" as the inquiry type.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
 
   <CtaBand
     title="Let's schedule a meeting"
-    text="Let's discuss the investment thesis and use of funds."
+    text="Let's discuss the investment thesis, the 2026 to 2031 plan and the use of funds."
     ctaLabel="Schedule meeting"
     ctaHref={nav.contact}
+    secondaryLabel="Send an email"
+    secondaryHref={mailInvestor}
   />
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .inv-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 168px 0 72px;
+    min-height: min(92vh, 860px);
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+  }
+  .inv-hero__img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+  .inv-hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(10, 30, 48, 0.55) 0%, rgba(10, 30, 48, 0) 30%),
+      linear-gradient(112deg, rgba(15, 53, 84, 0.94) 0%, rgba(23, 64, 95, 0.82) 38%, rgba(28, 90, 110, 0.6) 66%, rgba(44, 110, 76, 0.55) 100%);
+  }
+  .inv-hero__inner {
+    position: relative;
+    width: 100%;
+  }
+  .inv-hero__crumbs {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.25rem;
+  }
+  .inv-hero__crumbs a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+  }
+  .inv-hero__crumbs a:hover {
+    color: #fff;
+  }
+  .inv-hero__kicker {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a9d6ee;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    margin-bottom: 1.5rem;
+  }
+  .inv-hero__title {
+    max-width: 17ch;
+    font-size: clamp(2.25rem, 5.4vw, 4.25rem);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    color: #fff;
+  }
+  .inv-hero__title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #ffffff 0%, #a9d6ee 45%, #9fd68c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .inv-hero__lead {
+    max-width: 56ch;
+    margin-top: 1.25rem;
+    font-size: clamp(1rem, 1.5vw, 1.1875rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .inv-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .inv-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.3s ease;
+  }
+  .inv-ghost:hover {
+    border-color: #fff;
+  }
+  .inv-tickers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 3rem;
+    list-style: none;
+    padding: 0;
+  }
+  .inv-ticker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    transition: transform 0.5s var(--nex-ease), background 0.3s ease;
+  }
+  .inv-ticker:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .inv-ticker__value {
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+  }
+  .inv-ticker__label {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .inv-hero__note {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ---------- Sections ---------- */
+  .inv-section {
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+  .inv-section--alt {
+    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    border-block: 1px solid rgba(16, 42, 67, 0.06);
+  }
+  .inv-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 760px;
+  }
+  .inv-head h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+  .inv-head--row {
+    max-width: none;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .inv-head--row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .inv-head__aside {
+    max-width: 38ch;
+    color: var(--nex-gris);
+    font-size: 0.9375rem;
+  }
+  .inv-head .eyebrow {
+    align-self: flex-start;
+  }
+
+  /* ---------- Thesis ---------- */
+  .inv-thesis {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .inv-thesis__card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .inv-thesis__card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--nex-azul) 0%, #3f9a5a 100%);
+  }
+  .inv-thesis__card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .inv-thesis__num {
+    display: block;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    background: linear-gradient(135deg, #17405f 0%, #2f78b4 50%, #3f9a5a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.25rem;
+  }
+  .inv-thesis__title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--nex-ink);
+    margin-bottom: 0.5rem;
+  }
+  .inv-thesis__text {
+    color: var(--nex-gris);
+    line-height: 1.65;
+  }
+
+  /* ---------- Timeline ---------- */
+  .inv-tl {
+    position: relative;
+  }
+  .inv-tl__track {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(16, 42, 67, 0.1);
+    overflow: hidden;
+  }
+  .inv-tl__fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--nex-azul), #3f9a5a);
+    transform-origin: left center;
+  }
+  :global(.js) .inv-tl__fill {
+    transform: scaleX(0);
+    transition: transform 1.8s var(--nex-ease) 0.3s;
+  }
+  :global(.js) .inv-tl.is-in .inv-tl__fill {
+    transform: scaleX(1);
+  }
+  .inv-tl__list {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .inv-tl__item {
+    padding-top: 2.25rem;
+    position: relative;
+  }
+  .inv-tl__node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--nex-azul);
+    box-shadow: 0 0 0 5px rgba(47, 120, 180, 0.12);
+  }
+  :global(.js) .inv-tl .inv-tl__node {
+    transform: scale(0.4);
+    opacity: 0;
+    transition: transform 0.6s var(--nex-ease), opacity 0.4s ease;
+    transition-delay: calc(0.4s + var(--i) * 0.4s);
+  }
+  :global(.js) .inv-tl.is-in .inv-tl__node {
+    transform: none;
+    opacity: 1;
+  }
+  .inv-tl__item:last-child .inv-tl__node {
+    background: linear-gradient(135deg, var(--nex-azul), #3f9a5a);
+    border-color: #fff;
+  }
+  .inv-tl__tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--nex-azul);
+  }
+  .inv-tl__year {
+    display: block;
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--nex-ink);
+    margin: 0.25rem 0 0.75rem;
+  }
+  .inv-tl__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--nex-ink);
+    margin-bottom: 0.4rem;
+  }
+  .inv-tl__text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Pipeline ---------- */
+  .inv-pipe {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .inv-pipe__side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .inv-pipe__side h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+  .inv-pipe__figs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    margin: 0.5rem 0;
+    border-block: 1px solid rgba(16, 42, 67, 0.1);
+  }
+  .inv-pipe__big {
+    display: block;
+    font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(90deg, #17405f 0%, #2f78b4 55%, #3f9a5a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .inv-pipe__cap {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--nex-gris);
+  }
+  .inv-pipe__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--nex-gris);
+    margin-top: 0.25rem;
+  }
+  .inv-pipe__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .inv-pipe__chips :global(svg) {
+    color: var(--nex-azul);
+  }
+
+  .inv-ledger {
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    box-shadow: 0 30px 60px -40px rgba(16, 42, 67, 0.35);
+    overflow: hidden;
+  }
+  .inv-ledger__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(110deg, #17405f 0%, #1c5a6e 60%, #2c6e4c 100%);
+  }
+  .inv-ledger__rows {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .inv-ledger__rows li + li {
+    border-top: 1px solid rgba(16, 42, 67, 0.07);
+  }
+  .inv-ledger__row {
+    display: grid;
+    grid-template-columns: 2.25rem 2.25rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.3s ease;
+  }
+  .inv-ledger__row:hover {
+    background: rgba(47, 120, 180, 0.05);
+  }
+  .inv-ledger__num {
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--nex-gris);
+  }
+  .inv-ledger__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+  }
+  .inv-ledger__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .inv-ledger__title {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--nex-ink);
+  }
+  .inv-ledger__short {
+    font-size: 0.875rem;
+    color: var(--nex-gris);
+  }
+  .inv-ledger__go {
+    color: var(--nex-gris);
+    transition: transform 0.35s var(--nex-ease), color 0.3s ease;
+  }
+  .inv-ledger__row:hover .inv-ledger__go {
+    color: var(--nex-azul);
+    transform: translate(2px, -2px);
+  }
+  .inv-ledger__foot {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+    background: #f6f9fb;
+    border-top: 1px solid rgba(16, 42, 67, 0.07);
+  }
+
+  /* ---------- Governance ---------- */
+  .inv-gov {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .inv-gov__list {
+    display: flex;
+    flex-direction: column;
+  }
+  .inv-gov__item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(16, 42, 67, 0.09);
+  }
+  .inv-gov__item:first-child {
+    padding-top: 0.5rem;
+  }
+  .inv-gov__title {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--nex-ink);
+    margin-bottom: 0.35rem;
+  }
+  .inv-gov__text {
+    color: var(--nex-gris);
+    line-height: 1.6;
+  }
+  .inv-dataroom__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #3f8a4a;
+    background: rgba(63, 138, 74, 0.1);
+    border: 1px solid rgba(63, 138, 74, 0.22);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+  .inv-dataroom__title {
+    margin-top: 1.25rem;
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--nex-ink);
+  }
+  .inv-dataroom__text {
+    margin-top: 0.75rem;
+    color: var(--nex-gris);
+    line-height: 1.6;
+  }
+  .inv-dataroom__docs {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .inv-dataroom__docs li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--nex-ink);
+    font-size: 0.9375rem;
+  }
+  .inv-dataroom__check {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+    flex: none;
+  }
+  .inv-dataroom__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .inv-dataroom__actions .btn {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .inv-dataroom__hint {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--nex-gris);
+    overflow-wrap: anywhere;
+  }
+  .inv-dataroom__hint a {
+    color: var(--nex-azul);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1023px) {
+    .inv-tickers {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 899px) {
+    .inv-hero {
+      min-height: 0;
+      padding: 132px 0 56px;
+    }
+    .inv-thesis,
+    .inv-pipe,
+    .inv-gov {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .inv-head--row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .inv-tl__track {
+      top: 0;
+      bottom: 0;
+      left: 9px;
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+    .inv-tl__fill {
+      transform-origin: center top;
+    }
+    :global(.js) .inv-tl__fill {
+      transform: scaleY(0);
+    }
+    :global(.js) .inv-tl.is-in .inv-tl__fill {
+      transform: scaleY(1);
+    }
+    .inv-tl__list {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+    .inv-tl__item {
+      padding-top: 0;
+      padding-left: 3rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .inv-tickers {
+      gap: 0.5rem;
+    }
+    .inv-ticker {
+      padding: 0.875rem 1rem;
+    }
+    .inv-pipe__figs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .inv-ledger__row {
+      grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+      padding: 0.875rem 1.125rem;
+    }
+    .inv-ledger__num {
+      display: none;
+    }
+    .inv-ledger__head {
+      padding: 0.875rem 1.125rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .inv-tl__fill,
+    :global(.js) .inv-tl .inv-tl__node {
+      transform: none;
+      opacity: 1;
+      transition: none;
+    }
+  }
+</style>

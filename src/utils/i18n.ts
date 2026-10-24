@@ -29,11 +29,13 @@ const ROUTE_MAP: Record<string, string> = {
   "/nosotros/": "/about/",
   // services
   "/servicios/": "/services/",
-  "/servicios/workover/": "/services/workover/",
-  "/servicios/saneamiento-ambiental/": "/services/environmental-remediation/",
-  "/servicios/soldadura-industrial/": "/services/industrial-welding/",
-  "/servicios/suministro/": "/services/supply/",
-  "/servicios/ingenieria/": "/services/engineering/",
+  "/servicios/obras-civiles/": "/services/civil-works/",
+  "/servicios/mantenimiento-mecanico-soldadura/": "/services/mechanical-maintenance-welding/",
+  "/servicios/tuberias/": "/services/pipelines/",
+  "/servicios/gestion-ambiental/": "/services/environmental-management/",
+  "/servicios/productos-quimicos/": "/services/chemical-products/",
+  "/servicios/transporte-logistica/": "/services/transport-logistics/",
+  "/servicios/personal-especializado/": "/services/specialized-staffing/",
   // pages
   "/hse-cumplimiento/": "/hse-compliance/",
   "/sistema-gestion/": "/management-system/",

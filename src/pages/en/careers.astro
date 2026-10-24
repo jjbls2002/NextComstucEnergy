@@ -1,75 +1,824 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import Section from "../../components/Section.astro";
 import ContactForm from "../../components/ContactForm.astro";
 import Icon from "../../components/Icon.astro";
+import { CORP, SERVICES } from "../../data/site";
 
-const reasons = [
-  { icon: "shield-check", title: "Real safety", text: "Work at a company where stop-work authority is real and safety is not negotiable." },
-  { icon: "award", title: "Technical excellence", text: "International standards and certifications on every service line." },
-  { icon: "trending-up", title: "Career path", text: "Defined growth trajectories and continuous professional development." },
-  { icon: "scale", title: "Integrity", text: "A compliance environment where doing the right thing is the norm." },
-  { icon: "users", title: "Team and respect", text: "A culture of respect, labor rights and teamwork." },
-];
+const lang = "en";
+const privacyHref = "/en/privacy/";
+const mailCv = `mailto:${CORP.email}?subject=${encodeURIComponent("Application | CV and cover letter")}`;
 
-const commitments = [
-  "Minimum 40 hours/year of HSE training",
-  "Career path and professional development",
-  "Full compliance with the LOTTT labor law",
-  "Insurance and legally mandated benefits",
+const benefits = {
+  hse: { value: "40 h", label: "per year", title: "Ongoing HSE training", text: "A minimum of 40 hours per year of health, safety and environment training for the whole team, in the field and in the office." },
+  career: { title: "Career path", text: "Defined growth trajectories and continuous professional development: you join in one role and grow with the company." },
+  lottt: { title: "Full LOTTT compliance", text: "A formal employment relationship, in line with Venezuelan labor law." },
+  insurance: { title: "Insurance and benefits", text: "Insurance and legally mandated benefits." },
+  extra: [
+    { icon: "shield-check", title: "Real safety", text: "Stop-work authority is real and safety is not negotiable." },
+    { icon: "scale", title: "Integrity", text: "An environment where doing the right thing is the norm." },
+    { icon: "users", title: "Team and respect", text: "A culture of respect, labor rights and teamwork." },
+    { icon: "award", title: "Technical excellence", text: "Demanding standards and learning on every service line." },
+  ],
+};
+
+const roles: Record<string, string[]> = {
+  civil: ["Civil engineers", "Site foremen", "Machinery operators", "Masons and carpenters"],
+  mechanical: ["Oilfield equipment mechanics", "Welders", "Engine and pump technicians", "Maintenance supervisors"],
+  pipelines: ["Pipefitters", "Pipe welders", "Site inspectors", "Field helpers"],
+  environmental: ["Environmental engineers", "Environmental technicians", "Remediation operators", "Reforestation crews"],
+  chemicals: ["Foreign trade", "Purchasing and warehouse", "Chemical technicians"],
+  logistics: ["Heavy cargo drivers", "Light cargo drivers", "Logistics coordinators", "Moving crews"],
+  staffing: ["HSE supervisors", "Administration and finance", "Human resources", "Operational staff"],
+};
+const areaName: Record<string, string> = {
+  civil: "Civil works",
+  mechanical: "Mechanics and welding",
+  pipelines: "Pipelines",
+  environmental: "Environment and remediation",
+  chemicals: "Chemical products",
+  logistics: "Transport and logistics",
+  staffing: "Administration, HSE and operations",
+};
+
+const steps = [
+  { title: "Send your CV", text: "Fill in the form with your CV and cover letter, stating the area you would like to work in." },
+  { title: "Profile review", text: "Our human resources team reviews your experience against the needs of each service line." },
+  { title: "Interview and assessment", text: "We talk with you and, depending on the role, assess your technical skills and your commitment to safety." },
+  { title: "Induction and onboarding", text: "If we move forward together, you start with an HSE induction before your first day in the field or office." },
 ];
 ---
 
 <BaseLayout
-  title="Careers | NEX Comstuct & Energy | Work in Oil & Gas Services"
-  description="Join NEX: 40h/year HSE training, career path, LOTTT compliance and insurance. Opportunities for engineers, technicians and HSE staff in the Oil & Gas sector."
-  keywords="oil gas jobs venezuela, oil gas careers, HSE work venezuela, oil services vacancies"
+  title="Careers | NEX Comstuct & Energy | Work With Us"
+  description="Build your career at NEX Comstuct & Energy: 40 h/year HSE training, career path, LOTTT compliance and insurance. Profiles in civil works, mechanics, pipelines, environment, logistics and more."
+  keywords="oil gas jobs venezuela, oil gas careers, HSE work venezuela, jobs guarico, welders, heavy cargo drivers"
   esRest="/carreras/"
   enRest="/careers/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Careers" }]}
 >
-  <PageHero
-    eyebrow="Careers"
-    title="Join the team redefining the sector's standards"
-    subtitle="We seek engineers, technicians and HSE staff who share our discipline of safety and integrity."
-    crumbs={[{ name: "Careers" }]}
-  />
-
-  <Section eyebrow="Why NEX?" title="Five reasons to build your career with us">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {reasons.map((r) => (
-        <article class="card h-full">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-nex-oro/10 text-nex-blanco mb-4"><Icon name={r.icon} size={24} /></span>
-          <h3 class="text-lg mb-2">{r.title}</h3>
-          <p class="text-nex-gris text-sm">{r.text}</p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <Section variant="off-white" eyebrow="Our commitments" title="What we offer our team">
-    <div class="grid gap-4 sm:grid-cols-2">
-      {commitments.map((c) => (
-        <div class="flex items-start gap-3 card">
-          <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
-          <span class="text-nex-gris">{c}</span>
+  <!-- ============ HERO: photo collage ============ -->
+  <section class="car-hero">
+    <div class="container-nex car-hero__grid">
+      <div class="car-hero__copy">
+        <nav class="car-crumbs anim-in" aria-label="Breadcrumb">
+          <a href="/en/">Home</a><span aria-hidden="true">/</span><span>Careers</span>
+        </nav>
+        <span class="eyebrow anim-in" style="animation-delay:.05s">Careers at NEX</span>
+        <h1 class="car-hero__title text-grad-brand anim-in" style="animation-delay:.12s">
+          Join the team that builds safely
+        </h1>
+        <p class="lead car-hero__lead anim-in" style="animation-delay:.2s">
+          We are looking for skilled tradespeople, technicians, professionals and HSE staff who share our discipline of safety and integrity, across seven service lines from Valle de la Pascua.
+        </p>
+        <div class="car-hero__actions anim-in" style="animation-delay:.28s">
+          <a href="#apply" class="btn btn-primary">Apply now <Icon name="arrow-right" size={18} /></a>
+          <a href="#profiles" class="btn btn-secondary">See profiles</a>
         </div>
-      ))}
-    </div>
-  </Section>
+        <ul class="car-hero__facts anim-in" style="animation-delay:.36s">
+          <li><Icon name="check-circle" size={18} /> 40 h/year of HSE training</li>
+          <li><Icon name="check-circle" size={18} /> LOTTT compliance</li>
+        </ul>
+      </div>
 
-  <Section eyebrow="Current openings" title="Opportunities">
-    <div class="card-navy text-center max-w-2xl mx-auto">
-      <Icon name="clipboard-check" size={32} class="text-nex-oro mx-auto mb-4" />
-      <p class="text-nex-blanco text-xl font-bold">Coming soon</p>
-      <p class="text-nex-gris mt-2">We have no open vacancies posted yet. Leave your CV and cover letter; we will contact you when a position matching your profile arises.</p>
+      <div class="car-collage anim-in" style="animation-delay:.18s">
+        <figure class="car-collage__main">
+          <img src="/images/carreras.webp" alt="Two professionals in hard hats reviewing plans on site" width="1800" height="1200" fetchpriority="high" decoding="async" />
+        </figure>
+        <figure class="car-collage__second">
+          <img src="/images/personal.webp" alt="Team of workers in high-visibility vests and helmets" width="1800" height="1200" loading="lazy" decoding="async" />
+        </figure>
+        <div class="car-collage__badge" aria-hidden="true">
+          <span class="icon-tile icon-tile--green"><Icon name="hard-hat" size={22} /></span>
+          <span><strong>Safety first</strong><small>Real stop-work authority</small></span>
+        </div>
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <Section variant="off-white" eyebrow="Apply" title="Send your CV and cover letter">
-    <div class="max-w-2xl">
-      <ContactForm formName="careers" withUpload={true} defaultInquiry="talent" action="/en/thanks/" />
+  <!-- ============ BENEFITS BENTO ============ -->
+  <section class="car-section">
+    <div class="container-nex">
+      <div class="car-head reveal">
+        <span class="eyebrow">What we offer</span>
+        <h2 class="title-split">A place to grow <span>with support and respect</span></h2>
+      </div>
+
+      <div class="car-bento">
+        <article class="car-tile car-tile--hero reveal">
+          <span class="icon-tile"><Icon name="shield" size={24} /></span>
+          <div class="car-tile__metric"><span>{benefits.hse.value}</span><small>{benefits.hse.label}</small></div>
+          <h3>{benefits.hse.title}</h3>
+          <p>{benefits.hse.text}</p>
+        </article>
+        <article class="car-tile car-tile--wide reveal" style="--d:.06s">
+          <span class="icon-tile icon-tile--green"><Icon name="trending-up" size={24} /></span>
+          <div>
+            <h3>{benefits.career.title}</h3>
+            <p>{benefits.career.text}</p>
+          </div>
+        </article>
+        <article class="car-tile reveal" style="--d:.12s">
+          <span class="car-tile__icon"><Icon name="clipboard-check" size={22} /></span>
+          <h3>{benefits.lottt.title}</h3>
+          <p>{benefits.lottt.text}</p>
+        </article>
+        <article class="car-tile reveal" style="--d:.18s">
+          <span class="car-tile__icon"><Icon name="handshake" size={22} /></span>
+          <h3>{benefits.insurance.title}</h3>
+          <p>{benefits.insurance.text}</p>
+        </article>
+        {benefits.extra.map((b, i) => (
+          <article class={`car-tile car-tile--soft reveal${i === 0 ? " car-tile--accent" : ""}`} style={`--d:${0.08 * i}s`}>
+            <span class="car-tile__icon"><Icon name={b.icon} size={22} /></span>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </article>
+        ))}
+      </div>
     </div>
-  </Section>
+  </section>
+
+  <!-- ============ PROFILES ============ -->
+  <section class="car-section car-section--alt" id="profiles">
+    <div class="container-nex">
+      <div class="car-head car-head--row reveal">
+        <div>
+          <span class="eyebrow">Profiles we look for</span>
+          <h2 class="title-split">Talent for every <span>service line</span></h2>
+        </div>
+        <p class="car-head__aside">Reference profiles based on our work areas. These are not posted vacancies: if one fits you, leave your CV and we will contact you when a matching position arises.</p>
+      </div>
+
+      <div class="car-profiles">
+        {SERVICES.map((s, i) => (
+          <article class="car-profile reveal" style={`--d:${(i % 3) * 0.07}s`}>
+            <header class="car-profile__head">
+              <span class={`icon-tile${i % 2 ? " icon-tile--green" : ""}`}><Icon name={s.icon} size={22} /></span>
+              <div>
+                <span class="car-profile__num">Area {s.num}</span>
+                <h3 class="car-profile__title">{areaName[s.key]}</h3>
+              </div>
+            </header>
+            <ul class="car-profile__chips">
+              {(roles[s.key] ?? []).map((r) => <li class="chip">{r}</li>)}
+            </ul>
+          </article>
+        ))}
+        <a href="#apply" class="car-profile car-profile--cta reveal" style="--d:.14s">
+          <span class="car-profile__cta-title">Don't see your trade?</span>
+          <span class="car-profile__cta-text">Send us your CV anyway. We value field experience and a willingness to learn.</span>
+          <span class="car-profile__cta-link">Apply <Icon name="arrow-right" size={16} /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HIRING PROCESS ============ -->
+  <section class="car-section">
+    <div class="container-nex car-process">
+      <div class="car-process__intro reveal">
+        <span class="eyebrow">Hiring process</span>
+        <h2 class="title-split">Four steps, <span>clear and transparent</span></h2>
+        <p class="lead">A simple process that respects your time, with safety as a criterion from the first contact.</p>
+      </div>
+      <ol class="car-stepper">
+        {steps.map((s, i) => (
+          <li class="car-step reveal" style={`--d:${i * 0.1}s`}>
+            <span class="car-step__node" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <div class="car-step__body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ APPLICATION ============ -->
+  <section class="car-section car-section--apply" id="apply">
+    <div class="container-nex car-apply">
+      <div class="car-apply__intro reveal">
+        <span class="eyebrow">Apply</span>
+        <h2 class="title-split">Send your CV <span>and cover letter</span></h2>
+        <p class="lead">We have no open vacancies posted yet. Leave your CV and cover letter; we will contact you when a position matching your profile arises.</p>
+        <div class="car-apply__alt">
+          <span class="car-tile__icon"><Icon name="mail" size={20} /></span>
+          <p>Prefer email? Write to <a href={mailCv}>{CORP.email}</a> with your CV attached.</p>
+        </div>
+        <div class="car-apply__privacy">
+          <span class="car-tile__icon"><Icon name="lock" size={20} /></span>
+          <p>Your data is used only for NEX hiring processes and is handled confidentially. See our <a href={privacyHref}>privacy policy</a>.</p>
+        </div>
+      </div>
+      <div class="car-apply__card reveal" style="--d:.1s">
+        <ContactForm formName="careers" withUpload={true} defaultInquiry="talent" action="/en/thanks/" />
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .car-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 140px 0 clamp(64px, 8vw, 104px);
+    background:
+      radial-gradient(60% 70% at 100% 0%, rgba(104, 176, 90, 0.12), transparent 70%),
+      radial-gradient(50% 60% at 0% 20%, rgba(47, 120, 180, 0.1), transparent 70%);
+  }
+  .car-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .car-hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .car-crumbs {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--nex-gris);
+  }
+  .car-crumbs a {
+    color: var(--nex-gris);
+    text-decoration: none;
+  }
+  .car-crumbs a:hover {
+    color: var(--nex-azul);
+  }
+  .car-hero__title {
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1.03;
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    max-width: 14ch;
+  }
+  .car-hero__lead {
+    max-width: 52ch;
+    color: var(--nex-gris);
+  }
+  .car-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .car-hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    font-size: 0.9375rem;
+    color: var(--nex-ink);
+  }
+  .car-hero__facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .car-hero__facts :global(svg) {
+    color: #3f8a4a;
+  }
+
+  .car-collage {
+    position: relative;
+    padding: 0 0 18% 12%;
+  }
+  .car-collage figure {
+    margin: 0;
+  }
+  .car-collage img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .car-collage__main {
+    aspect-ratio: 4 / 3.4;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(16, 42, 67, 0.45);
+    transform: rotate(1.2deg);
+  }
+  .car-collage__second {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 52%;
+    aspect-ratio: 3 / 2;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: 0 30px 60px -24px rgba(16, 42, 67, 0.45);
+    transform: rotate(-4deg);
+    transition: transform 0.6s var(--nex-ease);
+  }
+  .car-collage:hover .car-collage__second {
+    transform: rotate(-2deg) translateY(-4px);
+  }
+  .car-collage__badge {
+    position: absolute;
+    right: 0;
+    bottom: 10%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.125rem 0.75rem 0.75rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .car-collage__badge strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--nex-ink);
+  }
+  .car-collage__badge small {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Sections ---------- */
+  .car-section {
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+  .car-section--alt {
+    background: linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    border-block: 1px solid rgba(16, 42, 67, 0.06);
+  }
+  .car-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .car-head h2,
+  .car-process__intro h2,
+  .car-apply__intro h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+  .car-head--row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .car-head--row > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .car-head__aside {
+    max-width: 44ch;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Bento ---------- */
+  .car-bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .car-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.625rem;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .car-tile:hover {
+    transform: translateY(-3px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .car-tile h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--nex-ink);
+  }
+  .car-tile p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+  .car-tile__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    color: var(--nex-azul);
+    background: rgba(47, 120, 180, 0.08);
+    flex: none;
+  }
+  .car-tile--hero {
+    grid-column: span 2;
+    grid-row: span 2;
+    justify-content: flex-end;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    background:
+      radial-gradient(80% 70% at 100% 0%, rgba(104, 176, 90, 0.16), transparent 65%),
+      radial-gradient(90% 80% at 0% 100%, rgba(47, 120, 180, 0.12), transparent 65%),
+      #fff;
+  }
+  .car-tile--hero .icon-tile {
+    position: absolute;
+    top: clamp(1.75rem, 3vw, 2.5rem);
+    left: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .car-tile--hero h3 {
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    letter-spacing: -0.035em;
+  }
+  .car-tile--hero p {
+    max-width: 44ch;
+    font-size: 1rem;
+  }
+  .car-tile__metric {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 5rem;
+  }
+  .car-tile__metric span {
+    font-size: clamp(4rem, 9vw, 6.5rem);
+    line-height: 0.9;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    background: linear-gradient(120deg, #17405f 0%, #2f78b4 50%, #3f9a5a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .car-tile__metric small {
+    font-size: 1rem;
+    color: var(--nex-gris);
+  }
+  .car-tile--wide {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .car-tile--wide > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .car-tile--soft {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .car-tile--accent {
+    color: #fff;
+    border-color: transparent;
+    background:
+      radial-gradient(70% 90% at 100% 100%, rgba(104, 176, 90, 0.55), transparent 70%),
+      linear-gradient(140deg, #17405f 0%, #1c5a6e 60%, #2c6e4c 100%);
+  }
+  .car-tile--accent h3 {
+    color: #fff;
+  }
+  .car-tile--accent p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .car-tile--accent .car-tile__icon {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  /* ---------- Profiles ---------- */
+  .car-profiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .car-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .car-profile:hover {
+    transform: translateY(-3px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .car-profile__head {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+  .car-profile__head .icon-tile {
+    width: 46px;
+    height: 46px;
+  }
+  .car-profile__num {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--nex-gris);
+  }
+  .car-profile__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--nex-ink);
+  }
+  .car-profile__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .car-profile__chips .chip {
+    font-size: 0.8125rem;
+    padding: 0.3rem 0.75rem;
+  }
+  .car-profile--cta {
+    justify-content: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: #fff;
+    border-color: transparent;
+    background:
+      radial-gradient(80% 90% at 100% 0%, rgba(104, 176, 90, 0.5), transparent 70%),
+      linear-gradient(140deg, #2f78b4 0%, #17405f 100%);
+  }
+  .car-profile__cta-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+  .car-profile__cta-text {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .car-profile__cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .car-profile--cta:hover .car-profile__cta-link :global(svg) {
+    transform: translateX(3px);
+  }
+  .car-profile__cta-link :global(svg) {
+    transition: transform 0.35s var(--nex-ease);
+  }
+
+  /* ---------- Stepper ---------- */
+  .car-process {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .car-process__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    position: sticky;
+    top: 140px;
+  }
+  .car-process__intro .lead {
+    color: var(--nex-gris);
+    max-width: 44ch;
+  }
+  .car-stepper {
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .car-stepper::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    left: 27px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--nex-azul) 0%, #3f9a5a 100%);
+    opacity: 0.55;
+  }
+  .car-step {
+    position: relative;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .car-step__node {
+    position: relative;
+    z-index: 1;
+    display: inline-grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    flex: none;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    background: linear-gradient(150deg, #4d9ccc 0%, var(--nex-azul) 55%, #3f8a4a 100%);
+    box-shadow: 0 0 0 6px #f6f9fb, 0 10px 24px -8px rgba(47, 120, 180, 0.5);
+  }
+  .car-step__body {
+    flex: 1;
+    min-width: 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .car-step:hover .car-step__body {
+    transform: translateX(4px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 18px 50px -12px rgba(47, 120, 180, 0.35);
+  }
+  .car-step__body h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--nex-ink);
+    margin-bottom: 0.35rem;
+  }
+  .car-step__body p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- Apply ---------- */
+  .car-section--apply {
+    background:
+      radial-gradient(50% 60% at 0% 100%, rgba(104, 176, 90, 0.1), transparent 70%),
+      radial-gradient(50% 60% at 100% 0%, rgba(47, 120, 180, 0.1), transparent 70%),
+      linear-gradient(180deg, #eef4f8 0%, #f6f9fb 100%);
+    border-top: 1px solid rgba(16, 42, 67, 0.06);
+  }
+  .car-apply {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .car-apply__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .car-apply__intro .lead {
+    color: var(--nex-gris);
+  }
+  .car-apply__alt,
+  .car-apply__privacy {
+    display: flex;
+    gap: 0.875rem;
+    align-items: flex-start;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(16, 42, 67, 0.09);
+    width: 100%;
+  }
+  .car-apply__alt p,
+  .car-apply__privacy p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--nex-gris);
+    overflow-wrap: anywhere;
+  }
+  .car-apply__alt a,
+  .car-apply__privacy a {
+    color: var(--nex-azul);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .car-apply__card {
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border-radius: 28px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.081);
+    box-shadow: 0 40px 80px -48px rgba(16, 42, 67, 0.4);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .car-profiles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 899px) {
+    .car-hero {
+      padding-top: 112px;
+    }
+    .car-hero__grid,
+    .car-process,
+    .car-apply {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .car-collage {
+      max-width: 560px;
+    }
+    .car-process__intro {
+      position: static;
+    }
+    .car-head--row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .car-bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .car-tile--hero {
+      grid-row: auto;
+    }
+    .car-tile__metric {
+      margin-top: 4rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .car-bento,
+    .car-profiles {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .car-tile--hero,
+    .car-tile--wide {
+      grid-column: auto;
+    }
+    .car-tile--wide {
+      flex-direction: column;
+    }
+    .car-collage {
+      padding: 0 0 22% 8%;
+    }
+    .car-collage__badge {
+      right: 0;
+      bottom: -6px;
+      padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+    }
+    .car-collage__badge .icon-tile {
+      width: 40px;
+      height: 40px;
+    }
+    .car-step {
+      gap: 1rem;
+    }
+    .car-step__node {
+      width: 44px;
+      height: 44px;
+      font-size: 0.8125rem;
+    }
+    .car-stepper::before {
+      left: 21px;
+    }
+    .car-step__body {
+      padding: 1rem 1.125rem;
+    }
+  }
+</style>

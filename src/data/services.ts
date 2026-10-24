@@ -6,15 +6,33 @@ interface Seo {
   description: string;
   keywords?: string;
 }
+interface Item {
+  title: string;
+  text: string;
+}
+/** Each service page uses one of these hero layouts so pages don't repeat each other */
+export type ServiceVariant = "split" | "immersive" | "editorial";
+
 interface ServiceContent {
-  icon: string;
+  variant: ServiceVariant;
   serviceType: string;
+  /** eyebrow-sized label shown above the hero title */
+  kicker: string;
   hero: string;
   heroSub: string;
-  /** short summary for the services index (60–80 words range) */
+  /** short summary for the services index */
   summary: string;
+  /** opening paragraph of the page */
+  intro: string;
   capsTitle: string;
   capabilities: string[];
+  /** three reasons / value points */
+  highlights: Item[];
+  /** how the work is executed, step by step */
+  process: Item[];
+  /** the page's signature section, rendered differently per service */
+  feature: { title: string; sub: string; items: Item[] };
+  standardsTitle: string;
   standards: string[];
   contractModels: string[];
   seo: Seo;
@@ -22,261 +40,721 @@ interface ServiceContent {
 
 type ByLang = Record<Lang, ServiceContent>;
 
-const contractModelsEs = ["Precio Unitario", "Suma Alzada", "Tiempo y Materiales"];
-const contractModelsEn = ["Unit Price", "Lump Sum", "Time & Materials"];
+const contractModelsEs = ["Precio unitario", "Suma alzada", "Tiempo y materiales"];
+const contractModelsEn = ["Unit price", "Lump sum", "Time & materials"];
 
 export const SERVICE_CONTENT: Record<ServiceKey, ByLang> = {
-  workover: {
+  civil: {
     es: {
-      icon: "wrench",
-      serviceType: "Oil well workover and pulling",
-      hero: "Workover y Pulling: intervención de pozos con certificación IWCF/IADC",
-      heroSub: "Reacondicionamiento y control de pozos con personal certificado, equipos API y disciplina de seguridad medible.",
-      summary: "Intervención y reacondicionamiento de pozos para restituir o incrementar producción. Ejecutamos con personal certificado IWCF/IADC, equipos BOP conforme a API Spec 16A y procedimientos de control de pozo verificables. Cobertura operativa en la Faja del Orinoco, la Cuenca Oriental y la Cuenca Barinas-Apure.",
-      capsTitle: "Capacidades específicas",
+      variant: "split",
+      serviceType: "Civil works construction and maintenance",
+      kicker: "Construcción",
+      hero: "Obras civiles que sostienen la operación",
+      heroSub: "Proyectamos, construimos y mantenemos infraestructura civil para instalaciones industriales, petroleras y comunitarias.",
+      summary:
+        "Construcción y mantenimiento de obras civiles, desde el proyecto hasta la entrega: fundaciones, estructuras, vialidad interna, galpones y perforación de pozos de agua, con supervisión técnica y control de calidad en cada etapa.",
+      intro:
+        "Cada instalación productiva depende de una base civil bien hecha. En NEX asumimos el proyecto y la ejecución de obras civiles con un mismo equipo, para que el diseño, los materiales y la construcción respondan a las condiciones reales del sitio y del cliente.",
+      capsTitle: "Lo que construimos y mantenemos",
       capabilities: [
-        "Pulling y reacondicionamiento de pozos productores e inyectores",
-        "Cambio de bombas, tuberías de producción y equipos de fondo",
-        "Control de pozo con BOP certificado API 16A / 16C",
-        "Pesca y recuperación de herramientas",
-        "Estimulación y limpieza de pozos",
-        "Instalación y recuperación de completaciones",
-        "Supervisión HSE y permisos de trabajo en cada intervención",
+        "Proyectos y ejecución de obras civiles",
+        "Fundaciones, losas y bases para equipos industriales",
+        "Estructuras de concreto y acero, galpones y edificaciones",
+        "Vialidad interna, drenajes y obras de urbanismo",
+        "Mantenimiento correctivo y preventivo de infraestructura",
+        "Perforación de pozos de agua para uso industrial y comunitario",
+        "Movimiento de tierra y adecuación de terrenos",
       ],
-      standards: ["API Spec 16A", "API Spec 16C", "API RP 53", "API RP 59", "API RP 65", "IWCF", "IADC", "API Q2", "ISO 14310", "NORSOK D-010"],
+      highlights: [
+        { title: "Del proyecto a la entrega", text: "Un solo responsable para la ingeniería, la construcción y el cierre de la obra." },
+        { title: "Control de calidad", text: "Ensayos de materiales, inspección de obra y registro documental de cada fase." },
+        { title: "Obra segura", text: "Permisos de trabajo, análisis de riesgo y supervisión de seguridad en campo." },
+      ],
+      process: [
+        { title: "Levantamiento", text: "Visita técnica, topografía y diagnóstico de las condiciones del sitio." },
+        { title: "Proyecto", text: "Planos, cómputos métricos, presupuesto y cronograma de ejecución." },
+        { title: "Construcción", text: "Ejecución por frentes de trabajo con inspección y control de calidad." },
+        { title: "Entrega", text: "Pruebas, acta de entrega y documentación final de la obra." },
+      ],
+      feature: {
+        title: "Tipos de obra",
+        sub: "Infraestructura para cada etapa de la operación.",
+        items: [
+          { title: "Industrial", text: "Bases de equipos, galpones, áreas de proceso y almacenes." },
+          { title: "Vialidad", text: "Accesos, vías internas, drenajes y estacionamientos." },
+          { title: "Hidráulica", text: "Pozos de agua, tanques, redes y sistemas de bombeo." },
+          { title: "Mantenimiento", text: "Rehabilitación y conservación de infraestructura existente." },
+        ],
+      },
+      standardsTitle: "Marco técnico de referencia",
+      standards: ["Normas COVENIN", "COVENIN 1753 (concreto)", "COVENIN 1756 (sismorresistencia)", "LOPCYMAT", "Ley de Aguas"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Workover y Pulling en Venezuela | Intervención de Pozos Petroleros | NEX",
-        description: "Servicios de workover y pulling con personal IWCF/IADC certificado, BOP API 16A y control de pozo garantizado. Cobertura Faja del Orinoco, Cuenca Oriental y Barinas.",
-        keywords: "workover venezuela, pulling pozos, intervención pozos pdvsa, control de pozo IWCF, faja del orinoco",
+        title: "Obras Civiles e Infraestructura en Venezuela | NEX Comstuct & Energy",
+        description: "Construcción y mantenimiento de obras civiles, fundaciones, estructuras, vialidad y perforación de pozos de agua en Valle de la Pascua, Guárico.",
+        keywords: "obras civiles venezuela, construcción guárico, mantenimiento infraestructura, perforación pozos de agua",
       },
     },
     en: {
-      icon: "wrench",
-      serviceType: "Oil well workover and pulling",
-      hero: "Workover & Pulling: well intervention with IWCF/IADC certification",
-      heroSub: "Well reconditioning and control with certified personnel, API equipment and measurable safety discipline.",
-      summary: "Well intervention and reconditioning to restore or increase production. We execute with IWCF/IADC-certified personnel, BOP equipment compliant with API Spec 16A and verifiable well-control procedures. Operational coverage across the Orinoco Belt, the Eastern Basin and the Barinas-Apure Basin.",
-      capsTitle: "Specific capabilities",
+      variant: "split",
+      serviceType: "Civil works construction and maintenance",
+      kicker: "Construction",
+      hero: "Civil works that keep operations standing",
+      heroSub: "We design, build and maintain civil infrastructure for industrial, oil and community facilities.",
+      summary:
+        "Construction and maintenance of civil works, from design to handover: foundations, structures, internal roads, warehouses and water well drilling, with technical supervision and quality control at every stage.",
+      intro:
+        "Every productive facility depends on solid civil groundwork. At NEX one team handles both the design and the execution of civil works, so the engineering, materials and construction fit the real conditions of the site and the client.",
+      capsTitle: "What we build and maintain",
       capabilities: [
-        "Pulling and reconditioning of producing and injector wells",
-        "Replacement of pumps, production tubing and downhole equipment",
-        "Well control with API 16A / 16C certified BOP",
-        "Fishing and tool recovery",
-        "Well stimulation and cleanout",
-        "Installation and recovery of completions",
-        "HSE supervision and work permits on every intervention",
+        "Civil works design and execution",
+        "Foundations, slabs and bases for industrial equipment",
+        "Concrete and steel structures, warehouses and buildings",
+        "Internal roads, drainage and site development",
+        "Corrective and preventive infrastructure maintenance",
+        "Water well drilling for industrial and community use",
+        "Earthworks and land preparation",
       ],
-      standards: ["API Spec 16A", "API Spec 16C", "API RP 53", "API RP 59", "API RP 65", "IWCF", "IADC", "API Q2", "ISO 14310", "NORSOK D-010"],
+      highlights: [
+        { title: "From design to handover", text: "One accountable team for engineering, construction and project closeout." },
+        { title: "Quality control", text: "Material testing, site inspection and documented records for every phase." },
+        { title: "Safe sites", text: "Work permits, risk analysis and field safety supervision." },
+      ],
+      process: [
+        { title: "Survey", text: "Site visit, topography and assessment of site conditions." },
+        { title: "Design", text: "Drawings, quantity take-offs, budget and execution schedule." },
+        { title: "Construction", text: "Execution by work fronts with inspection and quality control." },
+        { title: "Handover", text: "Testing, handover certificate and final project documentation." },
+      ],
+      feature: {
+        title: "Types of work",
+        sub: "Infrastructure for every stage of the operation.",
+        items: [
+          { title: "Industrial", text: "Equipment bases, warehouses, process areas and storage." },
+          { title: "Roads", text: "Accesses, internal roads, drainage and parking areas." },
+          { title: "Hydraulic", text: "Water wells, tanks, networks and pumping systems." },
+          { title: "Maintenance", text: "Rehabilitation and upkeep of existing infrastructure." },
+        ],
+      },
+      standardsTitle: "Technical reference framework",
+      standards: ["COVENIN standards", "COVENIN 1753 (concrete)", "COVENIN 1756 (seismic design)", "LOPCYMAT", "Water Law"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Workover & Pulling in Venezuela | Oil Well Intervention | NEX",
-        description: "Workover and pulling services with IWCF/IADC-certified personnel, API 16A BOP and guaranteed well control. Coverage of the Orinoco Belt, Eastern Basin and Barinas.",
-        keywords: "workover venezuela, well pulling, well intervention pdvsa, well control IWCF, orinoco belt",
+        title: "Civil Works & Infrastructure in Venezuela | NEX Comstuct & Energy",
+        description: "Construction and maintenance of civil works, foundations, structures, roads and water well drilling in Valle de la Pascua, Guárico.",
+        keywords: "civil works venezuela, construction guarico, infrastructure maintenance, water well drilling",
+      },
+    },
+  },
+
+  mechanical: {
+    es: {
+      variant: "immersive",
+      serviceType: "Oilfield equipment mechanical maintenance and welding",
+      kicker: "Mantenimiento",
+      hero: "Equipos petroleros en condiciones de operar",
+      heroSub: "Construcción, mantenimiento mecánico y soldadura de equipos para la industria petrolera, en taller y en campo.",
+      summary:
+        "Mantenimiento preventivo, correctivo y mayor de equipos de la industria petrolera: motores, bombas, compresores y estructuras metálicas, con soldadura y fabricación en taller o en sitio.",
+      intro:
+        "Un equipo detenido es producción que se pierde. Nuestro equipo mecánico diagnostica, repara y devuelve a servicio motores, bombas y equipos de superficie, y fabrica o repara estructuras con procedimientos de soldadura calificados.",
+      capsTitle: "Alcance del servicio",
+      capabilities: [
+        "Construcción y mantenimiento de equipos de la industria petrolera",
+        "Mantenimiento mayor (overhaul) de motores a gas y diésel",
+        "Reparación de bombas centrífugas y reciprocantes",
+        "Soldadura estructural, de tuberías y de recipientes",
+        "Fabricación y montaje de estructuras metálicas",
+        "Mantenimiento preventivo programado y diagnóstico de fallas",
+        "Traslado de equipos, instalación y arranque en campo",
+      ],
+      highlights: [
+        { title: "Diagnóstico con soporte", text: "Informe de condición inicial y recomendaciones antes de cada reparación." },
+        { title: "Repuestos aprobados", text: "Ningún repuesto adicional se instala sin la aprobación escrita del cliente." },
+        { title: "Prueba antes de entregar", text: "Pruebas en taller y arranque en campo con personal propio." },
+      ],
+      process: [
+        { title: "Retiro y traslado", text: "Desmontaje y transporte del equipo con izamiento seguro." },
+        { title: "Desarme e inspección", text: "Medición de tolerancias y evaluación de cada componente." },
+        { title: "Reparación", text: "Maquinado, reemplazo de partes, soldadura y armado." },
+        { title: "Prueba y arranque", text: "Prueba en taller, instalación y puesta en marcha en sitio." },
+      ],
+      feature: {
+        title: "Equipos que atendemos",
+        sub: "Mantenimiento de superficie para la operación petrolera.",
+        items: [
+          { title: "Motores", text: "Motores estacionarios a gas y diésel para sistemas de transferencia." },
+          { title: "Bombas", text: "Bombas centrífugas y reciprocantes, extremo de fluido y de potencia." },
+          { title: "Estructuras", text: "Patines, soportes, plataformas y recipientes metálicos." },
+          { title: "Equipos de superficie", text: "Compresores, tanques y equipos auxiliares de estaciones." },
+        ],
+      },
+      standardsTitle: "Marco técnico de referencia",
+      standards: ["AWS D1.1", "ASME Sección IX", "ASME B31.3", "API 610", "API 674", "Recomendaciones del fabricante"],
+      contractModels: contractModelsEs,
+      seo: {
+        title: "Mantenimiento Mecánico y Soldadura Petrolera | NEX Comstuct & Energy",
+        description: "Construcción y mantenimiento de equipos petroleros, overhaul de motores y bombas, soldadura y estructuras metálicas en Venezuela.",
+        keywords: "mantenimiento mecánico petrolero, soldadura industrial venezuela, overhaul motores, reparación bombas",
+      },
+    },
+    en: {
+      variant: "immersive",
+      serviceType: "Oilfield equipment mechanical maintenance and welding",
+      kicker: "Maintenance",
+      hero: "Oilfield equipment ready to run",
+      heroSub: "Construction, mechanical maintenance and welding of equipment for the oil industry, in the shop and in the field.",
+      summary:
+        "Preventive, corrective and major maintenance of oil industry equipment: engines, pumps, compressors and steel structures, with welding and fabrication in the shop or on site.",
+      intro:
+        "Idle equipment is lost production. Our mechanical team diagnoses, repairs and returns engines, pumps and surface equipment to service, and fabricates or repairs structures with qualified welding procedures.",
+      capsTitle: "Scope of service",
+      capabilities: [
+        "Construction and maintenance of oil industry equipment",
+        "Major overhaul of gas and diesel engines",
+        "Repair of centrifugal and reciprocating pumps",
+        "Structural, piping and vessel welding",
+        "Fabrication and erection of steel structures",
+        "Scheduled preventive maintenance and failure diagnosis",
+        "Equipment transport, installation and field start-up",
+      ],
+      highlights: [
+        { title: "Documented diagnosis", text: "Initial condition report and recommendations before every repair." },
+        { title: "Approved parts", text: "No additional part is installed without the client's written approval." },
+        { title: "Tested before handover", text: "Shop testing and field start-up with our own personnel." },
+      ],
+      process: [
+        { title: "Removal and transport", text: "Dismantling and transport of the equipment with safe lifting." },
+        { title: "Teardown and inspection", text: "Tolerance measurement and assessment of every component." },
+        { title: "Repair", text: "Machining, part replacement, welding and assembly." },
+        { title: "Test and start-up", text: "Shop test, installation and commissioning on site." },
+      ],
+      feature: {
+        title: "Equipment we service",
+        sub: "Surface maintenance for oil operations.",
+        items: [
+          { title: "Engines", text: "Stationary gas and diesel engines for transfer systems." },
+          { title: "Pumps", text: "Centrifugal and reciprocating pumps, fluid end and power end." },
+          { title: "Structures", text: "Skids, supports, platforms and steel vessels." },
+          { title: "Surface equipment", text: "Compressors, tanks and auxiliary station equipment." },
+        ],
+      },
+      standardsTitle: "Technical reference framework",
+      standards: ["AWS D1.1", "ASME Section IX", "ASME B31.3", "API 610", "API 674", "Manufacturer recommendations"],
+      contractModels: contractModelsEn,
+      seo: {
+        title: "Oilfield Mechanical Maintenance & Welding | NEX Comstuct & Energy",
+        description: "Construction and maintenance of oilfield equipment, engine and pump overhauls, welding and steel structures in Venezuela.",
+        keywords: "oilfield mechanical maintenance, industrial welding venezuela, engine overhaul, pump repair",
+      },
+    },
+  },
+
+  pipelines: {
+    es: {
+      variant: "split",
+      serviceType: "Pipeline installation and maintenance",
+      kicker: "Tuberías",
+      hero: "Tendido y mantenimiento de tuberías de 3 a 36 pulgadas",
+      heroSub: "Instalamos, reparamos y mantenemos líneas de flujo, recolección y transferencia para la industria petrolera y de servicios.",
+      summary:
+        "Tendido y mantenimiento de tuberías de 3 a 36 pulgadas: excavación, alineación, soldadura, pruebas hidrostáticas, reparación de fugas y reemplazo de tramos, con control de calidad documentado.",
+      intro:
+        "Una línea bien instalada evita fugas, paradas y riesgos ambientales. Ejecutamos el tendido completo y el mantenimiento de tuberías con cuadrillas propias, desde la apertura de zanja hasta la prueba final y la restitución del terreno.",
+      capsTitle: "Alcance del servicio",
+      capabilities: [
+        "Tendido de tuberías de 3 a 36 pulgadas",
+        "Excavación, apertura de zanja y relleno compactado",
+        "Alineación, biselado y soldadura de juntas",
+        "Pruebas hidrostáticas y de hermeticidad",
+        "Reparación de fugas y reemplazo de tramos",
+        "Protección anticorrosiva y revestimiento de juntas",
+        "Restitución del derecho de vía al finalizar",
+      ],
+      highlights: [
+        { title: "Todos los diámetros", text: "Desde líneas de 3 pulgadas hasta troncales de 36 pulgadas." },
+        { title: "Juntas inspeccionadas", text: "Procedimientos de soldadura calificados e inspección de cada junta." },
+        { title: "Terreno restituido", text: "Cerramos cada obra dejando el derecho de vía en condiciones." },
+      ],
+      process: [
+        { title: "Trazado", text: "Replanteo del recorrido, permisos y señalización del área." },
+        { title: "Zanja y tendido", text: "Excavación, bajado de tubería y alineación de juntas." },
+        { title: "Soldadura y prueba", text: "Soldadura, inspección y prueba hidrostática de la línea." },
+        { title: "Cierre", text: "Revestimiento, relleno, restitución y entrega documentada." },
+      ],
+      feature: {
+        title: "Rango de diámetros",
+        sub: "Una misma cuadrilla para líneas pequeñas y troncales.",
+        items: [
+          { title: "3 a 8 pulgadas", text: "Líneas de flujo, servicios y conexiones de pozo." },
+          { title: "10 a 16 pulgadas", text: "Líneas de recolección y distribución entre estaciones." },
+          { title: "18 a 24 pulgadas", text: "Líneas de transferencia de crudo, gas o agua." },
+          { title: "26 a 36 pulgadas", text: "Troncales y líneas principales de alto caudal." },
+        ],
+      },
+      standardsTitle: "Marco técnico de referencia",
+      standards: ["API 1104", "ASME B31.3", "ASME B31.4", "ASME B31.8", "Ley Penal del Ambiente"],
+      contractModels: contractModelsEs,
+      seo: {
+        title: "Tendido y Mantenimiento de Tuberías de 3 a 36 Pulgadas | NEX Comstuct & Energy",
+        description: "Tendido, soldadura, pruebas hidrostáticas y mantenimiento de tuberías de 3 a 36 pulgadas para la industria petrolera en Venezuela.",
+        keywords: "tendido de tuberías venezuela, mantenimiento de tuberías, soldadura de tuberías, prueba hidrostática",
+      },
+    },
+    en: {
+      variant: "split",
+      serviceType: "Pipeline installation and maintenance",
+      kicker: "Pipelines",
+      hero: "Installation and maintenance of 3 to 36 inch pipelines",
+      heroSub: "We install, repair and maintain flow, gathering and transfer lines for the oil and services industries.",
+      summary:
+        "Installation and maintenance of 3 to 36 inch pipelines: excavation, alignment, welding, hydrostatic testing, leak repair and section replacement, with documented quality control.",
+      intro:
+        "A properly installed line prevents leaks, shutdowns and environmental risks. Our own crews handle the full installation and maintenance of pipelines, from trenching to final testing and land restoration.",
+      capsTitle: "Scope of service",
+      capabilities: [
+        "Installation of 3 to 36 inch pipelines",
+        "Excavation, trenching and compacted backfill",
+        "Alignment, beveling and joint welding",
+        "Hydrostatic and leak-tightness testing",
+        "Leak repair and section replacement",
+        "Corrosion protection and joint coating",
+        "Right-of-way restoration on completion",
+      ],
+      highlights: [
+        { title: "Every diameter", text: "From 3 inch lines to 36 inch trunk lines." },
+        { title: "Inspected joints", text: "Qualified welding procedures and inspection of every joint." },
+        { title: "Land restored", text: "We close every job leaving the right of way in good condition." },
+      ],
+      process: [
+        { title: "Routing", text: "Route staking, permits and site signage." },
+        { title: "Trench and lay", text: "Excavation, lowering-in and joint alignment." },
+        { title: "Weld and test", text: "Welding, inspection and hydrostatic testing of the line." },
+        { title: "Closeout", text: "Coating, backfill, restoration and documented handover." },
+      ],
+      feature: {
+        title: "Diameter range",
+        sub: "The same crew for small lines and trunk lines.",
+        items: [
+          { title: "3 to 8 inches", text: "Flow lines, utilities and well connections." },
+          { title: "10 to 16 inches", text: "Gathering and distribution lines between stations." },
+          { title: "18 to 24 inches", text: "Crude, gas or water transfer lines." },
+          { title: "26 to 36 inches", text: "High-flow trunk and main lines." },
+        ],
+      },
+      standardsTitle: "Technical reference framework",
+      standards: ["API 1104", "ASME B31.3", "ASME B31.4", "ASME B31.8", "Environmental Criminal Law"],
+      contractModels: contractModelsEn,
+      seo: {
+        title: "3 to 36 Inch Pipeline Installation & Maintenance | NEX Comstuct & Energy",
+        description: "Installation, welding, hydrostatic testing and maintenance of 3 to 36 inch pipelines for the oil industry in Venezuela.",
+        keywords: "pipeline installation venezuela, pipeline maintenance, pipeline welding, hydrostatic test",
       },
     },
   },
 
   environmental: {
     es: {
-      icon: "leaf",
-      serviceType: "Environmental remediation of hydrocarbons",
-      hero: "Saneamiento ambiental: remediación certificada MPPEA",
-      heroSub: "Remediación de suelos y aguas contaminadas con hidrocarburos, conforme a la normativa ambiental venezolana e internacional.",
-      summary: "Remediación de pasivos ambientales por hidrocarburos mediante técnicas certificadas y verificables. Aplicamos biorremediación, landfarming, excavación controlada y monitoreo analítico (TPH/BTEX), con disposición conforme a los decretos ambientales venezolanos y a los estándares IFC. Certificación y coordinación ante el MPPEA.",
-      capsTitle: "Capacidades específicas",
+      variant: "editorial",
+      serviceType: "Environmental management, waste treatment and remediation",
+      kicker: "Ambiente",
+      hero: "Gestión ambiental responsable y sostenible",
+      heroSub: "Tratamos desechos, recuperamos suelos y cuidamos el entorno donde opera la industria.",
+      summary:
+        "Tratamiento, recuperación, regeneración y disposición final de desechos tóxicos, recuperación de suelos afectados por la actividad petrolera, estudios de suelo y aguas, recolección de residuos sólidos, áreas verdes y reforestación.",
+      intro:
+        "La actividad industrial deja huella, y gestionarla bien es parte del trabajo. Acompañamos a nuestros clientes en todo el ciclo ambiental: diagnosticamos, tratamos, disponemos y recuperamos, con prácticas responsables y la documentación que exige la normativa venezolana.",
+      capsTitle: "Lo que hacemos por el entorno",
       capabilities: [
-        "Biorremediación de suelos afectados",
-        "Landfarming y tratamiento en celdas",
-        "Excavación y confinamiento controlado",
-        "Manejo y disposición de desechos peligrosos",
-        "Monitoreo analítico TPH / BTEX",
-        "Caracterización y plan de saneamiento del sitio",
-        "Coordinación y certificación ante el MPPEA",
+        "Tratamiento, recuperación, regeneración y disposición final de desechos tóxicos",
+        "Recuperación de suelos afectados por la actividad petrolera",
+        "Estudios de suelo y de calidad de aguas",
+        "Recolección y manejo de residuos sólidos",
+        "Mantenimiento de áreas verdes",
+        "Deforestación controlada y reforestación",
+        "Gestión, mantenimiento y cuidado del medio ambiente",
       ],
-      standards: ["Decreto 638", "Decreto 883", "Decreto 2.218", "Decreto 2.635", "Decreto 1.257", "Ley Penal del Ambiente", "ISO 14001", "IFC PS"],
+      highlights: [
+        { title: "Ciclo completo", text: "Del diagnóstico a la disposición final, con un solo responsable." },
+        { title: "Trazabilidad", text: "Registro de cada desecho desde su origen hasta su destino final." },
+        { title: "Recuperación real", text: "Suelos y áreas devueltas a condiciones aptas para su uso." },
+      ],
+      process: [
+        { title: "Diagnóstico", text: "Muestreo y estudio de suelos, aguas y desechos del sitio." },
+        { title: "Tratamiento", text: "Aplicación de la técnica adecuada a cada tipo de desecho o suelo." },
+        { title: "Disposición", text: "Transporte y disposición final controlada y documentada." },
+        { title: "Recuperación", text: "Restitución del terreno, revegetación y seguimiento." },
+      ],
+      feature: {
+        title: "Áreas de gestión",
+        sub: "Cuatro frentes para un mismo compromiso ambiental.",
+        items: [
+          { title: "Desechos", text: "Tratamiento, regeneración y disposición final de desechos tóxicos." },
+          { title: "Suelos y aguas", text: "Estudios, saneamiento y recuperación de áreas afectadas." },
+          { title: "Residuos sólidos", text: "Recolección, clasificación y disposición de residuos." },
+          { title: "Áreas verdes", text: "Mantenimiento, deforestación controlada y reforestación." },
+        ],
+      },
+      standardsTitle: "Marco legal de referencia",
+      standards: ["Ley Orgánica del Ambiente", "Ley Penal del Ambiente", "Ley de Gestión Integral de la Basura", "Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Decreto 883 (calidad de aguas)"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Saneamiento Ambiental Petrolero Venezuela | Remediación Hidrocarburos | NEX",
-        description: "Remediación de suelos y aguas contaminadas con hidrocarburos. Biorremediación, landfarming, disposición controlada. Certificación MPPEA. Cumplimiento Decretos 883, 2.635.",
-        keywords: "saneamiento ambiental hidrocarburos, remediación derrames venezuela, biorremediación, decreto 2635, MPPEA",
+        title: "Gestión Ambiental y Saneamiento de Suelos en Venezuela | NEX Comstuct & Energy",
+        description: "Tratamiento y disposición de desechos tóxicos, recuperación de suelos petroleros, estudios de suelo y aguas, residuos sólidos y reforestación.",
+        keywords: "gestión ambiental venezuela, saneamiento de suelos, desechos tóxicos, reforestación, residuos sólidos",
       },
     },
     en: {
-      icon: "leaf",
-      serviceType: "Environmental remediation of hydrocarbons",
-      hero: "Environmental remediation, MPPEA-certified",
-      heroSub: "Remediation of hydrocarbon-contaminated soil and water, compliant with Venezuelan and international environmental regulations.",
-      summary: "Remediation of hydrocarbon environmental liabilities through certified, verifiable techniques. We apply bioremediation, landfarming, controlled excavation and analytical monitoring (TPH/BTEX), with disposal compliant with Venezuelan environmental decrees and IFC standards. Certification and coordination with the MPPEA.",
-      capsTitle: "Specific capabilities",
+      variant: "editorial",
+      serviceType: "Environmental management, waste treatment and remediation",
+      kicker: "Environment",
+      hero: "Responsible, sustainable environmental management",
+      heroSub: "We treat waste, recover soil and care for the land where industry operates.",
+      summary:
+        "Treatment, recovery, regeneration and final disposal of toxic waste, recovery of soil affected by oil activity, soil and water studies, solid waste collection, green areas and reforestation.",
+      intro:
+        "Industrial activity leaves a footprint, and managing it well is part of the job. We support our clients through the whole environmental cycle: we assess, treat, dispose and recover, with responsible practices and the records required by Venezuelan regulations.",
+      capsTitle: "What we do for the environment",
       capabilities: [
-        "Bioremediation of affected soils",
-        "Landfarming and cell treatment",
-        "Controlled excavation and confinement",
-        "Handling and disposal of hazardous waste",
-        "TPH / BTEX analytical monitoring",
-        "Site characterization and remediation plan",
-        "Coordination and certification with the MPPEA",
+        "Treatment, recovery, regeneration and final disposal of toxic waste",
+        "Recovery of soil affected by oil activity",
+        "Soil and water quality studies",
+        "Solid waste collection and handling",
+        "Green area maintenance",
+        "Controlled land clearing and reforestation",
+        "Environmental management, upkeep and care",
       ],
-      standards: ["Decree 638", "Decree 883", "Decree 2,218", "Decree 2,635", "Decree 1,257", "Environmental Criminal Law", "ISO 14001", "IFC PS"],
+      highlights: [
+        { title: "Full cycle", text: "From assessment to final disposal, with one accountable team." },
+        { title: "Traceability", text: "Each waste stream recorded from its origin to its final destination." },
+        { title: "Real recovery", text: "Soil and areas returned to a condition fit for use." },
+      ],
+      process: [
+        { title: "Assessment", text: "Sampling and study of the site's soil, water and waste." },
+        { title: "Treatment", text: "The right technique for each type of waste or soil." },
+        { title: "Disposal", text: "Controlled, documented transport and final disposal." },
+        { title: "Recovery", text: "Land restoration, revegetation and follow-up." },
+      ],
+      feature: {
+        title: "Management areas",
+        sub: "Four fronts, one environmental commitment.",
+        items: [
+          { title: "Waste", text: "Treatment, regeneration and final disposal of toxic waste." },
+          { title: "Soil and water", text: "Studies, remediation and recovery of affected areas." },
+          { title: "Solid waste", text: "Collection, sorting and disposal of waste." },
+          { title: "Green areas", text: "Maintenance, controlled clearing and reforestation." },
+        ],
+      },
+      standardsTitle: "Legal reference framework",
+      standards: ["Organic Environmental Law", "Environmental Criminal Law", "Integrated Waste Management Law", "Hazardous Substances, Materials and Waste Law", "Decree 883 (water quality)"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Oil Environmental Remediation Venezuela | Hydrocarbon Cleanup | NEX",
-        description: "Remediation of hydrocarbon-contaminated soil and water. Bioremediation, landfarming, controlled disposal. MPPEA certification. Compliant with Decrees 883, 2,635.",
-        keywords: "hydrocarbon environmental remediation, oil spill cleanup venezuela, bioremediation, decree 2635, MPPEA",
+        title: "Environmental Management & Soil Remediation in Venezuela | NEX Comstuct & Energy",
+        description: "Toxic waste treatment and disposal, oil-affected soil recovery, soil and water studies, solid waste and reforestation.",
+        keywords: "environmental management venezuela, soil remediation, toxic waste, reforestation, solid waste",
       },
     },
   },
 
-  welding: {
+  chemicals: {
     es: {
-      icon: "flame",
-      serviceType: "Industrial welding",
-      hero: "Soldadura industrial certificada ASME IX + AWS D1.1",
-      heroSub: "Procesos calificados, soldadores certificados e inspección con ensayos no destructivos para infraestructura petrolera.",
-      summary: "Soldadura industrial para tuberías, recipientes y estructuras del sector petrolero, con procedimientos calificados ASME IX y AWS D1.1. Contamos con soldadores certificados, inspección CWI y una gama de ensayos no destructivos (PT, MT, UT, RT) para garantizar la integridad de cada junta.",
-      capsTitle: "Procesos y capacidades",
+      variant: "split",
+      serviceType: "Chemical products supply, import and export",
+      kicker: "Suministro",
+      hero: "Productos químicos para la operación, a tiempo",
+      heroSub: "Compra, venta, importación y exportación de productos químicos y de insumos relacionados con la industria.",
+      summary:
+        "Compra y venta de productos químicos para la industria petrolera y de servicios, e importación y exportación de productos relacionados con nuestro objeto, con manejo seguro, documentación y entrega en sitio.",
+      intro:
+        "La continuidad de una operación depende de que los insumos lleguen completos y a tiempo. Gestionamos la compra, importación y entrega de productos químicos y materiales relacionados, con hojas de seguridad, almacenamiento adecuado y transporte controlado.",
+      capsTitle: "Lo que suministramos",
       capabilities: [
-        "Procesos SMAW, GMAW y GTAW",
-        "Soldadura de tuberías y líneas de proceso (B31.3)",
-        "Recipientes a presión (ASME VIII)",
-        "Estructuras metálicas (AWS D1.1)",
-        "Soldadores calificados ASME IX",
-        "Inspección CWI / NCWI",
-        "Ensayos no destructivos: PT, MT, UT, RT (ASNT Nivel I/II)",
+        "Compra y venta de productos químicos industriales",
+        "Importación y exportación de productos relacionados con nuestro objeto",
+        "Gestión de compras y abastecimiento para proyectos",
+        "Hojas de seguridad, etiquetado y documentación de cada producto",
+        "Almacenamiento y despacho bajo condiciones controladas",
+        "Entrega en sitio con transporte propio",
       ],
-      standards: ["ASME IX", "ASME B31.3", "ASME VIII", "AWS D1.1", "API 1104", "ASNT", "ISO 3834"],
+      highlights: [
+        { title: "Abastecimiento continuo", text: "Planificamos las entregas según el consumo real de la operación." },
+        { title: "Manejo seguro", text: "Embalaje, rotulado y transporte conforme a la normativa de materiales peligrosos." },
+        { title: "Comercio exterior", text: "Gestión de importación y exportación de punta a punta." },
+      ],
+      process: [
+        { title: "Requerimiento", text: "Especificación técnica del producto, volumen y frecuencia." },
+        { title: "Cotización", text: "Oferta con origen, tiempos de entrega y documentación." },
+        { title: "Gestión", text: "Compra, importación, nacionalización y almacenamiento." },
+        { title: "Entrega", text: "Despacho y entrega en sitio con soportes de calidad." },
+      ],
+      feature: {
+        title: "Categorías",
+        sub: "Insumos para la operación industrial y petrolera.",
+        items: [
+          { title: "Tratamiento de crudo", text: "Desemulsificantes y productos para el manejo de crudo." },
+          { title: "Control de depósitos", text: "Inhibidores de incrustaciones, parafinas y asfaltenos." },
+          { title: "Tratamiento de agua", text: "Productos para el acondicionamiento de agua industrial." },
+          { title: "Insumos generales", text: "Productos químicos para mantenimiento y servicios." },
+        ],
+      },
+      standardsTitle: "Marco legal de referencia",
+      standards: ["Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Sistema Globalmente Armonizado (SGA)", "Hojas de seguridad (SDS)", "Normativa aduanera venezolana"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Soldadura Industrial Petrolera Venezuela | ASME IX + AWS D1.1 | NEX",
-        description: "Soldadura industrial certificada ASME IX y AWS D1.1, con soldadores calificados, inspección CWI y ensayos no destructivos (PT, MT, UT, RT) para el sector petrolero.",
-        keywords: "soldadura industrial venezuela, soldador ASME IX, AWS D1.1, ensayos no destructivos, API 1104",
+        title: "Productos Químicos, Importación y Exportación | NEX Comstuct & Energy",
+        description: "Compra, venta, importación y exportación de productos químicos industriales y petroleros con manejo seguro y entrega en sitio en Venezuela.",
+        keywords: "productos químicos venezuela, químicos petroleros, importación exportación, suministro industrial",
       },
     },
     en: {
-      icon: "flame",
-      serviceType: "Industrial welding",
-      hero: "ASME IX + AWS D1.1 certified industrial welding",
-      heroSub: "Qualified procedures, certified welders and NDE inspection for oil & gas infrastructure.",
-      summary: "Industrial welding for piping, vessels and structures in the oil & gas sector, with ASME IX and AWS D1.1 qualified procedures. We have certified welders, CWI inspection and a range of non-destructive tests (PT, MT, UT, RT) to guarantee the integrity of every joint.",
-      capsTitle: "Processes and capabilities",
+      variant: "split",
+      serviceType: "Chemical products supply, import and export",
+      kicker: "Supply",
+      hero: "Chemical products for the operation, on time",
+      heroSub: "Purchase, sale, import and export of chemical products and industry-related supplies.",
+      summary:
+        "Purchase and sale of chemical products for the oil and services industries, and import and export of products related to our purpose, with safe handling, documentation and on-site delivery.",
+      intro:
+        "Operational continuity depends on supplies arriving complete and on time. We manage the purchase, import and delivery of chemical products and related materials, with safety data sheets, proper storage and controlled transport.",
+      capsTitle: "What we supply",
       capabilities: [
-        "SMAW, GMAW and GTAW processes",
-        "Piping and process lines welding (B31.3)",
-        "Pressure vessels (ASME VIII)",
-        "Steel structures (AWS D1.1)",
-        "ASME IX qualified welders",
-        "CWI / NCWI inspection",
-        "Non-destructive testing: PT, MT, UT, RT (ASNT Level I/II)",
+        "Purchase and sale of industrial chemical products",
+        "Import and export of products related to our purpose",
+        "Procurement and supply management for projects",
+        "Safety data sheets, labeling and documentation for every product",
+        "Storage and dispatch under controlled conditions",
+        "On-site delivery with our own transport",
       ],
-      standards: ["ASME IX", "ASME B31.3", "ASME VIII", "AWS D1.1", "API 1104", "ASNT", "ISO 3834"],
+      highlights: [
+        { title: "Continuous supply", text: "Deliveries planned around the operation's actual consumption." },
+        { title: "Safe handling", text: "Packaging, labeling and transport under hazardous materials rules." },
+        { title: "Foreign trade", text: "End-to-end import and export management." },
+      ],
+      process: [
+        { title: "Requirement", text: "Technical product specification, volume and frequency." },
+        { title: "Quotation", text: "Offer with origin, lead times and documentation." },
+        { title: "Management", text: "Purchase, import, customs clearance and storage." },
+        { title: "Delivery", text: "Dispatch and on-site delivery with quality records." },
+      ],
+      feature: {
+        title: "Categories",
+        sub: "Supplies for industrial and oil operations.",
+        items: [
+          { title: "Crude treatment", text: "Demulsifiers and products for crude handling." },
+          { title: "Deposit control", text: "Scale, paraffin and asphaltene inhibitors." },
+          { title: "Water treatment", text: "Products for industrial water conditioning." },
+          { title: "General supplies", text: "Chemical products for maintenance and services." },
+        ],
+      },
+      standardsTitle: "Legal reference framework",
+      standards: ["Hazardous Substances, Materials and Waste Law", "Globally Harmonized System (GHS)", "Safety data sheets (SDS)", "Venezuelan customs regulations"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Oil & Gas Industrial Welding Venezuela | ASME IX + AWS D1.1 | NEX",
-        description: "ASME IX and AWS D1.1 certified industrial welding, with qualified welders, CWI inspection and non-destructive testing (PT, MT, UT, RT) for the oil & gas sector.",
-        keywords: "industrial welding venezuela, ASME IX welder, AWS D1.1, non-destructive testing, API 1104",
+        title: "Chemical Products, Import & Export | NEX Comstuct & Energy",
+        description: "Purchase, sale, import and export of industrial and oilfield chemical products with safe handling and on-site delivery in Venezuela.",
+        keywords: "chemical products venezuela, oilfield chemicals, import export, industrial supply",
       },
     },
   },
 
-  supply: {
+  logistics: {
     es: {
-      icon: "package",
-      serviceType: "Oil field supply of equipment and materials",
-      hero: "Suministro de equipos y materiales para operaciones petroleras",
-      heroSub: "Abastecimiento trazable, con certificados de material y una red de proveedores calificada.",
-      summary: "Suministro de equipos, materiales y consumibles para operaciones petroleras, con trazabilidad completa mediante certificados de material (MTR) y una red de proveedores certificada. Gestionamos la procura para minimizar tiempos de inactividad y garantizar la conformidad técnica de cada componente.",
-      capsTitle: "Categorías de suministro",
+      variant: "immersive",
+      serviceType: "Heavy and light cargo transport, moves and rig transport",
+      kicker: "Logística",
+      hero: "Transporte de carga que llega a donde está la operación",
+      heroSub: "Carga pesada y liviana, mudanzas industriales y transporte de taladros con planificación y seguridad.",
+      summary:
+        "Servicio de transporte de carga pesada y liviana, mudanzas y transporte de taladro, con planificación de rutas, aseguramiento de carga y personal capacitado en movilización de equipos.",
+      intro:
+        "Mover un taladro o un equipo pesado exige planificación, el equipo adecuado y gente que conozca el terreno. Organizamos cada movilización de principio a fin, desde la evaluación de la ruta hasta la descarga segura en destino.",
+      capsTitle: "Servicios de transporte",
       capabilities: [
-        "OCTG: tubería de revestimiento y producción",
-        "Válvulas y accesorios de línea",
-        "Químicos para operaciones y tratamiento",
-        "Repuestos para equipos de superficie y fondo",
-        "Consumibles de soldadura y HSE",
-        "Trazabilidad con MTR (Material Test Reports)",
-        "Red de proveedores certificada y auditada",
+        "Transporte de carga pesada y sobredimensionada",
+        "Transporte de carga liviana y suministros",
+        "Transporte y mudanza de taladros",
+        "Mudanzas industriales y de oficinas",
+        "Izamiento, carga y aseguramiento de equipos",
+        "Planificación de rutas y escolta de carga",
       ],
-      standards: ["API 5CT", "API 6A", "MTR / EN 10204", "ISO 9001"],
+      highlights: [
+        { title: "Ruta evaluada", text: "Revisamos accesos, puentes y condiciones de vía antes de mover la carga." },
+        { title: "Carga asegurada", text: "Amarre, señalización y aseguramiento según el tipo de equipo." },
+        { title: "Movilización completa", text: "Carga, traslado, descarga y posicionamiento en sitio." },
+      ],
+      process: [
+        { title: "Evaluación", text: "Dimensiones, peso, origen, destino y condiciones de la ruta." },
+        { title: "Planificación", text: "Equipo de transporte, permisos, escolta y cronograma." },
+        { title: "Traslado", text: "Carga segura, movilización y seguimiento durante el recorrido." },
+        { title: "Entrega", text: "Descarga, posicionamiento y conformidad del cliente." },
+      ],
+      feature: {
+        title: "Tipos de carga",
+        sub: "Desde suministros hasta equipos completos de perforación.",
+        items: [
+          { title: "Carga pesada", text: "Equipos industriales, maquinaria y estructuras." },
+          { title: "Carga liviana", text: "Suministros, materiales y repuestos." },
+          { title: "Taladros", text: "Mudanza de equipos de perforación entre localizaciones." },
+          { title: "Mudanzas", text: "Traslado de oficinas, campamentos e instalaciones." },
+        ],
+      },
+      standardsTitle: "Marco legal de referencia",
+      standards: ["Ley de Transporte Terrestre", "LOPCYMAT", "Ley sobre Sustancias, Materiales y Desechos Peligrosos", "Permisos de carga sobredimensionada"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Suministro de Equipos y Materiales Petroleros Venezuela | NEX",
-        description: "Suministro trazable de OCTG, válvulas, químicos, repuestos y consumibles para operaciones petroleras, con certificados MTR y red de proveedores certificada.",
-        keywords: "suministro petrolero venezuela, OCTG, válvulas petroleras, procura, MTR trazabilidad",
+        title: "Transporte de Carga Pesada y Mudanza de Taladros | NEX Comstuct & Energy",
+        description: "Transporte de carga pesada y liviana, mudanzas industriales y transporte de taladros con planificación de rutas en Venezuela.",
+        keywords: "transporte carga pesada venezuela, mudanza de taladros, transporte de taladro, logística petrolera",
       },
     },
     en: {
-      icon: "package",
-      serviceType: "Oil field supply of equipment and materials",
-      hero: "Supply of equipment and materials for oil operations",
-      heroSub: "Traceable procurement, with material test reports and a qualified supplier network.",
-      summary: "Supply of equipment, materials and consumables for oil operations, with full traceability through material test reports (MTR) and a certified supplier network. We manage procurement to minimize downtime and guarantee the technical conformity of every component.",
-      capsTitle: "Supply categories",
+      variant: "immersive",
+      serviceType: "Heavy and light cargo transport, moves and rig transport",
+      kicker: "Logistics",
+      hero: "Cargo transport that reaches the operation",
+      heroSub: "Heavy and light cargo, industrial moves and rig transport, planned and executed safely.",
+      summary:
+        "Heavy and light cargo transport, moves and rig transport, with route planning, load securing and personnel trained in equipment mobilization.",
+      intro:
+        "Moving a rig or heavy equipment takes planning, the right equipment and people who know the terrain. We organize every mobilization from start to finish, from route assessment to safe unloading at destination.",
+      capsTitle: "Transport services",
       capabilities: [
-        "OCTG: casing and production tubing",
-        "Valves and line fittings",
-        "Chemicals for operations and treatment",
-        "Spare parts for surface and downhole equipment",
-        "Welding and HSE consumables",
-        "Traceability with MTR (Material Test Reports)",
-        "Certified and audited supplier network",
+        "Heavy and oversized cargo transport",
+        "Light cargo and supplies transport",
+        "Rig transport and rig moves",
+        "Industrial and office moves",
+        "Lifting, loading and securing of equipment",
+        "Route planning and cargo escort",
       ],
-      standards: ["API 5CT", "API 6A", "MTR / EN 10204", "ISO 9001"],
+      highlights: [
+        { title: "Route assessed", text: "We check accesses, bridges and road conditions before moving the load." },
+        { title: "Load secured", text: "Tie-down, signage and securing according to the equipment type." },
+        { title: "Full mobilization", text: "Loading, transport, unloading and positioning on site." },
+      ],
+      process: [
+        { title: "Assessment", text: "Dimensions, weight, origin, destination and route conditions." },
+        { title: "Planning", text: "Transport equipment, permits, escort and schedule." },
+        { title: "Transport", text: "Safe loading, mobilization and tracking along the route." },
+        { title: "Delivery", text: "Unloading, positioning and client sign-off." },
+      ],
+      feature: {
+        title: "Cargo types",
+        sub: "From supplies to complete drilling equipment.",
+        items: [
+          { title: "Heavy cargo", text: "Industrial equipment, machinery and structures." },
+          { title: "Light cargo", text: "Supplies, materials and spare parts." },
+          { title: "Rigs", text: "Moving drilling equipment between locations." },
+          { title: "Moves", text: "Relocation of offices, camps and facilities." },
+        ],
+      },
+      standardsTitle: "Legal reference framework",
+      standards: ["Land Transport Law", "LOPCYMAT", "Hazardous Substances, Materials and Waste Law", "Oversized load permits"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Oil Equipment and Materials Supply Venezuela | NEX",
-        description: "Traceable supply of OCTG, valves, chemicals, spare parts and consumables for oil operations, with MTR certificates and a certified supplier network.",
-        keywords: "oil supply venezuela, OCTG, oilfield valves, procurement, MTR traceability",
+        title: "Heavy Cargo Transport & Rig Moves | NEX Comstuct & Energy",
+        description: "Heavy and light cargo transport, industrial moves and rig transport with route planning in Venezuela.",
+        keywords: "heavy cargo transport venezuela, rig moves, rig transport, oilfield logistics",
       },
     },
   },
 
-  engineering: {
+  staffing: {
     es: {
-      icon: "compass",
-      serviceType: "Petroleum engineering and consulting",
-      hero: "Ingeniería y consultoría técnica para la industria de hidrocarburos",
-      heroSub: "Diseño operativo, supervisión, gerencia de proyectos y consultoría especializada con personal senior certificado.",
-      summary: "Ingeniería y consultoría para operaciones de hidrocarburos: diseño operativo, supervisión técnica en campo, gerencia de proyectos y consultoría especializada. Nuestro personal senior aporta certificaciones y experiencia para asegurar que cada proyecto se ejecute con criterio técnico, seguridad y control de costos.",
-      capsTitle: "Servicios de ingeniería",
+      variant: "editorial",
+      serviceType: "Classified and specialized staffing and operational services",
+      kicker: "Talento",
+      hero: "Personal calificado para cada frente de trabajo",
+      heroSub: "Suministro de personal clasificado y especializado, y ejecución de servicios en áreas operativas y administrativas.",
+      summary:
+        "Suministro y clasificación de personal especializado para distintos sectores productivos, y ejecución de servicios en áreas operativas y administrativas, con cumplimiento laboral y formación en seguridad.",
+      intro:
+        "Los proyectos avanzan con la gente correcta en el lugar correcto. Seleccionamos, clasificamos y gestionamos personal técnico, operativo y administrativo, y también asumimos la ejecución de servicios completos dentro de las instalaciones del cliente.",
+      capsTitle: "Lo que ofrecemos",
       capabilities: [
-        "Diseño operativo y de procedimientos",
-        "Supervisión técnica de operaciones en sitio",
-        "Gerencia y control de proyectos",
-        "Consultoría especializada en integridad y HSE",
-        "Elaboración de procedimientos y matrices de riesgo",
-        "Acompañamiento en calificación y auditorías",
-        "Personal senior con certificaciones internacionales",
+        "Suministro de personal clasificado y especializado",
+        "Reclutamiento, selección y clasificación por competencias",
+        "Personal técnico, operativo y de oficios para campo",
+        "Personal administrativo y de apoyo",
+        "Ejecución de servicios en áreas operativas y administrativas",
+        "Inducción en seguridad y salud laboral antes de cada asignación",
       ],
-      standards: ["API Q2", "ISO 9001", "PMI / PMBOK", "ISO 45001"],
+      highlights: [
+        { title: "Perfiles verificados", text: "Validación de experiencia, competencias y documentación de cada trabajador." },
+        { title: "Cumplimiento laboral", text: "Relación laboral conforme a la LOTTT y a la seguridad social." },
+        { title: "Respuesta rápida", text: "Cobertura de vacantes y relevos según las necesidades del proyecto." },
+      ],
+      process: [
+        { title: "Requerimiento", text: "Perfil, cantidad, duración y condiciones del puesto." },
+        { title: "Selección", text: "Reclutamiento, evaluación y clasificación de candidatos." },
+        { title: "Inducción", text: "Formación en seguridad, normas del cliente y del sitio." },
+        { title: "Gestión", text: "Administración del personal, relevos y seguimiento del desempeño." },
+      ],
+      feature: {
+        title: "Perfiles disponibles",
+        sub: "Personal para los distintos sectores productivos.",
+        items: [
+          { title: "Técnicos", text: "Mecánicos, soldadores, electricistas e instrumentistas." },
+          { title: "Operativos", text: "Operadores, ayudantes, choferes y cuadrillas de campo." },
+          { title: "Supervisión", text: "Supervisores de obra, de seguridad y de mantenimiento." },
+          { title: "Administrativos", text: "Analistas, asistentes y personal de apoyo." },
+        ],
+      },
+      standardsTitle: "Marco legal de referencia",
+      standards: ["LOTTT", "LOPCYMAT", "Ley del Seguro Social", "Solvencia laboral"],
       contractModels: contractModelsEs,
       seo: {
-        title: "Ingeniería y Consultoría Petrolera Venezuela | NEX",
-        description: "Ingeniería y consultoría técnica para hidrocarburos: diseño operativo, supervisión, gerencia de proyectos y consultoría especializada con personal senior certificado.",
-        keywords: "ingeniería petrolera venezuela, consultoría hidrocarburos, gerencia de proyectos petroleros, supervisión técnica",
+        title: "Suministro de Personal Especializado | NEX Comstuct & Energy",
+        description: "Suministro de personal clasificado y especializado y ejecución de servicios en áreas operativas y administrativas en Venezuela.",
+        keywords: "suministro de personal venezuela, personal especializado, personal petrolero, servicios operativos",
       },
     },
     en: {
-      icon: "compass",
-      serviceType: "Petroleum engineering and consulting",
-      hero: "Engineering and technical consulting for the hydrocarbon industry",
-      heroSub: "Operational design, supervision, project management and specialized consulting with certified senior staff.",
-      summary: "Engineering and consulting for hydrocarbon operations: operational design, on-site technical supervision, project management and specialized consulting. Our senior staff bring certifications and experience to ensure every project is executed with technical judgment, safety and cost control.",
-      capsTitle: "Engineering services",
+      variant: "editorial",
+      serviceType: "Classified and specialized staffing and operational services",
+      kicker: "Talent",
+      hero: "Qualified people for every work front",
+      heroSub: "Supply of classified and specialized personnel, and execution of services in operational and administrative areas.",
+      summary:
+        "Supply and classification of specialized personnel for different productive sectors, and execution of services in operational and administrative areas, with labor compliance and safety training.",
+      intro:
+        "Projects move forward with the right people in the right place. We recruit, classify and manage technical, operational and administrative personnel, and we also take on complete services inside the client's facilities.",
+      capsTitle: "What we offer",
       capabilities: [
-        "Operational and procedure design",
-        "On-site technical supervision of operations",
-        "Project management and control",
-        "Specialized integrity and HSE consulting",
-        "Development of procedures and risk matrices",
-        "Support in qualification and audits",
-        "Senior staff with international certifications",
+        "Supply of classified and specialized personnel",
+        "Recruitment, selection and classification by competencies",
+        "Technical, operational and trades personnel for the field",
+        "Administrative and support personnel",
+        "Execution of services in operational and administrative areas",
+        "Health and safety induction before every assignment",
       ],
-      standards: ["API Q2", "ISO 9001", "PMI / PMBOK", "ISO 45001"],
+      highlights: [
+        { title: "Verified profiles", text: "Validation of each worker's experience, skills and documents." },
+        { title: "Labor compliance", text: "Employment under the LOTTT labor law and social security." },
+        { title: "Fast response", text: "Vacancy and shift coverage according to project needs." },
+      ],
+      process: [
+        { title: "Requirement", text: "Profile, headcount, duration and job conditions." },
+        { title: "Selection", text: "Recruitment, assessment and classification of candidates." },
+        { title: "Induction", text: "Safety training and client and site rules." },
+        { title: "Management", text: "Personnel administration, shift changes and performance follow-up." },
+      ],
+      feature: {
+        title: "Available profiles",
+        sub: "Personnel for different productive sectors.",
+        items: [
+          { title: "Technicians", text: "Mechanics, welders, electricians and instrument technicians." },
+          { title: "Operations", text: "Operators, helpers, drivers and field crews." },
+          { title: "Supervision", text: "Site, safety and maintenance supervisors." },
+          { title: "Administration", text: "Analysts, assistants and support staff." },
+        ],
+      },
+      standardsTitle: "Legal reference framework",
+      standards: ["LOTTT (labor law)", "LOPCYMAT", "Social Security Law", "Labor compliance certificate"],
       contractModels: contractModelsEn,
       seo: {
-        title: "Petroleum Engineering and Consulting Venezuela | NEX",
-        description: "Engineering and technical consulting for hydrocarbons: operational design, supervision, project management and specialized consulting with certified senior staff.",
-        keywords: "petroleum engineering venezuela, hydrocarbon consulting, oil project management, technical supervision",
+        title: "Specialized Staffing Services | NEX Comstuct & Energy",
+        description: "Supply of classified and specialized personnel and execution of services in operational and administrative areas in Venezuela.",
+        keywords: "staffing venezuela, specialized personnel, oilfield personnel, operational services",
       },
     },
   },

@@ -1,8 +1,6 @@
 ---
-import Section from "./Section.astro";
 import Icon from "./Icon.astro";
 import CtaBand from "./CtaBand.astro";
-import PageHero from "./PageHero.astro";
 import { SERVICE_CONTENT } from "../data/services";
 import { navItems, servicePath, SERVICES } from "../data/site";
 import { useTranslations } from "../utils/i18n";
@@ -17,95 +15,1412 @@ const { serviceKey, lang } = Astro.props;
 const t = useTranslations(lang);
 const nav = navItems(lang);
 const c = SERVICE_CONTENT[serviceKey][lang];
+const meta = SERVICES.find((s) => s.key === serviceKey)!;
+const others = SERVICES.filter((s) => s.key !== serviceKey);
+const es = lang === "es";
 
-const servicesLabel = lang === "es" ? "Servicios" : "Services";
-const otherServices = SERVICES.filter((s) => s.key !== serviceKey);
-const contractIntro =
-  lang === "es"
-    ? "Adaptamos el esquema contractual a la naturaleza de cada alcance."
-    : "We adapt the contractual scheme to the nature of each scope.";
-const relatedTitle = lang === "es" ? "Otras líneas de servicio" : "Other service lines";
-const ctaText =
-  lang === "es"
-    ? "Solicite una propuesta técnica para este servicio."
-    : "Request a technical proposal for this service.";
+const L = {
+  services: es ? "Servicios" : "Services",
+  process: es ? "Cómo trabajamos" : "How we work",
+  processSub: es ? "Un método claro, de principio a fin." : "A clear method, start to finish.",
+  contracts: es ? "Modalidades de contratación" : "Contract models",
+  why: es ? "Por qué con NEX" : "Why NEX",
+  related: es ? "Otros servicios" : "Other services",
+  more: es ? "Ver servicio" : "View service",
+  cta: es ? "Solicite una propuesta técnica para este servicio." : "Request a technical proposal for this service.",
+  talk: es ? "Hablemos de su proyecto" : "Let's talk about your project",
+};
+
+const crumbs = [
+  { name: t.nav.home, href: nav.home },
+  { name: L.services, href: nav.services },
+  { name: meta.title[lang] },
+];
+const featureIcons: Record<ServiceKey, string[]> = {
+  civil: ["building", "map-pin", "droplet", "refresh-cw"],
+  mechanical: ["zap", "refresh-cw", "layers", "package"],
+  pipelines: ["pipe", "pipe", "pipe", "pipe"],
+  environmental: ["shield", "droplet", "package", "leaf"],
+  chemicals: ["flask", "shield-check", "droplet", "package"],
+  logistics: ["truck", "package", "zap", "building"],
+  staffing: ["wrench", "hard-hat", "clipboard-check", "file-text"],
+};
+const ficons = featureIcons[serviceKey];
 ---
 
-<PageHero
-  eyebrow={servicesLabel}
-  title={c.hero}
-  subtitle={c.heroSub}
-  crumbs={[{ name: servicesLabel, href: nav.services }, { name: SERVICES.find((s) => s.key === serviceKey)!.title[lang] }]}
-/>
+<!-- ================= HERO (three layouts) ================= -->
+{c.variant === "split" && (
+  <section class="sd-hero sd-hero--split">
+    <div class="container-nex sd-split">
+      <div class="sd-split__text">
+        <nav aria-label="Breadcrumb" class="sd-crumbs anim-in">
+          {crumbs.map((cr, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {cr.href ? <a href={cr.href}>{cr.name}</a> : <span class="text-nex-blanco">{cr.name}</span>}
+            </>
+          ))}
+        </nav>
+        <p class="eyebrow mt-7 anim-in" style="animation-delay:.05s">{c.kicker}</p>
+        <h1 class="sd-title text-grad-brand anim-in" style="animation-delay:.1s">{c.hero}</h1>
+        <p class="sd-sub anim-in" style="animation-delay:.18s">{c.heroSub}</p>
+        <div class="sd-actions anim-in" style="animation-delay:.26s">
+          <a href={nav.contact} class="btn btn-primary">{t.common.requestProposal}<Icon name="arrow-right" size={16} /></a>
+          <a href="#alcance" class="btn btn-secondary">{c.capsTitle}</a>
+        </div>
+      </div>
+      <figure class="sd-split__media anim-in" style="animation-delay:.15s">
+        <div class="frame">
+          <img src={meta.image} alt={meta.title[lang]} width="1200" height="900" loading="eager" />
+        </div>
+        <figcaption class="sd-float">
+          <span class="icon-tile"><Icon name={meta.icon} size={22} /></span>
+          <span>
+            <strong>{meta.num}</strong>
+            <span>{meta.short[lang]}</span>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+)}
 
-<Section>
-  <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
-    <!-- Capabilities -->
-    <div>
-      <span class="section-rule mb-6"></span>
-      <h2 class="text-2xl md:text-3xl mb-6">{c.capsTitle}</h2>
-      <ul class="space-y-3">
-        {c.capabilities.map((cap) => (
-          <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-nex-success shrink-0"><Icon name="check-circle" size={22} /></span>
-            <span class="text-nex-gris">{cap}</span>
+{c.variant === "immersive" && (
+  <section class="sd-hero sd-hero--immersive">
+    <img class="sd-immersive__bg" src={meta.image} alt="" width="1800" height="1200" loading="eager" />
+    <div class="sd-immersive__shade" aria-hidden="true"></div>
+    <div class="container-nex sd-immersive">
+      <div class="sd-immersive__text">
+        <nav aria-label="Breadcrumb" class="sd-crumbs sd-crumbs--light anim-in">
+          {crumbs.map((cr, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {cr.href ? <a href={cr.href}>{cr.name}</a> : <span>{cr.name}</span>}
+            </>
+          ))}
+        </nav>
+        <p class="sd-kicker-light anim-in" style="animation-delay:.05s">{c.kicker}</p>
+        <h1 class="sd-title sd-title--light anim-in" style="animation-delay:.1s">{c.hero}</h1>
+        <p class="sd-sub sd-sub--light anim-in" style="animation-delay:.18s">{c.heroSub}</p>
+        <div class="sd-actions anim-in" style="animation-delay:.26s">
+          <a href={nav.contact} class="btn btn-primary">{t.common.requestProposal}<Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+      <ul class="sd-glass anim-in" style="animation-delay:.32s">
+        {c.highlights.map((h) => (
+          <li>
+            <Icon name="check-circle" size={20} />
+            <span><strong>{h.title}</strong>{h.text}</span>
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+)}
 
-      <h3 class="text-xl mt-10 mb-4">{t.common.contractModels}</h3>
-      <p class="text-nex-gris mb-4">{contractIntro}</p>
-      <div class="flex flex-wrap gap-3">
-        {c.contractModels.map((m) => (
-          <span class="chip !py-2 !px-4 text-nex-blanco">
-            <Icon name="file-text" size={16} class="text-nex-oro" />
-            {m}
-          </span>
+{c.variant === "editorial" && (
+  <section class="sd-hero sd-hero--editorial">
+    <div class="container-nex">
+      <nav aria-label="Breadcrumb" class="sd-crumbs anim-in">
+        {crumbs.map((cr, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">/</span>}
+            {cr.href ? <a href={cr.href}>{cr.name}</a> : <span class="text-nex-blanco">{cr.name}</span>}
+          </>
+        ))}
+      </nav>
+      <div class="sd-editorial">
+        <div>
+          <p class="eyebrow anim-in" style="animation-delay:.05s">{c.kicker}</p>
+          <h1 class="sd-title sd-title--xl text-grad-brand anim-in" style="animation-delay:.1s">{c.hero}</h1>
+        </div>
+        <div class="sd-editorial__aside anim-in" style="animation-delay:.2s">
+          <p class="sd-sub">{c.heroSub}</p>
+          <a href={nav.contact} class="btn btn-primary mt-7">{t.common.requestProposal}<Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+      <div class="sd-editorial__media anim-in" style="animation-delay:.25s">
+        <img src={meta.image} alt={meta.title[lang]} width="1800" height="900" loading="eager" />
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- ================= INTRO + HIGHLIGHTS ================= -->
+<section class="sd-intro">
+  <div class="container-nex">
+    <p class="sd-intro__text reveal">{c.intro}</p>
+    {c.variant !== "immersive" && (
+      <ul class="sd-highlights">
+        {c.highlights.map((h, i) => (
+          <li class="reveal" style={`--d:${i * 0.08}s`}>
+            <span class="sd-highlights__n">0{i + 1}</span>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<!-- ================= SIGNATURE SECTION (unique per service) ================= -->
+{serviceKey === "civil" && (
+  <section class="sd-sig">
+    <div class="container-nex sd-mosaic">
+      <div class="sd-mosaic__media reveal">
+        <img src="/images/obras-civiles-2.webp" alt={es ? "Cuadrillas trabajando en una obra civil" : "Crews working on a civil works site"} width="1200" height="900" loading="lazy" />
+      </div>
+      <div>
+        <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+        <div class="sd-mosaic__grid">
+          {c.feature.items.map((it, i) => (
+            <div class="frame reveal" style={`--d:${i * 0.07}s`}>
+              <article class="card h-full">
+                <span class="icon-tile"><Icon name={ficons[i]} size={22} /></span>
+                <h3 class="mt-5 text-[18px]">{it.title}</h3>
+                <p class="mt-2 text-[15px] text-nex-gris leading-relaxed">{it.text}</p>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "mechanical" && (
+  <section class="sd-sig band-dark relative overflow-x-clip py-24 md:py-28">
+    <div class="container-nex">
+      <h2 class="title-split text-center reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+      <div class="sd-equip">
+        {c.feature.items.map((it, i) => (
+          <div class="frame reveal" style={`--d:${i * 0.07}s`}>
+            <article class="card h-full">
+              <span class="sd-equip__n">0{i + 1}</span>
+              <Icon name={ficons[i]} size={26} class="sd-equip__icon" />
+              <h3 class="mt-6 text-[19px] sd-h-light">{it.title}</h3>
+              <p class="mt-2 text-[15px] text-nex-gris leading-relaxed">{it.text}</p>
+            </article>
+          </div>
         ))}
       </div>
     </div>
+  </section>
+)}
 
-    <!-- Standards sidebar -->
-    <aside>
-      <div class="card-navy sticky top-24">
-        <div class="flex items-center gap-3 mb-5">
-          <span class="icon-tile"><Icon name={c.icon} size={24} /></span>
-          <h2 class="text-nex-blanco text-lg m-0">{t.common.standards}</h2>
+{serviceKey === "pipelines" && (
+  <section class="sd-sig">
+    <div class="container-nex">
+      <div class="text-center flex flex-col items-center">
+        <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+      </div>
+      <div class="sd-scale reveal">
+        <div class="sd-scale__bar" aria-hidden="true">
+          <span>3"</span><span>36"</span>
         </div>
-        <div class="flex flex-wrap gap-2">
-          {c.standards.map((s) => (
-            <span class="inline-flex items-center rounded-full border border-nex-oro/60 bg-nex-gold/10 px-3 py-1 text-xs font-semibold text-nex-oro-light">{s}</span>
+        <ol class="sd-scale__steps">
+          {c.feature.items.map((it, i) => (
+            <li style={`--d:${i * 0.1}s; --s:${0.5 + i * 0.28}`}>
+              <span class="sd-scale__ring" aria-hidden="true"><i></i></span>
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </li>
           ))}
+        </ol>
+      </div>
+      <div class="sd-scale__photo reveal">
+        <img src="/images/tuberias-2.webp" alt={es ? "Tubería de acero apilada para tendido" : "Steel pipe stacked for installation"} width="1800" height="1350" loading="lazy" />
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "environmental" && (
+  <section class="sd-sig">
+    <div class="container-nex sd-cycle-wrap">
+      <div>
+        <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+        <p class="lead mt-6 reveal">{es ? "Cada frente se gestiona con trazabilidad y registros que respaldan el cumplimiento ambiental." : "Each front is managed with traceability and records that support environmental compliance."}</p>
+      </div>
+      <div class="sd-cycle reveal" role="list">
+        {c.feature.items.map((it, i) => (
+          <div class="sd-cycle__item" role="listitem" style={`--i:${i}`}>
+            <span class="icon-tile icon-tile--green"><Icon name={ficons[i]} size={22} /></span>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </div>
+        ))}
+        <div class="sd-cycle__core" aria-hidden="true">
+          <Icon name="refresh-cw" size={30} />
         </div>
-        <a href={nav.contact} class="btn btn-on-navy w-full mt-8">
-          {t.common.requestProposal}
-          <Icon name="arrow-right" size={18} />
-        </a>
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "chemicals" && (
+  <section class="sd-sig">
+    <div class="container-nex">
+      <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+      <div class="sd-bento">
+        {c.feature.items.map((it, i) => (
+          <article class={`sd-bento__cell reveal ${i === 0 ? "sd-bento__cell--lead" : ""}`} style={`--d:${i * 0.07}s`}>
+            {i === 0 && <img src={meta.image} alt="" width="1200" height="900" loading="lazy" />}
+            <div class="sd-bento__body">
+              <span class="icon-tile"><Icon name={ficons[i]} size={22} /></span>
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "logistics" && (
+  <section class="sd-sig band-dark relative overflow-x-clip py-24 md:py-28">
+    <div class="container-nex">
+      <h2 class="title-split text-center reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+      <div class="sd-cargo">
+        {c.feature.items.map((it, i) => (
+          <div class="frame reveal" style={`--d:${i * 0.07}s`}>
+            <article class="card h-full">
+              <Icon name={ficons[i]} size={28} class="sd-equip__icon" />
+              <h3 class="mt-5 text-[19px] sd-h-light">{it.title}</h3>
+              <p class="mt-2 text-[15px] text-nex-gris leading-relaxed">{it.text}</p>
+            </article>
+          </div>
+        ))}
+      </div>
+      <div class="sd-route reveal">
+        <div class="sd-route__line" aria-hidden="true"><span class="sd-route__truck"><Icon name="truck" size={20} /></span></div>
+        <ol>
+          {c.process.map((p, i) => (
+            <li>
+              <span class="sd-route__dot" aria-hidden="true"></span>
+              <span class="sd-route__n">0{i + 1}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "staffing" && (
+  <section class="sd-sig">
+    <div class="container-nex sd-people">
+      <div class="sd-people__grid">
+        {c.feature.items.map((it, i) => (
+          <article class="sd-people__card reveal" style={`--d:${i * 0.07}s`}>
+            <span class="sd-people__avatar"><Icon name={ficons[i]} size={24} /></span>
+            <div>
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div>
+        <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+        <div class="sd-people__media reveal">
+          <img src="/images/carreras.webp" alt={es ? "Personal técnico revisando planos" : "Technical staff reviewing drawings"} width="1800" height="1200" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- ================= SCOPE + SIDEBAR ================= -->
+<section id="alcance" class="sd-scope">
+  <div class="container-nex sd-scope__grid">
+    <div>
+      <h2 class="title-split reveal">{c.capsTitle}</h2>
+      <ul class="sd-caps">
+        {c.capabilities.map((cap, i) => (
+          <li class="reveal" style={`--d:${i * 0.04}s`}>
+            <span class="sd-caps__check"><Icon name="check" size={16} /></span>
+            {cap}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <aside class="sd-aside reveal">
+      <div class="frame">
+        <div class="card">
+          <h3 class="text-[17px]">{c.standardsTitle}</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {c.standards.map((s) => <span class="chip">{s}</span>)}
+          </div>
+          <h3 class="mt-8 text-[17px]">{L.contracts}</h3>
+          <ul class="mt-3 grid gap-2">
+            {c.contractModels.map((m) => (
+              <li class="flex items-center gap-2.5 text-[15px] text-nex-gris">
+                <Icon name="file-text" size={16} class="text-nex-azul" />
+                {m}
+              </li>
+            ))}
+          </ul>
+          <a href={nav.contact} class="btn btn-primary w-full mt-8">
+            {L.talk}
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
       </div>
     </aside>
   </div>
-</Section>
+</section>
 
-<!-- Related services -->
-<Section variant="off-white" eyebrow={servicesLabel} title={relatedTitle}>
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-    {otherServices.map((s) => (
-      <a href={servicePath(lang, s.key)} class="card h-full group">
-        <div class="flex items-center justify-between mb-4">
-          <span class="num-badge">{s.num}</span>
-          <Icon name="arrow-up-right" size={20} class="text-nex-oro transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </div>
-        <h3 class="text-base">{s.title[lang]}</h3>
-      </a>
-    ))}
+<!-- ================= PROCESS (logistics already shows it as a route) ================= -->
+{serviceKey !== "logistics" && (
+  <section class="sd-process">
+    <div class="container-nex">
+      <div class="text-center flex flex-col items-center">
+        <p class="eyebrow reveal">{L.process}</p>
+        <h2 class="title-split mt-6 reveal">{L.processSub}</h2>
+      </div>
+      <ol class="sd-steps">
+        {c.process.map((p, i) => (
+          <li class="reveal" style={`--d:${i * 0.08}s`}>
+            <span class="sd-steps__n">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}
+
+<!-- ================= RELATED ================= -->
+<section class="sd-related">
+  <div class="container-nex">
+    <div class="flex items-end justify-between gap-6 flex-wrap">
+      <h2 class="title-split reveal">{L.related}</h2>
+      <a href={nav.services} class="btn btn-secondary btn-sm reveal">{t.nav.servicesMenu}<Icon name="arrow-right" size={16} /></a>
+    </div>
+    <div class="sd-carousel" data-carousel>
+      <button type="button" class="sd-carousel__btn sd-carousel__btn--prev" data-carousel-prev aria-label={es ? "Servicio anterior" : "Previous service"} disabled>
+        <Icon name="arrow-right" size={20} />
+      </button>
+      <div class="sd-related__track" data-carousel-track>
+        {others.map((s) => (
+          <a href={servicePath(lang, s.key)} class="sd-related__card group">
+            <img src={s.image} alt="" width="600" height="400" loading="lazy" />
+            <div class="sd-related__body">
+              <span class="chip">{s.num}</span>
+              <h3>{s.title[lang]}</h3>
+              <span class="sd-related__more">{L.more}<Icon name="arrow-right" size={15} /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <button type="button" class="sd-carousel__btn sd-carousel__btn--next" data-carousel-next aria-label={es ? "Servicio siguiente" : "Next service"}>
+        <Icon name="arrow-right" size={20} />
+      </button>
+      <div class="sd-carousel__progress" aria-hidden="true"><span data-carousel-bar></span></div>
+    </div>
   </div>
-</Section>
+</section>
+
+<script>
+  // Related services carousel: side arrows move one card at a time; progress bar follows the scroll
+  document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-carousel-track]");
+    const prev = root.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-carousel-next]");
+    const bar = root.querySelector<HTMLElement>("[data-carousel-bar]");
+    if (!track || !prev || !next) return;
+    const step = () => {
+      const card = track.firstElementChild as HTMLElement | null;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    };
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+      if (bar) {
+        const visible = track.clientWidth / track.scrollWidth;
+        bar.style.width = `${Math.max(visible * 100, 12)}%`;
+        bar.style.transform = `translateX(${max > 0 ? (track.scrollLeft / max) * ((1 / Math.max(visible, 0.12)) - 1) * 100 : 0}%)`;
+      }
+    };
+    prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+    next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+</script>
 
 <CtaBand
-  title={SERVICES.find((s) => s.key === serviceKey)!.title[lang]}
-  text={ctaText}
+  title={meta.title[lang]}
+  text={L.cta}
   ctaLabel={t.common.requestProposal}
   ctaHref={nav.contact}
   secondaryLabel={t.common.backToServices}
   secondaryHref={nav.services}
 />
+
+<style>
+  /* ---------- shared hero pieces ---------- */
+  .sd-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    color: #5c6873;
+  }
+  .sd-crumbs a:hover {
+    color: var(--nex-ink);
+  }
+  .sd-crumbs--light,
+  .sd-crumbs--light a {
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .sd-crumbs--light a:hover {
+    color: #fff;
+  }
+  .sd-title {
+    margin-top: 20px;
+    font-size: clamp(36px, 4.8vw, 60px);
+    line-height: 1.03;
+    letter-spacing: -0.045em;
+  }
+  .sd-title--xl {
+    font-size: clamp(40px, 6vw, 78px);
+  }
+  .sd-sub {
+    margin-top: 22px;
+    max-width: 560px;
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.55;
+    color: #4a5863;
+  }
+  .sd-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  /* split */
+  .sd-hero--split {
+    position: relative;
+    isolation: isolate;
+    padding: 140px 0 80px;
+    overflow: hidden;
+  }
+  .sd-hero--split::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -160px;
+    right: -10%;
+    width: 760px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(47, 120, 180, 0.22), rgba(104, 176, 90, 0.08) 60%, transparent);
+    filter: blur(40px);
+  }
+  .sd-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .sd-split__media {
+    position: relative;
+  }
+  .sd-split__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 19px;
+  }
+  .sd-float {
+    position: absolute;
+    left: -28px;
+    bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 300px;
+    padding: 14px 18px 14px 14px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    box-shadow: 0 18px 40px -16px rgba(16, 42, 67, 0.35);
+    backdrop-filter: blur(12px);
+  }
+  .sd-float strong {
+    display: block;
+    font-size: 13px;
+    color: var(--nex-azul);
+  }
+  .sd-float span span {
+    display: block;
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--nex-ink);
+  }
+
+  /* immersive */
+  .sd-hero--immersive {
+    position: relative;
+    isolation: isolate;
+    min-height: max(620px, 92svh);
+    display: flex;
+    align-items: flex-end;
+    padding: 140px 0 64px;
+    overflow: hidden;
+  }
+  .sd-immersive__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+    animation: sd-zoom 14s ease-out both;
+  }
+  .sd-immersive__shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(10, 25, 38, 0.15) 0%, rgba(10, 25, 38, 0.55) 55%, rgba(10, 25, 38, 0.88) 100%),
+      linear-gradient(100deg, rgba(23, 64, 95, 0.75) 0%, rgba(23, 64, 95, 0.2) 55%, rgba(44, 110, 76, 0.35) 100%);
+  }
+  @keyframes sd-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1.04);
+    }
+  }
+  .sd-immersive {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: end;
+  }
+  .sd-kicker-light {
+    display: inline-flex;
+    margin-top: 26px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+  }
+  .sd-title--light {
+    color: #fff;
+  }
+  .sd-sub--light {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .sd-glass {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+    padding: 22px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(18px) saturate(140%);
+    color: #fff;
+  }
+  .sd-glass li {
+    display: flex;
+    gap: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .sd-glass li :global(svg) {
+    flex: none;
+    margin-top: 2px;
+    color: #9fd68c;
+  }
+  .sd-glass strong {
+    display: block;
+    font-size: 15.5px;
+    color: #fff;
+  }
+
+  /* editorial */
+  .sd-hero--editorial {
+    padding: 140px 0 40px;
+  }
+  .sd-editorial {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+    gap: 56px;
+    align-items: end;
+    margin-top: 34px;
+  }
+  .sd-editorial .sd-title {
+    margin-top: 22px;
+  }
+  .sd-editorial__aside .sd-sub {
+    margin-top: 0;
+  }
+  .sd-editorial__media {
+    margin-top: 56px;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(16, 42, 67, 0.45);
+  }
+  .sd-editorial__media img {
+    display: block;
+    width: 100%;
+    height: clamp(280px, 42vw, 520px);
+    object-fit: cover;
+  }
+
+  /* ---------- intro ---------- */
+  .sd-intro {
+    padding: 96px 0 40px;
+  }
+  .sd-intro__text {
+    max-width: 920px;
+    font-size: clamp(22px, 2.4vw, 32px);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: var(--nex-ink);
+  }
+  .sd-highlights {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 56px;
+    border-top: 1px solid rgba(16, 42, 67, 0.12);
+  }
+  .sd-highlights li {
+    padding: 28px 28px 8px 0;
+  }
+  .sd-highlights li + li {
+    padding-left: 28px;
+    border-left: 1px solid rgba(16, 42, 67, 0.12);
+  }
+  .sd-highlights__n {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nex-azul);
+  }
+  .sd-highlights h3 {
+    margin-top: 10px;
+    font-size: 19px;
+  }
+  .sd-highlights p {
+    margin-top: 8px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- signature sections ---------- */
+  .sd-sig {
+    padding: 96px 0;
+  }
+  .sd-mosaic {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 56px;
+    align-items: center;
+  }
+  .sd-mosaic__media img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 26px;
+    box-shadow: 0 30px 60px -30px rgba(16, 42, 67, 0.45);
+  }
+  .sd-mosaic__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .sd-equip,
+  .sd-cargo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .sd-equip__n {
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .sd-h-light {
+    color: #fff;
+  }
+  :global(.sd-equip__icon) {
+    color: #9fd68c;
+  }
+
+  .sd-scale {
+    position: relative;
+    margin-top: 64px;
+  }
+  .sd-scale__bar {
+    position: relative;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #6db4d9, var(--nex-azul) 45%, #2c6e4c);
+    box-shadow: 0 8px 24px -10px rgba(47, 120, 180, 0.6);
+  }
+  .sd-scale__bar span {
+    position: absolute;
+    top: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--nex-azul);
+  }
+  .sd-scale__bar span:last-child {
+    right: 0;
+    color: var(--nex-verde-deep);
+  }
+  .sd-scale__steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 56px;
+  }
+  .sd-scale__ring {
+    display: grid;
+    align-items: end;
+    justify-items: start;
+    width: 132px;
+    height: 132px;
+  }
+  .sd-scale__ring i {
+    display: block;
+    width: calc(96px * var(--s));
+    height: calc(96px * var(--s));
+    border-radius: 50%;
+    border: calc(3px + 6px * var(--s)) solid var(--nex-azul);
+    background: radial-gradient(circle, #fff 45%, #eef4f8);
+    box-shadow: 0 10px 24px -10px rgba(47, 120, 180, 0.55);
+  }
+  .sd-scale__steps li:nth-child(n + 3) .sd-scale__ring i {
+    border-color: #2f7a5c;
+  }
+  .sd-scale__steps h3 {
+    margin-top: 18px;
+    font-size: 20px;
+  }
+  .sd-scale__steps p {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+  .sd-scale__photo {
+    margin-top: 64px;
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .sd-scale__photo img {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 30vw, 380px);
+    object-fit: cover;
+  }
+
+  .sd-cycle-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 56px;
+    align-items: center;
+  }
+  .sd-cycle {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 72px 72px;
+    padding: 24px;
+  }
+  .sd-cycle::before {
+    content: "";
+    position: absolute;
+    inset: 70px;
+    border-radius: 50%;
+    border: 2px dashed rgba(63, 138, 74, 0.35);
+  }
+  .sd-cycle__item {
+    position: relative;
+    padding: 24px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    box-shadow: 0 16px 40px -24px rgba(16, 42, 67, 0.4);
+  }
+  .sd-cycle__item h3 {
+    margin-top: 14px;
+    font-size: 18px;
+  }
+  .sd-cycle__item p {
+    margin-top: 6px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--nex-gris);
+  }
+  .sd-cycle__core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+    box-shadow: 0 0 0 10px var(--nex-fondo), 0 14px 30px -10px rgba(47, 120, 180, 0.6);
+    animation: orb-spin 18s linear infinite;
+  }
+
+  .sd-bento {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(220px, auto));
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .sd-bento__cell {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 26px;
+    border-radius: 24px;
+    background:
+      radial-gradient(120% 90% at 0% 0%, rgba(47, 120, 180, 0.08), transparent 60%),
+      #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease;
+  }
+  .sd-bento__cell:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -24px rgba(47, 120, 180, 0.5);
+  }
+  .sd-bento__cell--lead {
+    grid-row: span 2;
+    min-height: 460px;
+    color: #fff;
+  }
+  .sd-bento__cell--lead img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sd-bento__cell--lead::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(14, 42, 64, 0.88));
+  }
+  .sd-bento__cell:nth-child(4) {
+    grid-column: span 2;
+  }
+  .sd-bento__body {
+    position: relative;
+    z-index: 1;
+  }
+  .sd-bento__body h3 {
+    margin-top: 14px;
+    font-size: 20px;
+  }
+  .sd-bento__cell--lead h3 {
+    color: #fff;
+  }
+  .sd-bento__body p {
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--nex-gris);
+  }
+  .sd-bento__cell--lead p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .sd-route {
+    position: relative;
+    margin-top: 72px;
+  }
+  .sd-route__line {
+    position: relative;
+    height: 2px;
+    margin: 0 8px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(169, 214, 238, 0.7), rgba(159, 214, 140, 0.7));
+  }
+  .sd-route__truck {
+    position: absolute;
+    top: -17px;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #0f3554;
+    background: #fff;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12);
+    animation: sd-drive 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  }
+  @keyframes sd-drive {
+    from {
+      left: 0;
+    }
+    to {
+      left: calc(100% - 36px);
+    }
+  }
+  .sd-route ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 28px;
+  }
+  .sd-route__dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    background: #9fd68c;
+    box-shadow: 0 0 12px rgba(159, 214, 140, 0.8);
+  }
+  .sd-route__n {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .sd-route h3 {
+    margin-top: 6px;
+    font-size: 19px;
+    color: #fff;
+  }
+  .sd-route p {
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #b3c4d1;
+  }
+
+  .sd-people {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+  }
+  .sd-people__grid {
+    display: grid;
+    gap: 14px;
+  }
+  .sd-people__card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    transition: transform 0.45s var(--nex-ease), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .sd-people__card:hover {
+    transform: translateX(6px);
+    border-color: rgba(47, 120, 180, 0.3);
+    box-shadow: 0 16px 40px -24px rgba(47, 120, 180, 0.5);
+  }
+  .sd-people__avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+  }
+  .sd-people__card h3 {
+    font-size: 18px;
+  }
+  .sd-people__card p {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--nex-gris);
+  }
+  .sd-people__media {
+    margin-top: 32px;
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .sd-people__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  /* ---------- scope ---------- */
+  .sd-scope {
+    padding: 96px 0;
+    background: linear-gradient(180deg, transparent, #eef4f8 30%, #eef4f8 70%, transparent);
+  }
+  .sd-scope__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+    gap: 56px;
+    align-items: start;
+  }
+  .sd-caps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 36px;
+  }
+  .sd-caps li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.07);
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: var(--nex-ink);
+  }
+  .sd-caps__check {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+  }
+  .sd-aside {
+    position: sticky;
+    top: 100px;
+  }
+
+  /* ---------- process ---------- */
+  .sd-process {
+    padding: 96px 0;
+  }
+  .sd-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 56px;
+    counter-reset: step;
+  }
+  .sd-steps li {
+    position: relative;
+    padding: 28px 24px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    overflow: hidden;
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease;
+  }
+  .sd-steps li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -24px rgba(47, 120, 180, 0.45);
+  }
+  .sd-steps li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--nex-azul), #3f8a4a);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--nex-ease);
+  }
+  .sd-steps li:hover::after {
+    transform: scaleX(1);
+  }
+  .sd-steps__n {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--nex-azul), #3f9a5a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sd-steps h3 {
+    margin-top: 18px;
+    font-size: 19px;
+  }
+  .sd-steps p {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+
+  /* ---------- related ---------- */
+  .sd-related {
+    padding: 80px 0 20px;
+  }
+  .sd-carousel {
+    position: relative;
+    margin-top: 36px;
+  }
+  .sd-related__track {
+    display: grid;
+    grid-auto-flow: column;
+    /* four cards per view on desktop, two on tablet, one and a peek on phones */
+    grid-auto-columns: calc((100% - 3 * 16px) / 4);
+    gap: 16px;
+    padding: 8px 2px 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .sd-related__track::-webkit-scrollbar {
+    display: none;
+  }
+  .sd-carousel__btn {
+    position: absolute;
+    z-index: 2;
+    top: calc(8px + 80px);
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    color: var(--nex-ink);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(16, 42, 67, 0.1);
+    box-shadow: 0 12px 30px -12px rgba(16, 42, 67, 0.4);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      box-shadow 0.35s ease,
+      opacity 0.3s ease,
+      transform 0.35s var(--nex-ease);
+  }
+  .sd-carousel__btn--prev {
+    left: -26px;
+  }
+  .sd-carousel__btn--prev :global(svg) {
+    transform: rotate(180deg);
+  }
+  .sd-carousel__btn--next {
+    right: -26px;
+  }
+  .sd-carousel__btn:hover:not(:disabled) {
+    color: #fff;
+    background: linear-gradient(135deg, var(--nex-azul), #3f8a4a);
+    border-color: transparent;
+    box-shadow: 0 14px 34px -12px rgba(47, 120, 180, 0.6);
+    transform: translateY(-50%) scale(1.06);
+  }
+  .sd-carousel__btn:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sd-carousel__progress {
+    position: relative;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: rgba(16, 42, 67, 0.08);
+  }
+  .sd-carousel__progress span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 50%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--nex-azul), #3f8a4a);
+    transition: transform 0.2s linear;
+  }
+  @media (max-width: 1100px) {
+    .sd-related__track {
+      grid-auto-columns: calc((100% - 2 * 16px) / 3);
+    }
+  }
+  @media (max-width: 860px) {
+    .sd-related__track {
+      grid-auto-columns: calc((100% - 16px) / 2);
+    }
+    .sd-carousel__btn--prev {
+      left: -10px;
+    }
+    .sd-carousel__btn--next {
+      right: -10px;
+    }
+  }
+  @media (max-width: 560px) {
+    .sd-related__track {
+      grid-auto-columns: 82%;
+    }
+    .sd-carousel__btn {
+      width: 44px;
+      height: 44px;
+    }
+  }
+  .sd-related__card {
+    scroll-snap-align: start;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(16, 42, 67, 0.08);
+    transition: transform 0.5s var(--nex-ease), box-shadow 0.4s ease;
+  }
+  .sd-related__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -24px rgba(47, 120, 180, 0.45);
+  }
+  .sd-related__card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: transform 0.8s var(--nex-ease);
+  }
+  .sd-related__card:hover img {
+    transform: scale(1.05);
+  }
+  .sd-related__body {
+    padding: 18px 20px 22px;
+  }
+  .sd-related__body h3 {
+    margin-top: 12px;
+    font-size: 17px;
+  }
+  .sd-related__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--nex-azul);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px) {
+    .sd-split,
+    .sd-immersive,
+    .sd-editorial,
+    .sd-mosaic,
+    .sd-cycle-wrap,
+    .sd-people,
+    .sd-scope__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .sd-float {
+      left: 12px;
+      bottom: 12px;
+    }
+    .sd-equip,
+    .sd-cargo,
+    .sd-steps,
+    .sd-scale__steps,
+    .sd-route ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sd-highlights {
+      grid-template-columns: 1fr;
+    }
+    .sd-highlights li + li {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid rgba(16, 42, 67, 0.12);
+    }
+    .sd-bento {
+      grid-template-columns: 1fr 1fr;
+    }
+    .sd-bento__cell--lead {
+      grid-column: span 2;
+      grid-row: auto;
+      min-height: 320px;
+    }
+    .sd-bento__cell:nth-child(4) {
+      grid-column: span 2;
+    }
+    .sd-aside {
+      position: static;
+    }
+  }
+  @media (max-width: 600px) {
+    .sd-hero--split,
+    .sd-hero--editorial {
+      padding-top: 112px;
+    }
+    .sd-mosaic__grid,
+    .sd-caps,
+    .sd-equip,
+    .sd-cargo,
+    .sd-steps,
+    .sd-scale__steps,
+    .sd-route ol,
+    .sd-bento {
+      grid-template-columns: 1fr;
+    }
+    .sd-bento__cell--lead,
+    .sd-bento__cell:nth-child(4) {
+      grid-column: auto;
+    }
+    .sd-cycle {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 0;
+    }
+    .sd-cycle::before,
+    .sd-cycle__core {
+      display: none;
+    }
+    .sd-sig,
+    .sd-scope,
+    .sd-process {
+      padding: 72px 0;
+    }
+  }
+</style>

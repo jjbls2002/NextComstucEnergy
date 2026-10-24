@@ -2,7 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ServiceDetail from "../../../components/ServiceDetail.astro";
 import { SERVICE_CONTENT } from "../../../data/services";
-const lang = "es";
+const lang = "en";
 const key = "environmental";
 const c = SERVICE_CONTENT[key][lang];
 ---
@@ -10,9 +10,9 @@ const c = SERVICE_CONTENT[key][lang];
   title={c.seo.title}
   description={c.seo.description}
   keywords={c.seo.keywords}
-  esRest="/servicios/saneamiento-ambiental/"
-  enRest="/services/environmental-remediation/"
-  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Servicios", path: "/es/servicios/" }, { name: "Saneamiento ambiental" }]}
+  esRest="/servicios/gestion-ambiental/"
+  enRest="/services/environmental-management/"
+  breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Services", path: "/en/services/" }, { name: "Environmental management" }]}
   service={{ serviceType: c.serviceType, description: c.seo.description }}
 >
   <ServiceDetail serviceKey={key} lang={lang} />

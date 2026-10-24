@@ -8,7 +8,7 @@ export interface SeoInput {
   title: string;
   description: string;
   keywords?: string;
-  /** ES-relative route path incl. leading + trailing slash, e.g. "/servicios/workover/" */
+  /** ES-relative route path incl. leading + trailing slash, e.g. "/servicios/tuberias/" */
   esRest: string;
   /** EN-relative route path incl. leading + trailing slash */
   enRest: string;
