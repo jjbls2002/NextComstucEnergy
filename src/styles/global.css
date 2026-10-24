@@ -645,8 +645,8 @@
   color: #dce8ef;
   /* brand gradient: deep blue easing into the logo's green */
   --band-grad:
-    radial-gradient(55% 90% at 10% 0%, rgba(58, 136, 198, 0.55), transparent 70%),
-    radial-gradient(50% 90% at 95% 100%, rgba(104, 176, 90, 0.5), transparent 70%),
+    radial-gradient(50% 60% at 15% 35%, rgba(58, 136, 198, 0.5), transparent 70%),
+    radial-gradient(45% 60% at 88% 65%, rgba(104, 176, 90, 0.45), transparent 70%),
     linear-gradient(115deg, #0f3554 0%, #17405f 30%, #1c5a6e 62%, #2c6e4c 100%);
   background: var(--band-grad);
 }
@@ -668,7 +668,7 @@
    rounded panels that use .band-dark keep their solid edges */
 section.band-dark {
   background: none;
-  padding-block: 180px;
+  padding-block: 300px;
 }
 section.band-dark::after {
   content: "";
@@ -682,16 +682,21 @@ section.band-dark::after {
   z-index: -2;
   transform: none;
   background: var(--band-grad);
-  -webkit-mask: linear-gradient(180deg, transparent 0, #000 130px, #000 calc(100% - 130px), transparent 100%);
-  mask: linear-gradient(180deg, transparent 0, #000 130px, #000 calc(100% - 130px), transparent 100%);
+  /* long eased fade so the band melts into the light page with no visible edge */
+  -webkit-mask: linear-gradient(180deg, rgba(0,0,0,0.000) 0px, rgba(0,0,0,0.009) 26px, rgba(0,0,0,0.058) 52px, rgba(0,0,0,0.163) 78px, rgba(0,0,0,0.317) 104px, rgba(0,0,0,0.500) 130px, rgba(0,0,0,0.683) 156px, rgba(0,0,0,0.837) 182px, rgba(0,0,0,0.942) 208px, rgba(0,0,0,0.991) 234px, rgba(0,0,0,1.000) 260px, rgba(0,0,0,1.000) calc(100% - 260px), rgba(0,0,0,0.991) calc(100% - 234px), rgba(0,0,0,0.942) calc(100% - 208px), rgba(0,0,0,0.837) calc(100% - 182px), rgba(0,0,0,0.683) calc(100% - 156px), rgba(0,0,0,0.500) calc(100% - 130px), rgba(0,0,0,0.317) calc(100% - 104px), rgba(0,0,0,0.163) calc(100% - 78px), rgba(0,0,0,0.058) calc(100% - 52px), rgba(0,0,0,0.009) calc(100% - 26px), rgba(0,0,0,0.000) calc(100% - 0px));
+  mask: linear-gradient(180deg, rgba(0,0,0,0.000) 0px, rgba(0,0,0,0.009) 26px, rgba(0,0,0,0.058) 52px, rgba(0,0,0,0.163) 78px, rgba(0,0,0,0.317) 104px, rgba(0,0,0,0.500) 130px, rgba(0,0,0,0.683) 156px, rgba(0,0,0,0.837) 182px, rgba(0,0,0,0.942) 208px, rgba(0,0,0,0.991) 234px, rgba(0,0,0,1.000) 260px, rgba(0,0,0,1.000) calc(100% - 260px), rgba(0,0,0,0.991) calc(100% - 234px), rgba(0,0,0,0.942) calc(100% - 208px), rgba(0,0,0,0.837) calc(100% - 182px), rgba(0,0,0,0.683) calc(100% - 156px), rgba(0,0,0,0.500) calc(100% - 130px), rgba(0,0,0,0.317) calc(100% - 104px), rgba(0,0,0,0.163) calc(100% - 78px), rgba(0,0,0,0.058) calc(100% - 52px), rgba(0,0,0,0.009) calc(100% - 26px), rgba(0,0,0,0.000) calc(100% - 0px));
+}
+section.band-dark::before {
+  -webkit-mask: radial-gradient(ellipse 70% 45% at 50% 50%, #000 15%, transparent 75%);
+  mask: radial-gradient(ellipse 70% 45% at 50% 50%, #000 15%, transparent 75%);
 }
 @media (max-width: 768px) {
   section.band-dark {
-    padding-block: 130px;
+    padding-block: 200px;
   }
   section.band-dark::after {
-    -webkit-mask: linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
-    mask: linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+    -webkit-mask: linear-gradient(180deg, rgba(0,0,0,0.000) 0px, rgba(0,0,0,0.009) 17px, rgba(0,0,0,0.058) 34px, rgba(0,0,0,0.163) 51px, rgba(0,0,0,0.317) 68px, rgba(0,0,0,0.500) 85px, rgba(0,0,0,0.683) 102px, rgba(0,0,0,0.837) 119px, rgba(0,0,0,0.942) 136px, rgba(0,0,0,0.991) 153px, rgba(0,0,0,1.000) 170px, rgba(0,0,0,1.000) calc(100% - 170px), rgba(0,0,0,0.991) calc(100% - 153px), rgba(0,0,0,0.942) calc(100% - 136px), rgba(0,0,0,0.837) calc(100% - 119px), rgba(0,0,0,0.683) calc(100% - 102px), rgba(0,0,0,0.500) calc(100% - 85px), rgba(0,0,0,0.317) calc(100% - 68px), rgba(0,0,0,0.163) calc(100% - 51px), rgba(0,0,0,0.058) calc(100% - 34px), rgba(0,0,0,0.009) calc(100% - 17px), rgba(0,0,0,0.000) calc(100% - 0px));
+    mask: linear-gradient(180deg, rgba(0,0,0,0.000) 0px, rgba(0,0,0,0.009) 17px, rgba(0,0,0,0.058) 34px, rgba(0,0,0,0.163) 51px, rgba(0,0,0,0.317) 68px, rgba(0,0,0,0.500) 85px, rgba(0,0,0,0.683) 102px, rgba(0,0,0,0.837) 119px, rgba(0,0,0,0.942) 136px, rgba(0,0,0,0.991) 153px, rgba(0,0,0,1.000) 170px, rgba(0,0,0,1.000) calc(100% - 170px), rgba(0,0,0,0.991) calc(100% - 153px), rgba(0,0,0,0.942) calc(100% - 136px), rgba(0,0,0,0.837) calc(100% - 119px), rgba(0,0,0,0.683) calc(100% - 102px), rgba(0,0,0,0.500) calc(100% - 85px), rgba(0,0,0,0.317) calc(100% - 68px), rgba(0,0,0,0.163) calc(100% - 51px), rgba(0,0,0,0.058) calc(100% - 34px), rgba(0,0,0,0.009) calc(100% - 17px), rgba(0,0,0,0.000) calc(100% - 0px));
   }
 }
 .band-dark .title-split {
