@@ -19,6 +19,7 @@ const ficha = [
   { k: "RIF", v: CORP.rif },
   { k: "Domicilio", v: `${CORP.addressLine}, ${CORP.city}, Estado ${CORP.region}, Venezuela` },
   { k: "Presidente", v: CORP.president },
+  { k: "Vicepresidente", v: CORP.vicePresident },
   { k: "Año de constitución", v: CORP.founded },
 ];
 
@@ -33,7 +34,7 @@ const values = [
 
 const governance = [
   { level: "01", title: "Asamblea de Accionistas", text: "Máxima instancia de decisión y control societario." },
-  { level: "02", title: "Presidencia", text: "Dirección estratégica y representación institucional." },
+  { level: "02", title: "Presidencia y Vicepresidencia", text: `${CORP.president}, Presidente, y ${CORP.vicePresident}, Vicepresidente. Dirección estratégica y representación institucional.` },
   { level: "03", title: "Gerencias funcionales", text: "Operaciones, HSE, Administración y Comercial." },
   { level: "04", title: "Supervisión y campo", text: "Ejecución técnica con responsables de línea y HSE en sitio." },
 ];

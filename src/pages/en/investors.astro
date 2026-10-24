@@ -21,7 +21,7 @@ const thesis = [
     text: "The Venezuelan oil sector needs reliable contractors for civil works, maintenance, pipelines, logistics and environmental management in the field.",
   },
   {
-    title: "Seven lines, one contractor",
+    title: "Eight lines, one contractor",
     text: "A diversified portfolio that reduces dependence on a single service and lets one team, under one standard, deliver integrated contracts.",
   },
   {
@@ -38,7 +38,7 @@ const phases = [
   { tag: "Year 1", year: "2026", title: "Start-up", text: "Incorporation, USD 750K seed capital and launch of the service lines with formal accounting from the start." },
   { tag: "Year 3", year: "Return", title: "Base ROI ~150%", text: "The plan's base scenario projects a return on investment close to 150% by the third year." },
   { tag: "Year 5", year: "Scale", title: "USD 7.3M in revenue", text: "Projected revenue of USD 7.3M with an EBITDA margin close to 33%." },
-  { tag: "Horizon", year: "2031", title: "Plan completion", text: "Completion of the 2026 to 2031 Business Plan, with a consolidated portfolio of seven service lines." },
+  { tag: "Horizon", year: "2031", title: "Plan completion", text: "Completion of the 2026 to 2031 Business Plan, with a consolidated portfolio of eight service lines." },
 ];
 
 const markets = ["PDVSA", "Joint ventures", "International operators"];
@@ -60,24 +60,15 @@ const docs = [
 
 <BaseLayout
   title="Investors | NEX Comstuct & Energy"
-  description="NEX Comstuct & Energy 2026-2031 business plan: seven service lines, corporate governance and an opportunity pipeline in Venezuela."
+  description="NEX Comstuct & Energy 2026-2031 business plan: eight service lines, corporate governance and an opportunity pipeline in Venezuela."
   keywords="oil gas investment venezuela, oil business plan, oil gas investment opportunity, oil EBITDA"
   esRest="/inversionistas/"
   enRest="/investors/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Investors" }]}
+  backdrop="taladro"
 >
   <!-- ============ HERO: prospectus cover ============ -->
   <section class="inv-hero">
-    <img
-      src="/images/inversionistas.webp"
-      alt="Oil pump jacks on a green field"
-      width="1800"
-      height="1214"
-      class="inv-hero__img"
-      fetchpriority="high"
-      decoding="async"
-    />
-    <div class="inv-hero__veil" aria-hidden="true"></div>
     <div class="container-nex inv-hero__inner">
       <p class="inv-hero__kicker anim-in" style="animation-delay:.05s">Prospectus | Business Plan 2026 to 2031</p>
       <h1 class="inv-hero__title anim-in" style="animation-delay:.12s">
@@ -178,7 +169,7 @@ const docs = [
       <div class="inv-ledger reveal" style="--d:.1s">
         <div class="inv-ledger__head">
           <span>Portfolio</span>
-          <span>Seven service lines</span>
+          <span>Eight service lines</span>
         </div>
         <ul class="inv-ledger__rows">
           {SERVICES.map((s) => (
@@ -257,7 +248,6 @@ const docs = [
   .inv-hero {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
     padding: 168px 0 72px;
     min-height: min(92vh, 860px);
     display: flex;

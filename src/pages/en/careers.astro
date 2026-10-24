@@ -23,12 +23,13 @@ const benefits = {
 
 const roles: Record<string, string[]> = {
   civil: ["Civil engineers", "Site foremen", "Machinery operators", "Masons and carpenters"],
-  mechanical: ["Oilfield equipment mechanics", "Welders", "Engine and pump technicians", "Maintenance supervisors"],
+  mechanical: ["Production equipment mechanics", "Welders", "Engine and pump technicians", "Maintenance supervisors"],
   pipelines: ["Pipefitters", "Pipe welders", "Site inspectors", "Field helpers"],
   environmental: ["Environmental engineers", "Environmental technicians", "Remediation operators", "Reforestation crews"],
   chemicals: ["Foreign trade", "Purchasing and warehouse", "Chemical technicians"],
   logistics: ["Heavy cargo drivers", "Light cargo drivers", "Logistics coordinators", "Moving crews"],
   staffing: ["HSE supervisors", "Administration and finance", "Human resources", "Operational staff"],
+  stations: ["Project engineers", "Mechanical fitters", "Instrument technicians", "Site supervisors"],
 };
 const areaName: Record<string, string> = {
   civil: "Civil works",
@@ -38,6 +39,7 @@ const areaName: Record<string, string> = {
   chemicals: "Chemical products",
   logistics: "Transport and logistics",
   staffing: "Administration, HSE and operations",
+  stations: "Station projects",
 };
 
 const steps = [
@@ -65,7 +67,7 @@ const steps = [
           Join the team that builds safely
         </h1>
         <p class="lead car-hero__lead anim-in" style="animation-delay:.2s">
-          We are looking for skilled tradespeople, technicians, professionals and HSE staff who share our discipline of safety and integrity, across seven service lines from Valle de la Pascua.
+          We are looking for skilled tradespeople, technicians, professionals and HSE staff who share our discipline of safety and integrity, across eight service lines from Valle de la Pascua.
         </p>
         <div class="car-hero__actions anim-in" style="animation-delay:.28s">
           <a href="#apply" class="btn btn-primary">Apply now <Icon name="arrow-right" size={18} /></a>

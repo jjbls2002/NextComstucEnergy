@@ -23,12 +23,13 @@ const benefits = {
 
 const roles: Record<string, string[]> = {
   civil: ["Ingenieros civiles", "Maestros de obra", "Operadores de maquinaria", "Albañiles y carpinteros"],
-  mechanical: ["Mecánicos de equipos petroleros", "Soldadores", "Técnicos de motores y bombas", "Supervisores de mantenimiento"],
+  mechanical: ["Mecánicos de equipos de producción", "Soldadores", "Técnicos de motores y bombas", "Supervisores de mantenimiento"],
   pipelines: ["Tuberos", "Soldadores de tubería", "Inspectores de obra", "Ayudantes de campo"],
   environmental: ["Ingenieros ambientales", "Técnicos ambientales", "Operadores de saneamiento", "Cuadrillas de reforestación"],
   chemicals: ["Comercio exterior", "Compras y almacén", "Técnicos químicos"],
   logistics: ["Choferes de carga pesada", "Choferes de carga liviana", "Coordinadores de logística", "Personal de mudanzas"],
   staffing: ["Supervisores HSE", "Administración y finanzas", "Talento humano", "Personal operativo"],
+  stations: ["Ingenieros de proyecto", "Montadores mecánicos", "Instrumentistas", "Supervisores de obra"],
 };
 const areaName: Record<string, string> = {
   civil: "Obras civiles",
@@ -38,6 +39,7 @@ const areaName: Record<string, string> = {
   chemicals: "Productos químicos",
   logistics: "Transporte y logística",
   staffing: "Administración, HSE y operaciones",
+  stations: "Proyectos de estaciones",
 };
 
 const steps = [
@@ -65,7 +67,7 @@ const steps = [
           Únete al equipo que construye con seguridad
         </h1>
         <p class="lead car-hero__lead anim-in" style="animation-delay:.2s">
-          Buscamos personas de oficio, técnicos, profesionales y personal HSE que compartan nuestra disciplina de seguridad e integridad, en siete líneas de servicio desde Valle de la Pascua.
+          Buscamos personas de oficio, técnicos, profesionales y personal HSE que compartan nuestra disciplina de seguridad e integridad, en ocho líneas de servicio desde Valle de la Pascua.
         </p>
         <div class="car-hero__actions anim-in" style="animation-delay:.28s">
           <a href="#postular" class="btn btn-primary">Postúlate ahora <Icon name="arrow-right" size={18} /></a>

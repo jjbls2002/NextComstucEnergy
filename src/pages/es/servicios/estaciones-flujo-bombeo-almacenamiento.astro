@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ServiceDetail from "../../../components/ServiceDetail.astro";
+import { SERVICE_CONTENT } from "../../../data/services";
+const lang = "es";
+const key = "stations";
+const c = SERVICE_CONTENT[key][lang];
+// immersive pages keep their hero photo as the fixed, scroll-blurred page backdrop
+const photo = ({ mechanical: "mecanica", logistics: "transporte" } as Record<string, "mecanica" | "transporte">)[key];
+---
+<BaseLayout
+  title={c.seo.title}
+  description={c.seo.description}
+  keywords={c.seo.keywords}
+  esRest="/servicios/estaciones-flujo-bombeo-almacenamiento/"
+  enRest="/services/flow-pumping-storage-stations/"
+  breadcrumbs={[{ name: "Inicio", path: "/es/" }, { name: "Servicios", path: "/es/servicios/" }, { name: "Estaciones" }]}
+  service={{ serviceType: c.serviceType, description: c.seo.description }}
+  backdrop={photo}
+>
+  <ServiceDetail serviceKey={key} lang={lang} />
+</BaseLayout>

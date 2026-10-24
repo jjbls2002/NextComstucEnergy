@@ -36,6 +36,7 @@ const ROUTE_MAP: Record<string, string> = {
   "/servicios/productos-quimicos/": "/services/chemical-products/",
   "/servicios/transporte-logistica/": "/services/transport-logistics/",
   "/servicios/personal-especializado/": "/services/specialized-staffing/",
+  "/servicios/estaciones-flujo-bombeo-almacenamiento/": "/services/flow-pumping-storage-stations/",
   // pages
   "/hse-cumplimiento/": "/hse-compliance/",
   "/sistema-gestion/": "/management-system/",

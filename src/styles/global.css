@@ -493,7 +493,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.274);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     transition: background 0.3s ease, border-color 0.3s ease;
   }
   .faq__icon::before,
@@ -505,7 +505,7 @@
     width: 11px;
     height: 1.6px;
     border-radius: 2px;
-    background: #33414c;
+    background: #fff;
     transform: translate(-50%, -50%);
     transition: transform 0.35s var(--nex-ease), background 0.3s ease;
   }
@@ -518,7 +518,7 @@
   }
   .faq__item[open] .faq__icon::before,
   .faq__item[open] .faq__icon::after {
-    background: rgba(255, 255, 255, 0.08);
+    background: #fff;
   }
   .faq__item[open] .faq__icon::after {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -747,6 +747,37 @@ section.band-dark::before {
   .page-bg {
     background-image: url("/images/fondo-refineria-sm.jpg");
   }
+}
+/* hero photos used as the fixed page backdrop: they stay put and blur as you scroll */
+.page-bg:not([data-bg="refineria"]) {
+  background: #10202c;
+}
+.page-bg__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+.page-bg__img--blur {
+  opacity: 0;
+  will-change: opacity;
+}
+.page-bg__veil {
+  position: absolute;
+  inset: 0;
+}
+.page-bg__veil--investors {
+  background:
+    linear-gradient(180deg, rgba(10, 30, 48, 0.55) 0%, rgba(10, 30, 48, 0) 30%),
+    linear-gradient(112deg, rgba(15, 53, 84, 0.94) 0%, rgba(23, 64, 95, 0.82) 38%, rgba(28, 90, 110, 0.6) 66%, rgba(44, 110, 76, 0.55) 100%);
+}
+/* same tint the immersive service heroes used */
+.page-bg__veil--service {
+  background:
+    linear-gradient(180deg, rgba(10, 25, 38, 0.15) 0%, rgba(10, 25, 38, 0.55) 55%, rgba(10, 25, 38, 0.88) 100%),
+    linear-gradient(100deg, rgba(23, 64, 95, 0.75) 0%, rgba(23, 64, 95, 0.2) 55%, rgba(44, 110, 76, 0.35) 100%);
 }
 
 /* ---------- Orb: rotating brand ring with a soft core ---------- */

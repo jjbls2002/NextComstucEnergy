@@ -5,6 +5,8 @@ import { SERVICE_CONTENT } from "../../../data/services";
 const lang = "en";
 const key = "chemicals";
 const c = SERVICE_CONTENT[key][lang];
+// immersive pages keep their hero photo as the fixed, scroll-blurred page backdrop
+const photo = ({ mechanical: "mecanica", logistics: "transporte" } as Record<string, "mecanica" | "transporte">)[key];
 ---
 <BaseLayout
   title={c.seo.title}
@@ -14,6 +16,7 @@ const c = SERVICE_CONTENT[key][lang];
   enRest="/services/chemical-products/"
   breadcrumbs={[{ name: "Home", path: "/en/" }, { name: "Services", path: "/en/services/" }, { name: "Chemical products" }]}
   service={{ serviceType: c.serviceType, description: c.seo.description }}
+  backdrop={photo}
 >
   <ServiceDetail serviceKey={key} lang={lang} />
 </BaseLayout>

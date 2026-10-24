@@ -380,8 +380,8 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     overflow: visible;
   }
   .orbit__halo {
-    fill: rgba(255, 255, 255, 0.5);
-    stroke: rgba(16, 42, 67, 0.06);
+    fill: rgba(14, 20, 18, 0.42);
+    stroke: rgba(255, 255, 255, 0.14);
     stroke-width: 0.2;
   }
   .orbit__ring {
@@ -392,22 +392,22 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   }
   .orbit__ring-dash {
     fill: none;
-    stroke: #2f78b4;
+    stroke: #6db4d9;
     stroke-width: 0.7;
     stroke-dasharray: 2 6;
     stroke-linecap: round;
-    opacity: 0.5;
+    opacity: 0.75;
     transform-origin: 50% 50%;
     animation: orbit-spin 60s linear infinite;
   }
   .orbit__inner {
     fill: none;
-    stroke: rgba(47, 120, 180, 0.18);
+    stroke: rgba(169, 214, 238, 0.3);
     stroke-width: 0.25;
     stroke-dasharray: 0.8 1.6;
   }
   .orbit__spoke {
-    stroke: rgba(47, 120, 180, 0.22);
+    stroke: rgba(169, 214, 238, 0.28);
     stroke-width: 0.25;
   }
   @keyframes orbit-spin {
@@ -483,12 +483,12 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    color: var(--nex-azul-text);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(47, 120, 180, 0.25);
+    color: #a9d6ee;
+    background: rgba(18, 26, 30, 0.92);
+    border: 1px solid rgba(169, 214, 238, 0.5);
     box-shadow:
-      0 0 0 6px rgba(246, 249, 251, 0.9),
-      0 10px 24px -10px rgba(47, 120, 180, 0.45);
+      0 0 0 6px rgba(14, 20, 18, 0.55),
+      0 10px 24px -10px rgba(0, 0, 0, 0.6);
     transition:
       transform 0.45s var(--nex-ease),
       background 0.3s ease,
@@ -497,7 +497,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   }
   .orbit__dot--green {
     color: #9fd68c;
-    border-color: rgba(63, 138, 74, 0.3);
+    border-color: rgba(159, 214, 140, 0.5);
   }
   .orbit__label {
     padding: 4px 10px;
@@ -505,9 +505,9 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     font-size: 0.8125rem;
     font-weight: 500;
     line-height: 1.25;
-    color: #e3eaef;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.136);
+    color: #fff;
+    background: rgba(14, 20, 18, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     transition: color 0.3s ease, border-color 0.3s ease, transform 0.45s var(--nex-ease);
   }
   .orbit__link:hover .orbit__dot,
@@ -517,7 +517,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     background: linear-gradient(160deg, #4d9ccc, var(--nex-azul) 70%);
     border-color: transparent;
     box-shadow:
-      0 0 0 6px rgba(47, 120, 180, 0.14),
+      0 0 0 6px rgba(47, 120, 180, 0.3),
       0 18px 50px -12px rgba(47, 120, 180, 0.6);
   }
   .orbit__link:hover .orbit__dot--green,
@@ -527,7 +527,7 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
   .orbit__link:hover .orbit__label,
   .orbit__link:focus-visible .orbit__label {
     color: var(--nex-ink);
-    border-color: rgba(47, 120, 180, 0.3);
+    border-color: rgba(169, 214, 238, 0.55);
     transform: translateY(-2px);
   }
 
@@ -717,7 +717,11 @@ const roadmap = ["ISO 9001", "ISO 14001", "ISO 45001"];
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -0.06em;
-    color: rgba(47, 120, 180, 0.1);
+    background: linear-gradient(135deg, #a9d6ee, #9fd68c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0.55;
   }
   .tabs__title {
     margin-top: 28px;

@@ -44,6 +44,7 @@ const featureIcons: Record<ServiceKey, string[]> = {
   chemicals: ["flask", "shield-check", "droplet", "package"],
   logistics: ["truck", "package", "zap", "building"],
   staffing: ["wrench", "hard-hat", "clipboard-check", "file-text"],
+  stations: ["pipe", "flask", "layers", "zap"],
 };
 const ficons = featureIcons[serviceKey];
 ---
@@ -79,8 +80,6 @@ const ficons = featureIcons[serviceKey];
 
 {c.variant === "immersive" && (
   <section class="sd-hero sd-hero--immersive">
-    <img class="sd-immersive__bg" src={meta.image} alt={meta.title[lang]} width="1800" height="1200" loading="eager" />
-    <div class="sd-immersive__shade" aria-hidden="true"></div>
     <div class="container-nex sd-immersive">
       <div class="sd-immersive__text">
         <p class="sd-kicker-light anim-in" style="animation-delay:.05s">{c.kicker}</p>
@@ -306,6 +305,30 @@ const ficons = featureIcons[serviceKey];
         <div class="sd-people__media reveal">
           <img src="/images/carreras.webp" alt={es ? "Personal técnico revisando planos" : "Technical staff reviewing drawings"} width="1800" height="1200" loading="lazy" />
         </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{serviceKey === "stations" && (
+  <section class="sd-sig">
+    <div class="container-nex">
+      <div class="text-center flex flex-col items-center">
+        <h2 class="title-split reveal">{c.feature.title}<span>{c.feature.sub}</span></h2>
+      </div>
+      <ol class="sd-flow reveal" aria-label={c.feature.title}>
+        <span class="sd-flow__pipe" aria-hidden="true"><i></i></span>
+        {c.feature.items.map((it, i) => (
+          <li class="sd-flow__stage" style={`--d:${i * 0.12}s`}>
+            <span class="sd-flow__node"><Icon name={ficons[i]} size={26} /></span>
+            <span class="sd-flow__n">0{i + 1}</span>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="sd-flow__photo reveal">
+        <img src="/images/valvulas.webp" alt={es ? "Tuberías y válvulas de una instalación de proceso" : "Pipework and valves at a process facility"} width="1800" height="1200" loading="lazy" />
       </div>
     </div>
   </section>
@@ -1067,6 +1090,142 @@ const ficons = featureIcons[serviceKey];
     width: 100%;
     aspect-ratio: 3 / 2;
     object-fit: cover;
+  }
+
+  /* ---------- station flow diagram ---------- */
+  .sd-flow {
+    position: relative;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 64px;
+  }
+  .sd-flow__pipe {
+    position: absolute;
+    top: 34px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+  /* fluid moving through the line */
+  .sd-flow__pipe i {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, #6db4d9 0 18px, transparent 18px 34px), linear-gradient(90deg, #2f78b4, #68b05a);
+    background-size: 34px 100%, 100% 100%;
+    opacity: 0.85;
+    animation: sd-flow-move 1.4s linear infinite;
+  }
+  @keyframes sd-flow-move {
+    to {
+      background-position: 34px 0, 0 0;
+    }
+  }
+  .sd-flow__stage {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .sd-flow__node {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    color: #fff;
+    background: radial-gradient(circle at 35% 30%, #5aa6d4, #2f78b4 60%, #17405f);
+    border: 1px solid rgba(169, 214, 238, 0.5);
+    box-shadow:
+      0 0 0 8px rgba(14, 20, 18, 0.55),
+      0 14px 34px -10px rgba(47, 120, 180, 0.7);
+    transition: transform 0.5s var(--nex-ease);
+  }
+  .sd-flow__stage:nth-child(n + 4) .sd-flow__node {
+    background: radial-gradient(circle at 35% 30%, #8fd07a, #3f8a4a 65%, #2c6e4c);
+    border-color: rgba(159, 214, 140, 0.5);
+  }
+  .sd-flow__stage:hover .sd-flow__node {
+    transform: translateY(-4px) scale(1.06);
+  }
+  .sd-flow__n {
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--nex-azul-text);
+  }
+  .sd-flow__stage h3 {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+  .sd-flow__stage p {
+    max-width: 240px;
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--nex-gris);
+  }
+  .sd-flow__photo {
+    margin-top: 64px;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .sd-flow__photo img {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 30vw, 380px);
+    object-fit: cover;
+  }
+  @media (max-width: 860px) {
+    .sd-flow {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+    .sd-flow__pipe {
+      top: 38px;
+      bottom: 38px;
+      left: 34px;
+      right: auto;
+      width: 8px;
+      height: auto;
+    }
+    .sd-flow__pipe i {
+      background: repeating-linear-gradient(180deg, #6db4d9 0 18px, transparent 18px 34px), linear-gradient(180deg, #2f78b4, #68b05a);
+      background-size: 100% 34px, 100% 100%;
+      animation-name: sd-flow-move-y;
+    }
+    .sd-flow__stage {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      column-gap: 20px;
+      align-items: start;
+      text-align: left;
+    }
+    .sd-flow__node {
+      grid-row: 1 / span 3;
+    }
+    .sd-flow__n {
+      margin-top: 4px;
+    }
+    .sd-flow__stage p {
+      max-width: none;
+    }
+  }
+  @keyframes sd-flow-move-y {
+    to {
+      background-position: 0 34px, 0 0;
+    }
   }
 
   /* ---------- scope ---------- */

@@ -19,6 +19,7 @@ const ficha = [
   { k: "Tax ID (RIF)", v: CORP.rif },
   { k: "Registered office", v: `${CORP.addressLine}, ${CORP.city}, ${CORP.region} State, Venezuela` },
   { k: "President", v: CORP.president },
+  { k: "Vice President", v: CORP.vicePresident },
   { k: "Year incorporated", v: CORP.founded },
 ];
 
@@ -33,7 +34,7 @@ const values = [
 
 const governance = [
   { level: "01", title: "Shareholders' Assembly", text: "Highest decision-making and corporate control body." },
-  { level: "02", title: "Presidency", text: "Strategic direction and institutional representation." },
+  { level: "02", title: "President and Vice President", text: `${CORP.president}, President, and ${CORP.vicePresident}, Vice President. Strategic direction and institutional representation.` },
   { level: "03", title: "Functional management", text: "Operations, HSE, Administration and Commercial." },
   { level: "04", title: "Supervision & field", text: "Technical execution with line and on-site HSE leads." },
 ];

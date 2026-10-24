@@ -5,7 +5,8 @@ export const CORP = {
   legalName: "NEX COMSTUCT & ENERGY, C.A.",
   displayName: "NEX Comstuct & Energy C.A.",
   rif: "J-508065115",
-  president: "Robert Alexis Marrero Cueto",
+  president: "Robert Marrero Cueto",
+  vicePresident: "Alejandro Marrero Cueto",
   email: "administracion@nexcomstuct.com",
   phone: "+58 424-437-5975",
   addressLine: "Calle Corpoindustria, Zona Industrial, Municipio Leonardo Infante",
@@ -31,6 +32,7 @@ export const SERVICE_SLUGS = {
   chemicals: { es: "productos-quimicos", en: "chemical-products" },
   logistics: { es: "transporte-logistica", en: "transport-logistics" },
   staffing: { es: "personal-especializado", en: "specialized-staffing" },
+  stations: { es: "estaciones-flujo-bombeo-almacenamiento", en: "flow-pumping-storage-stations" },
 } as const;
 
 export type ServiceKey = keyof typeof SERVICE_SLUGS;
@@ -62,8 +64,8 @@ export const SERVICES: ServiceMeta[] = [
     num: "02",
     icon: "wrench",
     image: "/images/mecanica-soldadura.webp",
-    title: { es: "Mantenimiento mecánico y soldadura", en: "Mechanical maintenance & welding" },
-    short: { es: "Equipos petroleros, motores, bombas y soldadura", en: "Oilfield equipment, engines, pumps and welding" },
+    title: { es: "Mantenimiento de equipos de producción y soldadura", en: "Production equipment maintenance & welding" },
+    short: { es: "Balancines, separadores, motores, bombas y soldadura", en: "Pump jacks, separators, engines, pumps and welding" },
   },
   {
     key: "pipelines",
@@ -104,6 +106,14 @@ export const SERVICES: ServiceMeta[] = [
     image: "/images/personal.webp",
     title: { es: "Personal y servicios operativos", en: "Staffing & operational services" },
     short: { es: "Personal clasificado y especializado", en: "Classified and specialized personnel" },
+  },
+  {
+    key: "stations",
+    num: "08",
+    icon: "layers",
+    image: "/images/estaciones.webp",
+    title: { es: "Estaciones de flujo, bombeo y almacenamiento", en: "Flow, pumping & storage stations" },
+    short: { es: "Proyectos integrales llave en mano", en: "Integrated turnkey projects" },
   },
 ];
 

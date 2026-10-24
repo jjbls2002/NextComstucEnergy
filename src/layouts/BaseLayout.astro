@@ -29,6 +29,8 @@ interface Props {
   service?: ServiceLd;
   /** extra top padding removed for full-bleed hero pages */
   bodyClass?: string;
+  /** photo behind the whole page: the refinery by default, or a hero photo that stays fixed and blurs on scroll */
+  backdrop?: "refineria" | "taladro" | "mecanica" | "transporte";
 }
 
 const {
@@ -43,10 +45,19 @@ const {
   breadcrumbs,
   service,
   bodyClass = "",
+  backdrop = "refineria",
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+/* hero photos that become the fixed page backdrop (sharp at the top, blurred twin fades in on scroll) */
+const PHOTOS = {
+  taladro: { src: "/images/inversionistas.webp", blur: "/images/inversionistas-blur.jpg", w: 1800, h: 1214, pos: "center 60%", veil: "investors" },
+  mecanica: { src: "/images/mecanica-soldadura.webp", blur: "/images/mecanica-soldadura-blur.jpg", w: 1800, h: 1200, pos: "center", veil: "service" },
+  transporte: { src: "/images/transporte.webp", blur: "/images/transporte-blur.jpg", w: 1800, h: 1200, pos: "center", veil: "service" },
+} as const;
+const photo = backdrop === "refineria" ? undefined : PHOTOS[backdrop];
 ---
 
 <!doctype html>
@@ -83,7 +94,15 @@ const t = useTranslations(lang);
     <StructuredData organization={organization} breadcrumbs={breadcrumbs} service={service} />
   </head>
   <body class={bodyClass}>
-    <div class="page-bg" aria-hidden="true"></div>
+    <div class="page-bg" data-bg={backdrop} aria-hidden="true">
+      {photo && (
+        <>
+          <img class="page-bg__img" src={photo.src} alt="" width={photo.w} height={photo.h} style={`object-position:${photo.pos}`} fetchpriority="high" decoding="async" />
+          <img class="page-bg__img page-bg__img--blur" src={photo.blur} alt="" width={photo.w} height={photo.h} style={`object-position:${photo.pos}`} decoding="async" />
+          <div class={`page-bg__veil page-bg__veil--${photo.veil}`}></div>
+        </>
+      )}
+    </div>
     <a href="#main" class="skip-link">{t.common.skipToContent}</a>
     <Header />
     <main id="main">
@@ -93,6 +112,28 @@ const t = useTranslations(lang);
     <CookieConsent />
 
     <script>
+      // Fixed photo backdrop: the same photo stays put and its blurred twin fades in as the page scrolls
+      const blurLayer = document.querySelector<HTMLElement>(".page-bg__img--blur");
+      if (blurLayer) {
+        let ticking = false;
+        const setBlur = () => {
+          const o = Math.min(1, window.scrollY / (window.innerHeight * 0.7));
+          blurLayer.style.opacity = o.toFixed(3);
+          ticking = false;
+        };
+        setBlur();
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(setBlur);
+            }
+          },
+          { passive: true }
+        );
+      }
+
       // Scroll reveal: elements with .reveal fade up once they enter the viewport
       const reveals = document.querySelectorAll<HTMLElement>(".reveal");
       if ("IntersectionObserver" in window) {
