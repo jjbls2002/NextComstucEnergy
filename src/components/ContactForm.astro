@@ -94,9 +94,19 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
 
   {withUpload && (
     <div>
-      <label for="cf-cv" class={label}>CV (PDF/DOCX, máx 5MB)</label>
-      <input id="cf-cv" name="cv" type="file" accept=".pdf,.doc,.docx" aria-describedby="cf-cv-err"
-        class="w-full rounded-xl border border-white/12 bg-nex-surface text-nex-gris px-4 py-2.5 file:mr-4 file:rounded-full file:border-0 file:bg-nex-oro file:text-nex-fondo file:px-4 file:py-1.5 file:font-semibold" />
+      <span class={label}>{lang === "es" ? "CV (PDF o DOCX, máx. 5 MB)" : "CV (PDF or DOCX, max 5 MB)"}</span>
+      <!-- the native input stays (it is what the form submits) but is visually replaced: its button text and
+           "No file chosen" come from the browser, in the browser's language and colours -->
+      <label for="cf-cv" class="cv-pick flex items-center gap-4 w-full rounded-xl border border-white/12 bg-nex-surface px-3 py-2.5 cursor-pointer transition-colors">
+        <span class="cv-btn inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold">
+          <Icon name="file-text" size={16} />
+          {lang === "es" ? "Seleccionar archivo" : "Choose file"}
+        </span>
+        <span class="min-w-0 truncate text-sm text-nex-gris" data-cv-name data-empty={lang === "es" ? "Ningún archivo seleccionado" : "No file selected"}>
+          {lang === "es" ? "Ningún archivo seleccionado" : "No file selected"}
+        </span>
+      </label>
+      <input id="cf-cv" name="cv" type="file" accept=".pdf,.doc,.docx" aria-describedby="cf-cv-err" class="cv-input" />
       <p id="cf-cv-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
     </div>
   )}
@@ -124,6 +134,16 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
   </div>
 </form>
 
+<style>
+  /* visually hidden but still focusable and submitted with the form */
+  .cv-input { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .cv-btn { background: #9fd0ee; color: #0e1a24; transition: background-color 0.2s ease; }
+  .cv-pick:hover { border-color: rgba(159, 208, 238, 0.7); }
+  .cv-pick:hover .cv-btn { background: #bfe0f2; }
+  .cv-pick:has(+ .cv-input:focus-visible) { border-color: rgba(159, 208, 238, 0.9); box-shadow: 0 0 0 3px rgba(159, 208, 238, 0.25); }
+  .cv-pick:has(+ .cv-input[aria-invalid="true"]) { border-color: #f59a9a; }
+</style>
+
 <script is:inline define:vars={{ invalidEmail: f.invalidEmail, requiredMsg: f.required, fileTooBig: lang === "es" ? "El archivo supera 5 MB." : "The file is larger than 5 MB." }}>
   (function () {
     var form = document.querySelector("[data-contact-form]");
@@ -140,6 +160,15 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
         input.classList.remove("border-nex-danger");
         if (err) { err.textContent = ""; err.classList.add("hidden"); }
       }
+    }
+    var cvInput = form.querySelector('[name="cv"]');
+    var cvName = form.querySelector("[data-cv-name]");
+    if (cvInput && cvName) {
+      cvInput.addEventListener("change", function () {
+        var f = cvInput.files && cvInput.files[0];
+        cvName.textContent = f ? f.name : cvName.getAttribute("data-empty");
+        cvName.classList.toggle("text-nex-blanco", !!f);
+      });
     }
     form.addEventListener("submit", function (e) {
       var ok = true;
