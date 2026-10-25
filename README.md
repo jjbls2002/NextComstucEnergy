@@ -126,7 +126,7 @@ PUBLIC_SITE_URL=https://nexcomstuct.com
 PUBLIC_GA4_ID=                 # ID de Google Analytics 4 (opcional)
 PUBLIC_RECAPTCHA_SITE_KEY=     # reCAPTCHA v3 (opcional)
 RECAPTCHA_SECRET_KEY=
-CONTACT_FORM_TO_EMAIL=administracion@nexcomstuct.com
+CONTACT_FORM_TO_EMAIL=nexcomstuctenergy@gmail.com
 SMTP_HOST= / SMTP_PORT= / SMTP_USER= / SMTP_PASS=
 ```
 

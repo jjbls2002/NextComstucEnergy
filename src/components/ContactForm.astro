@@ -33,6 +33,7 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
   name={formName}
   method="POST"
   action={action}
+  enctype={withUpload ? "multipart/form-data" : undefined}
   data-netlify="true"
   netlify-honeypot="nex_hp"
   data-contact-form
@@ -52,8 +53,8 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
       <p id="cf-name-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
     </div>
     <div>
-      <label for="cf-company" class={label}>{f.company} <span class="text-nex-danger" aria-hidden="true">*</span></label>
-      <input id="cf-company" name="company" type="text" required autocomplete="organization" class={field} />
+      <label for="cf-company" class={label}>{f.company} {!withUpload && <span class="text-nex-danger" aria-hidden="true">*</span>}</label>
+      <input id="cf-company" name="company" type="text" required={!withUpload} autocomplete="organization" class={field} />
       <p class="hidden text-sm text-nex-danger mt-1" data-err></p>
     </div>
     <div>
@@ -94,8 +95,9 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
   {withUpload && (
     <div>
       <label for="cf-cv" class={label}>CV (PDF/DOCX, máx 5MB)</label>
-      <input id="cf-cv" name="cv" type="file" accept=".pdf,.doc,.docx"
+      <input id="cf-cv" name="cv" type="file" accept=".pdf,.doc,.docx" aria-describedby="cf-cv-err"
         class="w-full rounded-xl border border-white/12 bg-nex-surface text-nex-gris px-4 py-2.5 file:mr-4 file:rounded-full file:border-0 file:bg-nex-oro file:text-nex-fondo file:px-4 file:py-1.5 file:font-semibold" />
+      <p id="cf-cv-err" class="hidden text-sm text-nex-danger mt-1" data-err></p>
     </div>
   )}
 
@@ -122,7 +124,7 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
   </div>
 </form>
 
-<script is:inline define:vars={{ invalidEmail: f.invalidEmail, requiredMsg: f.required }}>
+<script is:inline define:vars={{ invalidEmail: f.invalidEmail, requiredMsg: f.required, fileTooBig: lang === "es" ? "El archivo supera 5 MB." : "The file is larger than 5 MB." }}>
   (function () {
     var form = document.querySelector("[data-contact-form]");
     if (!form) return;
@@ -148,6 +150,10 @@ const label = "block text-sm font-semibold text-nex-blanco mb-1.5";
         else if (el.type === "email" && !emailRe.test(el.value.trim())) { setErr(el, invalidEmail); ok = false; }
         else { setErr(el, ""); }
       });
+      // Netlify Forms rejects requests over 8 MB; keep the CV within the 5 MB the label promises
+      var cv = form.querySelector('[name="cv"]');
+      if (cv && cv.files && cv.files[0] && cv.files[0].size > 5 * 1024 * 1024) { setErr(cv, fileTooBig); ok = false; }
+      else if (cv) { setErr(cv, ""); }
       var hp = form.querySelector('[name="nex_hp"]');
       if (hp && hp.value) { e.preventDefault(); return; }
       if (!ok) {
