@@ -2,7 +2,7 @@ import type { Lang } from "./i18n";
 
 export const SITE_URL =
   (import.meta.env.PUBLIC_SITE_URL as string | undefined)?.replace(/\/$/, "") ||
-  "https://nexcomstuct.com";
+  "https://www.nexcomstuct.com";
 
 export interface SeoInput {
   title: string;

@@ -122,7 +122,7 @@ Tras el envío se redirige a `/es/gracias/` o `/en/thanks/` (ambas `noindex`).
 Copiar `.env.example` a `.env` y completar:
 
 ```
-PUBLIC_SITE_URL=https://nexcomstuct.com
+PUBLIC_SITE_URL=https://www.nexcomstuct.com
 PUBLIC_GA4_ID=                 # ID de Google Analytics 4 (opcional)
 PUBLIC_RECAPTCHA_SITE_KEY=     # reCAPTCHA v3 (opcional)
 RECAPTCHA_SECRET_KEY=
