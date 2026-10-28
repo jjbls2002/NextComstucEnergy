@@ -100,7 +100,7 @@ public/             # favicons, og-images, robots.txt, site.webmanifest, logos S
 
 ## Formularios
 
-Los formularios usan **Netlify Forms** (`data-netlify="true"` + honeypot `nex_hp`). Al desplegar en Netlify se detectan automáticamente y los envíos llegan al panel de Netlify; configurar notificación por email a `nexconstuctenergy@gmail.com`.
+Los formularios usan **Netlify Forms** (`data-netlify="true"` + honeypot `nex_hp`). Al desplegar en Netlify se detectan automáticamente y los envíos llegan al panel de Netlify; configurar notificación por email a `nexcomstuctenergy@gmail.com`.
 
 Para otro hosting, apuntar el `action` a un endpoint serverless propio (`/api/contact`) con validación server-side y, opcionalmente, reCAPTCHA v3 (variable `PUBLIC_RECAPTCHA_SITE_KEY`).
 
@@ -126,7 +126,7 @@ PUBLIC_SITE_URL=https://nexcomstuct.com
 PUBLIC_GA4_ID=                 # ID de Google Analytics 4 (opcional)
 PUBLIC_RECAPTCHA_SITE_KEY=     # reCAPTCHA v3 (opcional)
 RECAPTCHA_SECRET_KEY=
-CONTACT_FORM_TO_EMAIL=nexcomstuctenergy@gmail.com
+CONTACT_FORM_TO_EMAIL=administracion@nexcomstuct.com
 SMTP_HOST= / SMTP_PORT= / SMTP_USER= / SMTP_PASS=
 ```
 

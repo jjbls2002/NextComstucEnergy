@@ -7,7 +7,7 @@ export const CORP = {
   rif: "J-508065115",
   president: "Robert Marrero Cueto",
   vicePresident: "Alejandro Marrero Cueto",
-  email: "nexcomstuctenergy@gmail.com",
+  email: "administracion@nexcomstuct.com",
   phone: "+58 424-437-5975",
   addressLine: "Calle Corpoindustria, Zona Industrial, Municipio Leonardo Infante",
   city: "Valle de la Pascua",
